@@ -26,6 +26,7 @@
             "pages": [
               "essentials/markdown",
               "essentials/code",
+              "essentials/sdk",
               "essentials/images",
               "essentials/settings",
               "essentials/navigation",
