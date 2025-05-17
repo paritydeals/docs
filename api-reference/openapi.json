@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://www.paritydeals.com/api/v1"
     }
   ],
   "security": [
@@ -19,9 +19,9 @@
     }
   ],
   "paths": {
-    "/plants": {
+    "/stripe-checkout": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "Returns all Stripe Checkout from the system that the user has access to",
         "parameters": [
           {
             "name": "limit",
@@ -35,13 +35,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Stripe Checkout response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Plant"
+                    "$ref": "#/components/schemas/StripeCheckout"
                   }
                 }
               }
@@ -60,13 +60,13 @@
         }
       },
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Creates a new Stripe Checkout in the store",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Stripe Checkout to add to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/NewStripeCheckout"
               }
             }
           },
@@ -74,11 +74,11 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Stripe Checkout response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/StripeCheckout"
                 }
               }
             }
@@ -96,14 +96,14 @@
         }
       }
     },
-    "/plants/{id}": {
+    "/stripe-checkout/{id}": {
       "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+        "description": "Deletes a single Stripe Checkout based on the ID supplied",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of plant to delete",
+            "description": "ID of Stripe Checkout to delete",
             "required": true,
             "schema": {
               "type": "integer",
@@ -113,7 +113,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Plant deleted",
+            "description": "Stripe Checkout deleted",
             "content": {}
           },
           "400": {
@@ -131,15 +131,15 @@
     }
   },
   "webhooks": {
-    "/plant/webhook": {
+    "/stripe-checkout/webhook": {
       "post": {
-        "description": "Information about a new plant added to the store",
+        "description": "Information about a new Stripe Checkout added to the store",
         "requestBody": {
-          "description": "Plant added to the store",
+          "description": "Stripe Checkout added to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/NewStripeCheckout"
               }
             }
           }
@@ -154,26 +154,43 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "StripeCheckout": {
         "required": [
-          "name"
+          "pd_identifier",
+          "success_url"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "pd_identifier": {
+            "description": "This parameter is used to specify a unique identifier associated with a particular deal.",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "ip_address": {
+            "description": "Pass the IP address. This is necessary only if you are implementing this in server-side",
+            "type": "string"
+          },
+          "apply_coupons": {
+            "description": "set this field true to automatically fetches and applies pricing based on the user’s location at checkout.",
+            "type": "string"
+          },
+          "checkout_data": {
+            "description": "You will need to pass the checkout_data as a object checkout_data is similar as th data specified in stripe documentation. This Parameter is required if payment_id is not provided.",
+            "type": "object"
+          },
+          "payment_id": {
+            "description": "The unique identifier for the product on Stripe .This Parameter is required if checkout_data is not provided.",
+            "type": "string"
+          },
+          "success_url": {
+            "description": "The URL to which a user will be redirected after a successful purchase.",
             "type": "string"
           }
         }
       },
-      "NewPlant": {
+      "NewStripeCheckout": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/Plant"
+            "$ref": "#/components/schemas/StripeCheckout"
           },
           {
             "required": [
@@ -182,7 +199,7 @@
             "type": "object",
             "properties": {
               "id": {
-                "description": "Identification number of the plant",
+                "description": "Identification number of the Stripe Checkout",
                 "type": "integer",
                 "format": "int64"
               }
