@@ -15,27 +15,33 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
+            "pages": ["introduction", "quickstart", "development"]
           },
           {
             "group": "Frontend Integration",
             "pages": [
-              "frontend-integration/react-sdk"
+              "frontend-integration/javascript-sdk",
+              "frontend-integration/javascript-ui",
+              "frontend-integration/react-sdk",
+              "frontend-integration/react-ui"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": ["tutorials/location-pricing"]
+          },
+          {
+            "group": "Deals",
+            "pages": [
+              "deals-ui/what-is-a-deal",
+              "deals-ui/creating-deals",
+              {
+                "group": "Frontend integration",
+                "pages": [
+                  "deals-ui/react-deals-ui",
+                  "deals-ui/javascript-deals-ui"
+                ]
+              }
             ]
           }
         ]
@@ -45,9 +51,7 @@
         "groups": [
           {
             "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
+            "pages": ["api-reference/introduction"]
           },
           {
             "group": "Endpoint Examples",
