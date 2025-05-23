@@ -27,7 +27,11 @@
           },
           {
             "group": "Customers",
-            "pages": ["customers/customers"]
+            "pages": ["customers/customers"],
+            "group": "Backend Integration",
+            "pages": [
+              "backend-integration/python-sdk"
+            ]
           },
           {
             "group": "Frontend Integration",
