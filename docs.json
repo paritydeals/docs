@@ -18,6 +18,18 @@
             "pages": ["introduction", "quickstart", "development"]
           },
           {
+            "group": "Quickstart",
+            "pages": ["quickstart/start", "quickstart/products" , "quickstart/plans" , "quickstart/features"]
+          },
+          {
+            "group": "Monetization",
+            "pages": ["monetization/paywalls", "monetization/targeting rules" , "monetization/offerings"]
+          },
+          {
+            "group": "Customers",
+            "pages": ["customers/customers"]
+          },
+          {
             "group": "Frontend Integration",
             "pages": [
               "frontend-integration/javascript-sdk",

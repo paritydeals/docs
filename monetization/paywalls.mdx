@@ -1,0 +1,200 @@
+---
+title: 'Paywalls'
+---
+
+## What are ParityDeals Paywalls?
+
+ParityDeals' Paywalls are dynamic, remotely configurable interfaces that present your pricing plans and features to your customers. They are the crucial touchpoint where users make subscription decisions. Our Paywalls empower you to design, build, and deploy your entire pricing presentation—from simple pricing tables to complex, interactive subscription flows—directly from the ParityDeals dashboard, minimizing the need for code changes or app updates for most modifications.
+
+Key benefits include:
+* **Remote Configuration:** Update your paywall's appearance, content, and even the plans displayed, directly from the ParityDeals dashboard.
+* **No-Code for Most Changes:** Iterate on your pricing display rapidly. Most visual and content changes are reflected instantly without engineering intervention.
+* **Dynamic Pricing Display:** Any modifications to your underlying pricing models (plans, features, prices) are automatically reflected in your paywalls, ensuring consistency.
+* **Experimentation Ready:** Easily A/B test different paywall designs, plan presentations, and promotional content to optimize conversion.
+
+*[Image: Conceptual diagram showing the ParityDeals dashboard configuring a paywall which then updates live on a website/app, illustrating the remote configuration benefit.]*
+
+---
+
+## Getting Started with Paywalls
+
+You build and manage your paywalls within the ParityDeals Dashboard.
+
+1.  From the main sidebar, navigate to **Monetization > Paywalls**.
+    *[Image: The main ParityDeals navigation sidebar with "Monetization" expanded and "Paywalls" highlighted.]*
+2.  On the Paywalls page, you can see a list of your existing paywalls or create a new one by clicking the **"+ Create Paywall"** button. You can start from one of our pre-built templates or design a completely custom experience from scratch.
+
+    *[Image: The Paywalls list page showing a "+ Create Paywall" button clearly visible, and a list/grid of existing paywalls if any.]*
+
+Our paywalls can be integrated into your application using native SDKs (React, Vue.js, etc.) to deliver smooth, performant, and intuitive experiences to your customers when they are ready to view an Offering.
+
+---
+
+## The Paywall Editor
+
+The Paywall editor is your central hub for designing and configuring every aspect of your paywall. It is organized into three main tabs: Configuration, Content, and Appearance.
+
+*[Image: An overview of the Paywall Editor interface, highlighting the three main tabs: Configuration, Content, and Appearance.]*
+
+<Tabs>
+  <Tab title="1. Configuration">
+    This tab focuses on the foundational settings, linking your paywall to your product catalog and defining core display and localization rules.
+
+    #### Connecting Your Product
+    First, you must associate your paywall with the product whose plans and features it will display.
+    * **Product Connection:** From the dropdown menu, select the relevant product from your catalog. This action dynamically links the paywall to that product's specific set of plans and features.
+
+        *[Image: The 'Configuration' tab of the Paywall editor, with an arrow highlighting the product selection dropdown menu.]*
+
+    #### Price & Feature Display Settings
+    Control how detailed information about pricing and features is presented to the user.
+    * **Display Prices & Features:** This toggle (enabled by default) determines if the detailed pricing information (e.g., price per month) and the lists of features associated with each plan are shown on the paywall.
+    * **Show Feature Description Tooltip:** When enabled, an info icon (ⓘ) will appear next to features in the plan list. Hovering over this icon will display a tooltip containing the feature's description (as defined in your Product Catalog).
+
+        *[Image: The 'Configuration' tab clearly showing the "Display Prices & Features" toggle and the "Show Feature Description Tooltip" toggle, perhaps with one on and one off for contrast.]*
+
+    #### Localization & Formatting
+    Configure how pricing information is adapted for different locales and user preferences.
+    * **Localize Pricing:** This toggle (disabled by default) enables ParityDeals to attempt displaying prices in the user's local currency, based on their region.
+    * **Decimal Places:** Choose the number of decimal places to display for prices (e.g., `0` for `$10`, `1` for `$10.0`, `2` for `$10.00`).
+    * **Decimal Separator:** Select the character used as the decimal separator (e.g., Dot `.` for `$10.00` or Comma `,` for `$10,00`).
+    * **Price Rounding:** Define how prices are rounded if they result in fractions after currency conversion or specific calculations:
+        * `Ceiling`: Always rounds up to the next whole number (e.g., `4.2` becomes `5`).
+        * `Floor`: Always rounds down to the previous whole number (e.g., `4.2` becomes `4`).
+        * `Round to nearest`: Rounds to the closest whole number (e.g., `4.2` ≈ `4`, `4.6` ≈ `5`).
+
+        *[Image: The 'Configuration' tab highlighting the "Localize Pricing" toggle and the dropdown menus or input fields for Decimal Places, Decimal Separator, and Price Rounding options.]*
+  </Tab>
+  <Tab title="2. Content">
+    This tab empowers you to customize all visible text, manage the order and visibility of plans and features, and add promotional elements to drive conversions.
+
+    #### General Paywall Content
+    Update the main textual elements such as titles, subtitles, or descriptive paragraphs. You can also inject marketing labels or badges to highlight specific deals or plans.
+    * **Example:** Add a "Save 20% with Annual Billing ✨" badge next to your annual plan toggle, or include a "Most Popular!" banner on your recommended plan.
+
+        *[Image: The 'Content' tab showing input fields for editing a paywall's main title or subtitle, and a visual example of a promotional badge (e.g., "Save 20%!") applied to a plan card.]*
+
+    #### Managing Plans in the Paywall
+    The plans linked from your selected product are automatically listed. You have full control over their presentation:
+    * **Ordering:** Simply drag and drop plans to change their sequence in the paywall. This allows you to prioritize the plans you want users to see first.
+        *[Image: A GIF or screenshot illustrating the drag-and-drop reordering of plan cards within the 'Content' tab of the Paywall editor.]*
+    * **Visibility:** Click the three-dot menu on any plan card and select **"Hide"** to remove it from this specific paywall. The plan remains active in your product catalog but will not be visible in this paywall instance.
+        *[Image: The three-dot menu on a plan card in the 'Content' tab, with the "Hide" option highlighted.]*
+    * **Editing Display Properties:** Click the three-dot menu and select **"Edit"** to modify how the plan is presented:
+        * **Plan Name & Description:** Override the default name and description (sourced from the Product Catalog) specifically for this paywall.
+        * **Highlight Plan:** Toggle this option to visually emphasize a plan, perhaps with a distinct border, background color, or a "Recommended" badge. This is effective for guiding users towards your preferred or best-value option.
+
+        *[Image: The plan edit modal within the Paywall editor (accessed from the 'Content' tab), showing fields for overriding name/description and the "Highlight Plan" toggle.]*
+
+    #### Managing Features within Plans
+    Within each plan's edit mode (accessed as described above), you can also customize how its included features are displayed:
+    * **Ordering:** Drag and drop features within a plan's list to change their sequence for that plan, as displayed on this paywall.
+        *[Image: A GIF or screenshot showing drag-and-drop reordering of features *within* a specific plan's detail view in the 'Content' tab.]*
+    * **Editing Display Text:** Click the three-dot menu next to any feature in the list and select **"Edit"** to customize its presentation:
+        * **Customer Display Text:** Modify the primary label for the feature. For example, change an internal feature ID like `api_calls_v2_monthly` to a user-friendly "Monthly API Requests".
+        * **Tooltip Description:** Add or edit the detailed text that appears in a tooltip when a user hovers over the info icon next to the feature.
+        <Tip>The original default text (from the feature's settings in the Product Catalog) for both these fields is shown at the bottom of the form. This allows you to easily reference or revert to the original copy if needed.</Tip>
+
+        *[Image: The feature edit modal (accessed from within a plan's edit view in the 'Content' tab), clearly showing the "Customer Display Text" and "Tooltip Description" fields, and the reference to the original default text.]*
+
+  </Tab>
+  <Tab title="3. Appearance">
+    This tab gives you comprehensive control over the visual styling of your paywall, enabling you to perfectly align it with your brand identity and create an appealing user experience.
+
+    #### Branding & Styling
+    * **Colors:** Use color pickers or input hex codes to customize Background color, Primary color (often used for CTAs and highlights), Primary text color, Secondary text color, CTA text color, and Border colors.
+        *[Image: The 'Appearance' tab showing a selection of color pickers for different paywall elements like background, text, and CTAs.]*
+    * **Typography:** Define the Font family for your paywall (e.g., Inter, Roboto, Open Sans, or custom fonts). Set specific styles (font size, weight, line height) for different text elements like H1, H2, H3, Paragraph 1 (P1), and Paragraph 2 (P2).
+        *[Image: The 'Appearance' tab showing font family selection and typography controls for different text styles (H1, P1, etc.).]*
+    * **Layout:** Adjust general layout properties like overall Alignment (left, center, right), maximum Width of the paywall, and Margin and Padding for various components to control spacing.
+        *[Image: The 'Appearance' tab showing controls for alignment, width, margin, and padding.]*
+
+    #### Custom CSS
+    For highly specific styling needs that go beyond the built-in options, you can add your own custom CSS rules. This allows for virtually unlimited styling flexibility.
+        *[Image: The 'Appearance' tab showing the Custom CSS input area, perhaps with a small snippet of example CSS.]*
+  </Tab>
+</Tabs>
+
+---
+
+## Connecting Paywalls to Offerings
+
+Once your paywall is designed and saved, it doesn't automatically appear to users. You need to link it to an **Offering** to control who sees it and under what conditions.
+
+### What is an Offering?
+
+An **Offering** in ParityDeals is a powerful entity that determines precisely what paywall (and therefore which set of plans and pricing) a specific user or user segment is presented with. Offerings are the bridge between your paywall designs and your live application. They enable you to:
+* Remotely control the entire paywall experience without deploying new code.
+* Define a specific set of packages (plans) and associated metadata that are shown on a paywall.
+* Implement dynamic pricing strategies by linking paywalls to **Targeting Rules**. This allows you to show different paywalls and pricing to different users based on attributes like their geographic location (for PPP pricing), device type, or other custom criteria.
+* Link paywalls directly to specific products for simpler, non-targeted scenarios.
+
+Targeting Rules will be discussed in detail in their own documentation section. Here, we'll focus on creating a basic Offering to link your paywall directly to a product.
+
+*[Image: A conceptual diagram illustrating how an Offering links a specific Paywall (with its plans) to either a Targeting Rule or directly to a Product, ultimately determining what a user sees.]*
+
+### Creating an Offering for Your Paywall
+
+1.  From the main sidebar, navigate to **Monetization > Offerings**.
+    *[Image: The main ParityDeals navigation sidebar with "Monetization" expanded and "Offerings" highlighted.]*
+2.  Click the **"+ Create offering"** button.
+    *[Image: The Offerings list page with the "+ Create offering" button clearly visible.]*
+3.  In the "Create offering" modal that appears:
+    * **Select Paywall:** From the dropdown menu, choose the paywall you just designed and configured.
+    * **Assign to:** You have two primary options for how this offering will be used:
+        * **Product:** Select this option to link the offering (and its associated paywall) directly to a single product. Choose your desired product from the "Select Product" dropdown. This is the most straightforward way to deploy a paywall for a specific product.
+        * **Targeting Rule:** (This will be covered in detail in the "Targeting Rules" documentation). Selecting this allows you to associate the offering with a predefined rule, enabling dynamic presentation based on customer segments (e.g., for regional pricing like PPP).
+
+    *[Image: The "Create offering" modal showing the "Select Paywall" dropdown, and the choice between assigning to a "Product" (with a product dropdown) or a "Targeting Rule".]*
+4.  Click **"Create"**.
+
+### Using the Offering ID
+Once the Offering is created, it will appear in your list of Offerings. The most crucial piece of information for integration is the **Offering ID**.
+
+* Locate your newly created Offering in the list and copy its **Offering ID**.
+    *[Image: The Offering detail view or a row in the Offerings list, clearly showing the generated Offering ID with a "Copy ID" button or icon highlighted.]*
+* This `Offering ID` must be pasted into your application's code where you initialize the ParityDeals SDK or when you render the paywall component. The ID tells your application which specific Offering (and therefore which paywall configuration, plans, and pricing) to fetch and display to the end-user.
+
+    *[Image: A conceptual code snippet (e.g., `sdk.initialize({ offeringId: 'YOUR_OFFERING_ID' })` or `<Paywall offeringId="YOUR_OFFERING_ID" />`) illustrating where the Offering ID is used in an application.]*
+
+---
+
+## Advanced Paywall Features & Customization
+
+ParityDeals Paywalls offer advanced functionalities, primarily configured and controlled through our SDKs, giving developers flexibility in how the paywall behaves within their application.
+
+### Showing Current Plan & Change Options
+For logged-in users who already have a subscription, the paywall can intelligently display their current plan and dynamically present appropriate options to upgrade, downgrade, or change committed quantities. This requires passing customer context to the SDK.
+
+```jsx
+// Example for React SDK (Illustrative)
+import { Paywall, SubscribeIntentionType } from '@paritydeals/react-sdk'; // Fictional SDK import name
+
+function MySubscriptionManagementPage({ offeringId, customerContext }) {
+  return (
+    <Paywall
+      offeringId={offeringId} // Your specific Offering ID
+      customer={customerContext} // Pass customer's current subscription details
+      onPlanSelected={({ plan, customer, intentionType }) => {
+        console.log("Plan selected:", plan.id, "Intention:", intentionType);
+        // Handle different user intentions based on the 'intentionType'
+        switch (intentionType) {
+          case SubscribeIntentionType.START_TRIAL:
+            // TODO: Implement logic to provision a trial subscription for the selected plan
+            break;
+          case SubscribeIntentionType.REQUEST_CUSTOM_PLAN_ACCESS:
+            // TODO: Implement logic to redirect to a contact form or sales process
+            break;
+          case SubscribeIntentionType.CHANGE_UNIT_QUANTITY: // For plans with customizable quantities
+          case SubscribeIntentionType.UPGRADE_PLAN:
+          case SubscribeIntentionType.DOWNGRADE_PLAN:
+            // TODO: Implement logic to launch your checkout flow with the selected plan
+            break;
+          case SubscribeIntentionType.CANCEL_SCHEDULED_UPDATES: // If user cancels a pending change
+            // TODO: Implement logic to confirm cancellation and remove scheduled updates from their subscription
+            break;
+        }
+      }}
+    />
+  );
+}
