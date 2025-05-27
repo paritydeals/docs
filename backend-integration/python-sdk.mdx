@@ -66,7 +66,7 @@ async_client = ParityDeals.create_async_client(access_token=ACCESS_TOKEN)
 
 The SDK currently supports the following operations:
 
-    1. Customers
+    1. [Customers](/backend-integration/python-sdk#customers)
 
     2. [Checkout](/backend-integration/python-sdk#checkout-client-checkout)
 
@@ -78,6 +78,138 @@ The SDK currently supports the following operations:
 
 
 Further details on each method, including parameters and return values, should be added under each functionality.
+
+---
+
+## Customers
+
+The `customers` module allows you to manage customer records within ParityDeals. You can access these operations via the `customers` attribute on an initialized `ParityDeals` client instance.
+
+All methods are available in both synchronous and asynchronous versions, depending on how the `ParityDeals` client was instantiated.
+
+---
+
+### Creates a new customer
+
+
+**Synchronous**:
+
+    ```python
+    new_customer = client.customers.create(
+        customerId="unique-customer-id-123",
+        email="new.customer@example.com",
+        name="John Doe",
+        metadata={"source": "sdk_import", "priority": "high"}
+    )
+    print(f"Customer Created: ID = {new_customer.id}, Customer Client ID = {new_customer.customerId}")
+    ```
+
+**Asynchronous**:
+    ```python
+    new_customer = await async_client.customers.create(
+        customerId="unique-customer-id-456",
+        email="another.new.customer@example.com",
+        name="Jane Roe"
+    )
+    print(f"Customer Created (Async): ID = {new_customer.id}, Customer Client ID = {new_customer.customerId}")
+    ```
+
+<Accordion title="Response">
+```json
+{
+  "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef", // Server-generated UUID
+  "customerId": "unique-customer-id-123",
+  "name": "John Doe",
+  "email": "new.customer@example.com",
+  "details": {}, // Or any server-added details
+  "metadata": {
+    "source": "sdk_import",
+    "priority": "high"
+  }
+}
+```
+</Accordion>
+
+
+**Parameters:**
+
+* `customerId` (str): Required. A unique identifier for the customer that you define. This ID will be used to reference the customer in subsequent API calls. 
+* `email` (Optional[str]): Required. The email address of the customer. Must be a valid email format.
+* `name` (Optional[str], default: None): The name of the customer.
+* `metadata` (Optional[Dict[str, Any]], default: None): A dictionary of custom key-value pairs to store additional information about the customer.
+
+**Returns:**
+An instance of `CustomerResponse` (Pydantic model), representing the newly created customer record. Key attributes include:
+
+* `id` (str): The server-generated unique UUID for the customer record.
+* `customerId` (str): The client-provided customer identifier.
+* `name` (Optional[str]): The customer's name.
+* `email` (Optional[str]): The customer's email.
+* `details` (Optional[Dict[str, Any]]): Any server-added details about the customer (typically read-only).
+* `metadata` (Optional[Dict[str, Any]]): The metadata associated with the customer.
+* `subscriptions` (Optional[int]): Typically represents the count of active subscriptions (may be 0 for new customers).
+
+
+### Updates an existing customer
+
+This operation performs a partial update (PATCH), so you only need to provide the fields you want to change.
+
+**Synchronous**:
+
+    ```python
+        updated_customer = client.customers.update(
+            customerId="unique-customer-id-123",
+            name="Johnathan Doe",
+            metadata={"source": "sdk_import", "priority": "very_high", "status": "active"}
+        )
+        print(f"Customer Updated: {updated_customer.name}")
+    ```
+
+**Asynchronous**:
+
+    ```python
+        updated_customer = await async_client.customers.update(
+            customerId="unique-customer-id-456",
+            email="jane.roe.updated@example.com"
+        )
+        print(f"Customer Updated (Async): {updated_customer.email}")
+    ```
+
+<Accordion title="Response">
+```json
+{
+  "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef", // Server-generated UUID
+  "customerId": "unique-customer-id-123",
+  "name": "Johnathan Doe",
+  "email": "new.customer@example.com",
+  "details": {}, // Or any server-added details
+  "metadata": {
+    "source": "sdk_import",
+    "priority": "high",
+    "status": "active"
+  }
+}
+```
+</Accordion>
+
+
+**Parameters:**
+
+* `customerId` (str): Required. A unique identifier for the customer that you define.
+* `email` (Optional[str]): Required. The email address of the customer. Must be a valid email format.
+* `name` (Optional[str], default: None): The name of the customer.
+* `metadata` (Optional[Dict[str, Any]], default: None): A dictionary of custom key-value pairs to store additional information about the customer.
+
+**Returns:**
+An instance of `CustomerResponse` (Pydantic model), representing the newly created customer record. Key attributes include:
+
+* `id` (str): The server-generated unique UUID for the customer record.
+* `customerId` (str): The client-provided customer identifier.
+* `name` (Optional[str]): The customer's name.
+* `email` (Optional[str]): The customer's email.
+* `details` (Optional[Dict[str, Any]]): Any server-added details about the customer (typically read-only).
+* `metadata` (Optional[Dict[str, Any]]): The metadata associated with the customer.
+* `subscriptions` (Optional[int]): Typically represents the count of active subscriptions (may be 0 for new customers).
 
 ---
 
@@ -503,11 +635,11 @@ response = await async_client.reporting.report_event(
 
 **Parameters**:
 
-    * `customerId` (str): Required. The unique identifier for the customer who performed the event. (camelCase)
+    * `customerId` (str): Required. The unique identifier for the customer who performed the event. 
 
-    * `eventName` (str): Required. The name of the event (e.g., "user_login", "item_purchased", "feature_activated"). (camelCase)
+    * `eventName` (str): Required. The name of the event (e.g., "user_login", "item_purchased", "feature_activated"). 
 
-    * `idempotencyKey` (str): Required. A unique client-generated key to ensure that the event is processed at most once, even if the request is retried. A UUID is a good choice. (camelCase)
+    * `idempotencyKey` (str): Required. A unique client-generated key to ensure that the event is processed at most once, even if the request is retried. A UUID is a good choice. 
 
     * `timestamp` (str): Required. The UTC timestamp indicating when the event occurred. This must be a string formatted as "%Y-%m-%d %H:%M:%S.%f" (e.g., "2025-05-23 10:30:00.123456").
 
