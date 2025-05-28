@@ -12,7 +12,9 @@ A **Plan** is the commercial package that you offer to your customers. It define
 
 To see a comprehensive list of all plans from all of your products, select the **Plans** sub-section from the **Product Catalog** in the left navigation pane. This global view is useful for managing your entire pricing structure in one place.
 
+<Frame>
 <img height="200" src="/images/global-plans-list.png" />
+</Frame>
 
 ---
 
@@ -29,7 +31,9 @@ This guide follows the recommended flow of creating a plan from within a product
 
 After creating a product, you will see a prompt to create your first plan. Click the **"+ Create plan"** button.
 
+<Frame>
 <img height="200" src="/images/create-plan-details-page.png" />
+</Frame>
 
 ### Step 2: Define the Plan Details
 
@@ -44,13 +48,17 @@ A "Create plan" modal will appear. Fill in the following details:
   To create multiple plans quickly, keep the **"Create more"** toggle enabled. When you click "Create", the modal will reset, ready for the next plan's details.
 </Tip>
 
+<Frame>
 <img height="200" src="/images/create-plan-modal.png" />
+</Frame>
 
 ### Step 3: Review Your Draft Plans
 
 Once created, your plans will appear on the product's detail page in a **Draft** state. A draft plan is not yet live and can be safely configured before you publish it.
 
+<Frame>
 <img height="200" src="/images/draft-state-plans.png" />
+</Frame>
 
 ---
 
@@ -58,17 +66,23 @@ Once created, your plans will appear on the product's detail page in a **Draft**
 
 Click on any draft plan to navigate to its detail page. From here, you will set its price, add features, and associate add-ons.
 
+<Frame>
 <img height="200" src="/images/set-price,add-features.png" />
+</Frame>
 
 ### Step 1: Set the Price
 
 Click the **"Set price"** button to begin. 
 
+<Frame>
 <img height="200" src="/images/set-price-button.png" />
+</Frame>
 
 A modal will appear asking you to choose the fundamental plan type.
 
+<Frame>
 <img height="200" src="/images/set-price-modal.png" />
+</Frame>
 
 
 You have three options for the plan type:
@@ -76,7 +90,7 @@ You have three options for the plan type:
 <CardGroup cols={3}>
   <Card title="Free">
     Customers can subscribe to this plan without any charge. Ideal for "Freemium" or "Starter" tiers.
-    <Warning>To offer a **free trial** for a limited time, you must select the **Paid** plan type.</Warning>
+    <Note>To offer a **free trial** for a limited time, you must select the **Paid** plan type.</Note>
   </Card>
   <Card title="Paid">
     Customers will be charged for this plan based on the pricing you configure (e.g., a recurring fee or usage).
@@ -86,7 +100,7 @@ You have three options for the plan type:
   </Card>
 </CardGroup>
 
-If you select the Free plan, you’ll see a success message and can continue with setup.
+If you select the Free plan, you'll see a success message and can continue with setup.
 
 ### Step 2: Configure the Pricing Model (for Paid Plans)
 
@@ -137,7 +151,9 @@ To add a fixed charge:
 2. Enter the charge amount for each allowed billing period, for example, `$10` for monthly and `$100` for yearly.
 3. Click **"Save"** to save the charge.
 
+<Frame>
 <img height="200" src="/images/set-fixed-charge.png" />
+</Frame>
 
 ### Usage-Based Charges
 
@@ -145,11 +161,15 @@ To add a fixed charge:
 
 The first step is always to **Choose a billable feature** you want to charge for. If the feature doesn't exist yet, you can type its name in the dropdown and create it on the fly.
 
+<Frame>
 <img height="200" src="/images/new-billable-feature.png" />
+</Frame>
 
 Once a feature is selected, you must choose how customers will be charged for it:
 
+<Frame>
 <img height="200" src="/images/select-charge-type.png" />
+</Frame>
 
 
 #### Prepaid Commitment
@@ -164,13 +184,17 @@ Customers are billed **upfront** for a specified quantity of usage (like seats o
   <p>Customers commit to a number of units and pay a single, fixed rate for each unit.</p>
   <p>For example, if the price is `$10` per seat, a customer who commits to `5` seats will pay `$50` at the start of each billing period.</p>
   <p>To configure this, enter the flat rate per unit. You can also define if usage resets each billing period and set optional minimum or maximum commitment limits. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/flat-rate-prepaid-model.png" /> 
+  </Frame>
 </Tab>
 <Tab title="Package">
   <p>Customers commit to one or more packages of units, where each package contains a predefined number of units for a set price.</p>
   <p>For example, if you sell seats in packages of `5` for `$40`, a customer needing `8` seats must commit to two packages (a total of 10 seats) and will pay `$80` upfront.</p>
   <p>To configure this, enter the number of units per package and the price per package. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/package-prepaid-model.png" />    
+  </Frame>
 </Tab>
 <Tab title="Tiered">
   <p>The price per unit typically decreases as the committed usage quantity enters higher tiers. For each tier, you define a unit price for the items falling into that tier. Additionally, ParityDeals allows you to set an optional <strong>flat fee for each tier</strong>, which is added to the per-unit calculation for that tier's portion of the usage.</p>
@@ -187,7 +211,9 @@ Customers are billed **upfront** for a specified quantity of usage (like seats o
   </ul>
   <p>Total commitment cost = `$112 + $610 = $722`.</p>
   <p>To configure this, define the usage range, per-unit price, and the optional flat fee for each tier. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/tiered-prepaid-model.png" />    
+  </Frame>
 </Tab>
 <Tab title="Volume">
   <p>The price for ALL committed units is determined by the single pricing tier that the total committed volume falls into. You can also add an optional <strong>flat fee specific to that tier</strong>, which is added to the total calculated volume charge.</p>
@@ -204,7 +230,9 @@ Customers are billed **upfront** for a specified quantity of usage (like seats o
   </ul>
   <p>Total commitment cost = `$120 + $20 = $140`.</p>
   <p>To configure this, define the usage range, the single price per unit for all units within that tier, and the optional tier flat fee. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/volume-prepaid-model.png" />  
+  </Frame>
 </Tab>
 <Tab title="Stair-step">
   <p>Customers pay a single flat fee for a commitment to a range of usage. This model is typically all-inclusive for the defined step. (`Coming soon`)</p>
@@ -214,7 +242,7 @@ Customers are billed **upfront** for a specified quantity of usage (like seats o
 </Tab>
 </Tabs>
 
-#### Pay-as-you-go (PAYG)
+#### Pay-as-you-go (PAYG) `Coming soon 🚧`
 Customers are billed **at the end** of the period based purely on their actual consumption. This model is perfect for variable resources where upfront commitment is difficult, such as for AI tokens, compute time, or data storage.
 
 <Info>
@@ -226,13 +254,17 @@ Pay-as-you-go charges can only be added to plans with a **monthly** billing peri
   <p>Customers are charged the same fixed price for every unit they consume. Billing occurs at the end of the period based on actual usage.</p>
   <p>For example, if you set a price of `$0.01` for every API call, a customer who makes `5,300` calls is billed `$53` at the end of the month.</p>
   <p>To configure this, enter the price per unit. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/flat-rate-payg-model.png" /> 
+  </Frame>
 </Tab>
 <Tab title="Package">
   <p>Customers pay for their usage in discrete blocks. Even partial use of a block incurs the cost of the full block. Billing is based on the number of blocks consumed at the end of the period.</p>
   <p>For example, if data storage is sold in `10 GB` blocks for `$5` each, a customer who uses `12 GB` of data is billed for two blocks. Since they consumed part of a second block, they pay for the full two blocks, for a total of `$10` at the end of the period.</p>
   <p>To configure this, enter the number of units per block and the price per block. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/package-payg-model.png" />   
+  </Frame>
 </Tab>
 <Tab title="Tiered">
   <p>The unit price for consumed usage typically decreases as consumption enters higher tiers. For each tier, you define a unit price for items consumed within that tier's range. ParityDeals also allows an optional <strong>flat fee for each tier</strong>, which is added to the per-unit calculation if usage occurs in that tier. Billing happens at the end of the period based on total consumption across tiers.</p>
@@ -249,7 +281,9 @@ Pay-as-you-go charges can only be added to plans with a **monthly** billing peri
   </ul>
   <p>Total PAYG bill = `$112 + $610 = $722`.</p>
   <p>To configure this, add tiers and define the per-unit price and optional flat fee for each one. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/tiered-payg-model.png" />   
+  </Frame>
 </Tab>
 <Tab title="Volume">
   <p>The unit price for ALL units consumed is determined by the single pricing tier that the total consumption reaches. An optional <strong>flat fee specific to that tier</strong> can also be added to the total calculated volume charge. Billing occurs at the end of the period.</p>
@@ -266,7 +300,9 @@ Pay-as-you-go charges can only be added to plans with a **monthly** billing peri
   </ul>
   <p>Total PAYG bill = `$25 + $5 = $30`.</p>
   <p>To configure this, add tiers and define the single price per unit for that tier, along with the optional tier flat fee. Click `Add` to save.</p>
+  <Frame>
   <img height="200" src="/images/volume-payg-model.png" />     
+  </Frame>
 </Tab>
 <Tab title="Stair-step">
   <p>Customers are charged a single, predictable flat fee based on the highest usage tier they reach during the billing period. This simplifies billing to a few possible amounts. Billing occurs at the end of the period. (`Coming soon`)</p>
@@ -287,7 +323,9 @@ Paid plans can be configured to start with a free trial, giving customers a risk
 1.  After configuring all charges for a plan, you can enable a trial by checking the **"Provide free trial"** box.
 2.  Enter the duration of the trial, for example, `7`, `14`, or `30` days.
 
+<Frame>
 <img height="200" src="/images/free-trial-config.png" />    
+</Frame>
 
 #### Editing or Removing a Trial
 You can modify the trial for a plan at any time:
@@ -296,7 +334,9 @@ You can modify the trial for a plan at any time:
 3.  To change the trial, update the configuration. To remove it, uncheck the "Provide free trial" box.
 4.  Click **"Save changes"**.
 
+<Frame>
 <img height="200" src="/images/edit-trial.png" />    
+</Frame>
 
 ---
 
@@ -306,7 +346,9 @@ Once a plan's pricing is configured, the next step is to define the functionalit
 
 On the plan's detail page, under the "Features" section, you can see all the entitlements assigned to that plan.
 
+<Frame>
 <img height="200" src="/images/features-section.png" />   
+</Frame>
 
 ### Adding Entitlements to a Plan
 
@@ -315,7 +357,9 @@ On the plan's detail page, under the "Features" section, you can see all the ent
     <Tip>
       If a feature you need doesn't exist yet, you can type its name and select **"Create new feature"** directly from the dropdown menu without leaving the page.
     </Tip>
+    <Frame>
     <img height="200" src="/images/feature-search.png" /> 
+    </Frame>
 3.  Apply the relevant configuration for each selected feature (see Entitlement Types below).
 4.  Confirm the action by clicking the **"Add"** button. The features are now assigned to the plan.
 
@@ -341,7 +385,9 @@ This is the simplest entitlement. It acts as a toggle for a feature.
 * **Allowed:** The customer has full access to the feature. For example, enabling "Premium Support" or "Dark Mode".
 * **Not Allowed:** The customer does not have access. In a UI powered by ParityDeals, the feature might appear disabled or be hidden behind an upsell prompt.
 
+<Frame>
 <img height="200" src="/images/switch-boolean-config.png" />    
+</Frame>
 
 #### Customizable
 This entitlement grants access to a feature up to a specific numeric limit you define.
@@ -350,7 +396,9 @@ You must enter a numeric value for the limit. For example, allowing up to `10` t
 
 You can also toggle **"Enable unlimited usage"**, which effectively grants infinite access to the feature for that plan.
 
+<Frame>
 <img height="200" src="/images/customizable-config.png" />  
+</Frame>
 
 #### Metered
 A metered entitlement links a feature to its consumption, which is essential for usage-based billing.
@@ -367,7 +415,9 @@ The most critical setting for a metered limit is **Limit Enforcement**. This is 
 | **ON (Default)** | **Hard Limit** | Access **is** blocked when the usage limit is reached (i.e., balance is zero). ParityDeals will deny further attempts to use the feature.        | The customer is stopped from further usage and is typically shown a message prompting them to upgrade their plan or purchase more units to continue. | Controlling costs strictly, protecting critical resources, ensuring users do not exceed prepaid allowances without an explicit top-up or upgrade. |
 | **OFF** | **Soft Limit** | Access is **not** blocked when the usage limit is reached. Usage can go into a negative balance or accrue as overage.                       | The customer can continue using the feature without interruption. This overage can be tracked for insights, to encourage an upgrade, or billed separately if an overage pricing model is configured. | Promoting user growth, avoiding service disruption for non-critical features, or implementing a pay-as-you-go overage model on top of a base allowance. |
 
+<Frame>
 <img height="200" src="/images/metered-config.png" />
+</Frame>
 
 
 
@@ -376,11 +426,15 @@ The order of features is critical as it determines their default display order i
 
 1.  **From the Plan Details Page:** In the "Features" section of a plan, you can change the order by using the drag-and-drop handle that appears on the left of each feature row. This sets the default order for this specific plan.
 
+    <Frame>
     <img height="200" src="/images/reorder-features.png" />   
+    </Frame>
 
 2.  **From the Paywall Editor:** You can also override the default order for a specific paywall directly within the Paywall editor, using a similar drag-and-drop interface.
 
+    <Frame>
     <img height="200" src="/images/reorder-paywall.png" /> 
+    </Frame>
 
 ### Removing Entitlements from a Plan
 
@@ -391,7 +445,9 @@ If a feature should no longer be part of a plan, you can easily remove its entit
 3.  Select the **"Remove feature"** action from the dropdown menu.
 4.  A confirmation dialog will appear. Click **"Remove feature"** to permanently remove the entitlement from the plan.
 
+<Frame>
 <img height="200" src="/images/remove-feature.png" />     
+</Frame>
 
 ### Customizing Entitlement Display Text
 
@@ -402,7 +458,9 @@ While features have a default name, you often need more customer-friendly or des
 3.  In the paywall editor, find the plan you want to modify and locate its feature list.
 4.  Click the **three-dot menu icon** next to the feature you want to customize and select **"Edit"**.
 
+    <Frame>
     <img height="200" src="/images/edit-feature.png" /> 
+    </Frame>
 
 5.  A form will appear with the following fields:
     * **Customer display text:** This is the main text the customer will see for the feature in the paywall (e.g., changing "api_calls_limit" to "Monthly API Requests").
@@ -412,7 +470,9 @@ While features have a default name, you often need more customer-friendly or des
     The original default text for both fields is shown at the bottom of the form. You can easily copy this value if you ever need to revert back to the default.
     </Tip>
 
+    <Frame>
     <img height="200" src="/images/edit-feature-display.png" />  
+    </Frame>
 
 6.  Click **"Save"** to apply the changes to your paywall.
 ---
@@ -430,7 +490,9 @@ After a plan has been fully configured with its pricing, features, and entitleme
 
 The plan is now live and can be integrated into your paywalls and checkout flows.
 
+<Frame>
 <img height="200" src="/images/publish-plan.png" />     
+</Frame>
 
 ### Editing Published Plans
 
@@ -443,19 +505,21 @@ When you publish an update to a plan, you can decide how the changes are applied
 
 #### Making and Publishing Changes
 
-1.  To edit a live plan, navigate to it in the Product Catalog.
+1.  To edit a live plan, navigate to the side panel in **Product Catalog > Plans**.
 2.  Click the **three-dot menu icon** on the relevant plan and select the **"Edit"** action.
 
-    *[Image: The plan list view with the three-dot menu on a specific plan expanded to show the "Edit" option.]* 
+    <Frame>
+    <img height="200" src="/images/edit-plan.png" /> 
+    </Frame>
 
 3.  Apply any changes to the plan's pricing, features, or other details.
 4.  Once a change is made, the plan will have unpublished updates. ParityDeals clearly indicates this with an **"Unpublished changes"** badge and a **yellow border** around the plan details section.
 
-    *[Image: A screenshot showing the "Unpublished changes" badge and the yellow border on a plan that has been edited.]*
-
 5.  To make your changes live, click the **"Publish updates"** button in the top corner of the page. This will open a dialog where you can confirm the changes and choose how to roll them out.
 
-    *[Image: The "Publish updates" button highlighted on a plan that has pending changes.]*
+    <Frame>
+    <img height="200" src="/images/publish-updates.png" /> 
+    </Frame>
 
 #### Restoring a Previous Version
 If you make a mistake or wish to discard your unpublished changes, you can easily revert to the last published version.
@@ -463,13 +527,17 @@ If you make a mistake or wish to discard your unpublished changes, you can easil
 1.  On a plan's detail page that has unpublished changes, click the **three-dot menu icon** located next to the "Publish updates" button.
 2.  Select the **"Restore last published version"** option from the dropdown menu.
 
-    *[Image: The dropdown menu next to "Publish updates" with the "Restore last published version" option highlighted.]*
+    <Frame>
+    <img height="200" src="/images/restore-version.png" />    
+    </Frame>
 
 3.  A confirmation modal will appear, asking if you are sure. Click **"Restore version"** to confirm the action.
 
 All of your pending changes will be discarded, and the plan will instantly revert to its last live state.
 
-*[Image: The confirmation modal for restoring the last published version.]*
+<Frame>
+<img height="200" src="/images/restore-version-confirmation.png" />    
+</Frame>
 
 #### Visualizing the Plan Lifecycle
 
