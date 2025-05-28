@@ -15,7 +15,7 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": ["introduction", "quickstart", "development"]
+            "pages": ["Get Startedq/quickstart"]
           },
           {
             "group": "Quickstart",
@@ -38,6 +38,14 @@
             ]
           },
           {
+            "group": "Usecases",
+            "pages": ["Usecases/hybridpricing", "Usecases/usage-based" , "Usecases/credit-based", "Usecases/freemium-plan", "Usecases/ai-task-agents", "Usecases/monetization-usage-based"]
+          },
+          {
+            "group": "Dynamic Pricing",
+            "pages": ["dynamic pricing/tailor-pricing" , "dynamic pricing/purchaisng-parity-power-pricing" , "dynamic pricing/country-based", "dynamic pricing/browser"]
+          },
+          {
             "group": "Frontend Integration",
             "pages": [
               "frontend-integration/javascript-sdk",
@@ -45,10 +53,6 @@
               "frontend-integration/react-sdk",
               "frontend-integration/react-ui"
             ]
-          },
-          {
-            "group": "Tutorials",
-            "pages": ["tutorials/location-pricing"]
           },
           {
             "group": "Deals",
