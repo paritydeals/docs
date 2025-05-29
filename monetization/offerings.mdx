@@ -13,8 +13,9 @@ An Offering "offers" a package that can include:
 
 Ultimately, Offerings enable you to remotely control, iterate on, and experiment with different pricing strategies and user experiences with agility.
 
-*[Image: A conceptual diagram illustrating that an Offering acts as a central hub: User's request (via Offering ID) -> ParityDeals Offering -> This Offering then points to (a specific Targeting Rule which applies price adjustments AND/OR a specific Paywall which defines the visual layout) -> Resulting in the final pricing and plan presentation shown to the user.]*
-
+<Frame>
+        <img height="200" src="/images/central-hub-offering-illustartion.png" />
+</Frame>  
 ---
 
 ## How Offerings Work
@@ -27,8 +28,9 @@ Offerings provide a robust way to remotely manage which Paywall design and/or Ta
 
 This system allows for rapid iteration, A/B testing, and strategic adjustments to your monetization approach without continuous engineering effort.
 
-*[Image: A diagram illustrating the power of a static Offering ID in application code. The ID initially points to "Offering Config A" (e.g., Paywall X + Rule Y). Later, in the ParityDeals dashboard, the same Offering ID can be reconfigured to point to "Offering Config B" (e.g., Paywall Z + Rule W), and the application will automatically serve the new configuration without code changes.]*
-
+<Frame>
+        <img height="200" src="/images/offering-power-illustartion.png" />
+</Frame>  
 ---
 
 ## Creating an Offering
@@ -36,53 +38,66 @@ This system allows for rapid iteration, A/B testing, and strategic adjustments t
 You create Offerings from the ParityDeals dashboard.
 
 ### Step 1: Navigate and Initiate
-1.  From the main sidebar navigation, go to **Monetization > Offerings**.
-    *[Image: The main ParityDeals navigation sidebar with "Monetization" expanded and "Offerings" highlighted clearly.]*
+1.  From the main sidebar navigation, go to **Monetization > Offerings**. 
 2.  On the "Offerings" list page, click the **"+ Create offering"** button.
-    *[Image: The Offerings list page, with an arrow pointing to the "+ Create offering" button. If there are existing Offerings, they are visible in a list format.]*
-
+    <Frame>
+        <img height="200" src="/images/create-offering-list.png" />
+    </Frame>  
 This action opens the "Create offering" modal.
 
 ### Step 2: Configure the Offering in the Modal
 
 Within the modal, you will define what this Offering will present to users.
 
-*[Image: The main "Create Offering" modal, showing all primary sections: Paywall linking, 'Offer via' choice, and action buttons.]*
-
+ <Frame>
+        <img height="200" src="/images/configure-offering-modal.png" />
+</Frame>  
 #### A. Link a Paywall (Optional)
 * **Select Paywall:** If this Offering is intended to display a specific visual paywall (a pricing table design you've created), select it from the "Select Paywall" dropdown menu.
-    *[Image: The "Select Paywall" dropdown within the "Create Offering" modal, expanded to show a list of available Paywalls, with one selected.]*
+     <Frame>
+        <img height="200" src="/images/select-paywall-offering.png" />
+    </Frame>  
 * **Skip Paywall Linking:** You can select the option "Skip if you don’t want to link a paywall to this offering." This is useful if the Offering's purpose is solely to apply Targeting Rule-based price adjustments, and the visual presentation of plans is handled differently by your application (e.g., hardcoded UI elements that only need dynamic price data).
-    *[Image: The "Skip paywall linking" option or checkbox within the "Create Offering" modal clearly visible and perhaps highlighted.]*
 
 #### B. Choose How to Offer: Via Targeting Rule or Product
 Next, specify the logic this Offering will use:
 
-*[Image: The 'Offer via' section of the Offering modal, with distinct options for "Targeting Rule" and "Product" highlighted.]*
+ <Frame>
+        <img height="200" src="/images/choose-how-to-offer.png" />
+</Frame>  
 
 * **Offer via Targeting Rule:**
     1.  Select this option if you want the Offering to apply dynamic pricing or present different paywalls based on customer attributes defined in a Targeting Rule.
     2.  From the **"Select Targeting Rule"** dropdown, choose the rule you want to link to this Offering.
-        *[Image: The "Select Targeting Rule" dropdown within the "Create Offering" modal, expanded to show a list of available Targeting Rules, with one selected.]*
+         <Frame>
+        <img height="200" src="/images/select-targeting-rule-offering.png" />
+        </Frame>  
     3.  If you do not have a suitable Targeting Rule, click the **"+ Create rule"** link or button (often found within or near the dropdown). This action will take you to the Targeting Rule creation flow (as detailed in the [Targeting Rules documentation](/monetization/targeting%20rules#creating-and-defining-targeting-rules)). After creating your rule, you will return to this modal to link it.
-        *[Image: The "+ Create rule" link/button visible within or near the "Select Targeting Rule" dropdown, clearly indicating it navigates to rule creation.]*
+        <Frame>
+        <img height="200" src="/images/create-rule-offering.png" />
+        </Frame>  
 * **Offer via Product:**
     1.  Select this option for a simpler setup where the Offering links directly to a product's standard plans and pricing. This configuration is optionally styled by the Paywall selected in section A. No specific targeting rules (beyond the product association itself) are applied.
     2.  From the **"Select Product"** dropdown, choose the product you want this Offering to be associated with.
-        *[Image: The "Select Product" dropdown within the "Create Offering" modal, expanded to show a list of available products, with one selected.]*
+         <Frame>
+        <img height="200" src="/images/offer-via-product.png" />
+        </Frame>  
 
 #### C. Create the Offering
 1.  Once you have configured the Paywall (if any) and selected whether to offer via a Targeting Rule or a Product, click the **"Create"** button on the modal.
-    *[Image: The bottom of the "Create Offering" modal, highlighting the "Create" button.]*
+     <Frame>
+        <img height="200" src="/images/create-the-offering.png" />
+    </Frame>  
 
 ### Step 3: Integrate with Your Application
 Upon successful creation, a confirmation or success modal will appear, prominently displaying the unique **Offering ID**.
 
 * **Copy the Offering ID:** This ID is essential for using the Offering in your application.
-    *[Image: The success modal displayed after creating an Offering, with the generated "Offering ID" clearly visible and a "Copy ID" button highlighted.]*
+     <Frame>
+        <img height="200" src="/images/copy-offering-id.png" />
+     </Frame>  
 * **Implement in Your Code:** Paste this `Offering ID` into your application's frontend codebase where you initialize the ParityDeals SDK or when you render your pricing component. This ID instructs your application which specific Offering (and therefore which paywall, plans, and dynamic pricing logic) to fetch from ParityDeals and display to the end-user.
-    *[Image: A conceptual code snippet (e.g., `ParityDeals.initialize({ offeringId: 'YOUR_OFFERING_ID' })` or `<PricingComponent offeringId="YOUR_OFFERING_ID" />`) illustrating where the Offering ID is typically used in an application's frontend code.]*
-
+    
 Your Offering is now active and ready to be served to users based on your integration.
 
 ---
@@ -94,21 +109,26 @@ You can view, edit, and manage your Offerings from the ParityDeals dashboard.
 ### Viewing Your Offerings
 Navigate to **Monetization > Offerings**. The listing page displays all your Offerings, along with their statuses (e.g., "Active," "Archived," "Draft/Pending Changes").
 
-*[Image: The Offerings list page, showing several example Offerings with their names, linked Paywalls/Rules (if any), and distinct statuses.]*
+ <Frame>
+        <img height="200" src="/images/view-offering.png" />
+</Frame>  
 
 ### Editing an Offering
 You can modify an Offering at any time to change the Paywall it displays or the Targeting Rule it uses. This is a powerful way to iterate on your strategy.
 
 1.  On the Offerings list page, locate the Offering you wish to edit.
-2.  Click the **edit icon** (often a pencil) or the **three-dot menu** on that Offering's row and select **"Edit"**.
-    *[Image: The Offerings list page with an edit icon or three-dot menu on a specific Offering row highlighted, and the "Edit" option clearly visible.]*
+2.  Click the **edit icon** on that Offering's row.
+     <Frame>
+        <img height="200" src="/images/edit-offering.png" />
+    </Frame>  
 3.  The "Edit Offering" modal will appear, which is similar to the creation modal. Here you can:
     * Change the linked **Paywall**.
     * Change the linked **Targeting Rule**.
     * Change the linked **Product** (if it was configured to offer directly via a Product).
-    *[Image: The "Edit Offering" modal, clearly showing dropdown menus for selecting a different Paywall, a different Targeting Rule, or a different Product, with current selections visible.]*
-4.  Click **"Update"** (or "Save Changes") to apply your modifications.
-    *[Image: The bottom of the "Edit Offering" modal, highlighting the "Update" or "Save Changes" button.]*
+     <Frame>
+        <img height="200" src="/images/offerings-edit-offerings.png" />
+    </Frame>  
+4.  Click **"Update"** to apply your modifications.
 
 <Tip>
   **No Codebase Updates Needed for Most Changes!**

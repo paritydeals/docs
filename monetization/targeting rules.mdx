@@ -18,8 +18,9 @@ Supported attributes for creating these rules include:
 * **Platform / OS:** Target based on the operating system (e.g., iOS, Android, Windows, macOS). (`Coming soon`)
 * **Browser:** Target based on the web browser being used (e.g., Chrome, Safari, Firefox). (`Coming soon`)
 
-*[Image: A conceptual diagram illustrating how Targeting Rules work: different user segments (e.g., Segment A from USA, Segment B from India using PPP) are identified by rules, and each segment is directed to a distinct, tailored Offering/Paywall.]*
-
+<Frame>
+        <img height="200" src="/images/trageting-rule-illustartion.png" />
+</Frame>  
 ---
 
 ## Creating and Defining Targeting Rules
@@ -27,9 +28,10 @@ Supported attributes for creating these rules include:
 You create, view, and manage your Targeting Rules directly from the ParityDeals dashboard.
 
 1.  From the main sidebar navigation, go to **Monetization > Targeting Rules**.
-    *[Image: The main ParityDeals navigation sidebar with "Monetization" expanded and "Targeting Rules" highlighted clearly.]*
 2.  On the "Targeting Rules" page, click the **"+ Create rule"** button, located in the top-left corner.
-    *[Image: The Targeting Rules list page, with an arrow pointing to the "+ Create rule" button. If there are existing rules, they are visible in a list format.]*
+    <Frame>
+        <img height="200" src="/images/create-rule.png" />
+    </Frame>  
 
 This action opens a dedicated page where you will define all aspects of your new rule.
 
@@ -39,10 +41,13 @@ Begin by providing the basic identifying information for your rule. This helps y
 
 * **Rule Name:** Click into the rule name field and enter a clear, descriptive name. This name is for your internal reference.
     * **Example:** "PPP Discount - Tier 3 Countries," "EU Early Adopter Offer," "USA - Standard Pricing."
-    *[Image: The "Rule Information" section at the top of the rule creation page, with the "Rule Name" input field highlighted and an example name entered.]*
+     <Frame>
+        <img height="200" src="/images/rule-information.png" />
+    </Frame>  
 * **Select Product(s):** Click the dropdown field to choose one or more products from your catalog to which this rule's pricing adjustments will apply. You can search by product name or ID.
-    *[Image: The "Select Product(s)" dropdown in the "Rule Information" section, expanded to show a searchable list of products, with one or more products selected.]*
-
+    <Frame>
+        <img height="200" src="/images/select-product.png" />
+    </Frame> 
 <Info>
 A Targeting Rule only becomes active and influences customer experiences once it is connected to an **Offering**.
 </Info>
@@ -52,24 +57,31 @@ A Targeting Rule only becomes active and influences customer experiences once it
 This is the core of your Targeting Rule. Here, you define the specific customer attributes that must be met for the rule (and its associated pricing adjustments) to apply.
 
 #### Condition Logic: "If the customer matches..."
-1.  Click on the "If the customer matches *" (or similar placeholder text) to begin defining your first condition.
-    *[Image: The initial state of the condition builder, highlighting the clickable "If the customer matches *" area to add the first condition.]*
+1.  Click on the "If the customer matches *" to begin defining your first condition.
 2.  **Select Condition Type:** Choose an attribute from the dropdown menu.
     * **Any audience:** A broad condition for setting a default rule that applies if no other more specific rule matches a user.
     * **Country:** Target users based on their geographic location, detected via IP address.
     * **PPP group:** Target users based on the Purchasing Power Parity of their country.
     * **Platform / OS:** (`Coming soon`)
     * **Browser:** (`Coming soon`)
-    *[Image: The 'Condition Type' dropdown expanded, showing options like 'Any audience', 'Country', 'PPP group', etc., with one option highlighted.]*
+    <Frame>
+        <img height="200" src="/images/setting-conditions.png" />
+    </Frame> 
 3.  **Select Operator:** Choose how the condition should evaluate the selected attribute:
     * **`is any of`**: The rule applies if the customer's attribute matches *at least one* of the values you specify. For example, if "Country `is any of` [India, Brazil, Nigeria]," the rule applies if the user is in India OR Brazil OR Nigeria.
     * **`is not any of`**: The rule applies if the customer's attribute does *not match any* of the values you specify. For example, if "Country `is not any of` [USA, Canada]," the rule applies if the user is in any country *except* the USA or Canada.
-    *[Image: The operator selection dropdown clearly showing "is any of" and "is not any of" options, with one option selected.]*
+    <Frame>
+        <img height="200" src="/images/select-operator.png" />
+    </Frame>   
 4.  **Select Value(s):** Based on the condition type and operator, select the specific values.
     * If you selected "Country," a multi-select dropdown appears where you can search for and choose specific countries.
-        *[Image: The value selection UI for "Country," showing a multi-select dropdown with a search bar, a list of countries, and a few countries selected (e.g., India, Brazil).]*
+    <Frame>
+        <img height="200" src="/images/select-country.png" />
+    </Frame>     
     * If you selected "PPP group," select from predefined PPP groups in the dropdown.
-        *[Image: The value selection dropdown for "PPP group," showing example group names like "High PPP," "Mid PPP," "Low PPP / Frontier Markets," with one group selected.]*
+    <Frame>
+        <img height="200" src="/images/select-ppp-group.png" />
+    </Frame> 
 
 #### PPP Groups
 Purchasing Power Parity (PPP) targeting is a strategic way to offer your product at prices more aligned with local economic conditions, significantly boosting global accessibility and adoption.
@@ -88,10 +100,13 @@ Purchasing Power Parity (PPP) targeting is a strategic way to offer your product
 #### Defining Price Adjustments
 Once your conditions are set, specify how the pricing should change for customers who match this rule:
 1.  From the "Then" section of the condition block, choose either **"Increase price by"** or **"Decrease price by"** from the dropdown menu.
-    *[Image: The price adjustment action dropdown within a condition block, showing "Increase price by" and "Decrease price by" options, with one selected.]*
+    <Frame>
+        <img height="200" src="/images/define-price-adjustment.png" />
+    </Frame> 
 2.  Enter the **percentage** value for the adjustment (e.g., `20` for a 20% change) in the adjacent input field.
-    *[Image: The percentage input field next to the price adjustment action, with a value like "20" entered.]*
-
+    <Frame>
+        <img height="200" src="/images/define-price-adjustment-value.png" />
+    </Frame> 
 * **When to use "Decrease price by":**
     * **PPP Adjustments:** To make products more affordable in lower PPP regions.
     * **Promotional Pricing:** To target specific new markets or regions with introductory discounts.
@@ -108,15 +123,18 @@ You can create highly specific targeting rules by layering multiple conditions.
 
 * **AND Logic:** To add more criteria that *must all be met* for the rule to apply, click the **"+ AND"** button within the same condition block. Each new condition added this way narrows the target segment.
     * **Example:** "If customer is in `PPP Group: Low PPP` **AND** Country `is any of` [India]".
-    *[Image: The "+ AND" button within a condition block, highlighted, allowing the addition of another parallel condition.]*
+    <Frame>
+        <img height="200" src="/images/and-logic.png" />
+    </Frame>    
     * **Precedence with AND:** When building complex rules with multiple AND conditions that might appear to overlap (e.g., a country is in a selected PPP group, AND that same country is also specifically targeted with a different adjustment), rules are evaluated based on their defined order or specificity. **It is highly recommended to test complex rule interactions thoroughly to confirm the exact behavior and ensure they produce the desired outcome before activating them for live offerings.**
-    *[Image: A condition block clearly showing two AND conditions: the first by "PPP group," and the second by a specific "Country", visually linked to indicate they must both be true.]*
-
+    <Frame>
+        <img height="200" src="/images/two-and-condition.png" />
+    </Frame>    
 * **OR Logic:** To apply the same price adjustment to several distinct customer segments, click the **"+ Add condition group (OR)"** button. This creates a new, independent block of conditions. The rule will apply if a customer matches *all* conditions in Group 1 **OR** *all* conditions in Group 2, etc.
     * **Example:** "(If Country `is any of` [USA, Canada]) **OR** (If Country `is any of` [UK, Germany] **AND** Browser `is any of` [Chrome])".
-    *[Image: The "+ Add condition group (OR)" button highlighted, used to create a separate block of conditions.]*
-    *[Image: Two distinct condition groups, labelled "Condition Group 1" and "Condition Group 2", each with their own set of criteria, visually separated by an "OR" indicator.]*
-
+    <Frame>
+        <img height="200" src="/images/two-or-conditions.png" />
+    </Frame> 
     The evaluation of combined AND/OR conditions follows a structured logic. The diagram below illustrates a simplified flow where a rule applies if either "Condition Group 1" (which itself might contain multiple AND conditions) OR "Condition Group 2" is met:
 
 ```mermaid
@@ -139,8 +157,9 @@ Support for targeting by **Platform / OS** and **Browser** is planned for a futu
 #### A/B Testing with Variants (`Coming soon`)
 ParityDeals will allow you to create multiple variants within a single Targeting Rule (e.g., Variant A with a 10% discount, Variant B with a 15% discount). This will enable you to A/B test different pricing adjustments for the same customer segment to determine which performs best. This feature is `Coming soon`.
 
-*[Image: A conceptual UI mock-up for A/B test variants (e.g., "Variant A", "Variant B" with different price adjustments) within a targeting rule, clearly marked as "Coming Soon".]*
-
+<Frame>
+        <img height="200" src="/images/a-b-testing-with-variants.png" />
+</Frame> 
 ### Step 3: Creating the Rule
 
 <Warning>
@@ -149,6 +168,9 @@ ParityDeals will allow you to create multiple variants within a single Targeting
 
 1.  After you have carefully defined your rule name, selected the product(s), and set all conditions and price adjustments, click the **"Create rule"** button, located at the bottom of the page.
     *[Image: The bottom of the Targeting Rule creation page with the "Create rule" button clearly highlighted.]*
+    <Frame>
+        <img height="200" src="/images/creating-the-rule.png" />
+    </Frame> 
 
 ---
 
@@ -169,21 +191,21 @@ graph LR
 
 After successfully creating a Targeting Rule, you will be directed to the Offering creation page, with the "Create offering" modal appearing and your newly created rule pre-selected.
 
-*[Image: The "Create Offering" modal automatically appearing after successful Targeting Rule creation, with the new rule pre-selected in the "Select targeting rule" field.]*
-
+<Frame>
+        <img height="200" src="/images/create-offering.png" />
+</Frame> 
 1.  **In the "Create offering" (or "Edit offering") modal:**
     * **Paywall Linking (Optional):** An option exists to "Skip if you don’t want to link a paywall to this offering." If your Offering's purpose is *only* to apply rule-based price adjustments without changing the visual paywall structure, you can skip this. Most often, however, you will link a paywall.
-        *[Image: The "Create offering" modal highlighting the section/toggle for linking a Paywall, and an option like "Skip paywall linking" if applicable.]*
     * **Assign to Targeting Rule:** Ensure **"Targeting Rule"** is selected as the assignment type.
-        *[Image: The "Assign to" section of the Offering modal, with "Targeting Rule" selected.]*
     * **Select Targeting Rule:** The dropdown will automatically have your newly created rule selected. If you are editing an existing offering or creating a new one independently, choose the desired rule from this list.
-        *[Image: The "Select targeting rule" dropdown in the Offering modal, expanded to show a list of available rules, with one rule selected.]*
 2.  Click **"Create"** (or "Update") on the Offering modal.
 
 This action creates (or updates) the Offering and effectively activates your Targeting Rule. You will then receive or see the **Offering ID**.
 
 * **Offering ID:** This ID is essential. Copy this ID and paste it into your application's code where you initialize the ParityDeals SDK or render the paywall component. This `Offering ID` instructs your application to apply the dynamic pricing and paywall configuration determined by the linked Targeting Rule.
-    *[Image: A success modal or view after creating/updating an Offering, prominently displaying the "Offering ID" with a "Copy ID" button or icon highlighted.]*
+    <Frame>
+        <img height="200" src="/images/offering-id-to-copy.png" />
+    </Frame> 
 
 ---
 
@@ -195,10 +217,11 @@ While rule conditions are immutable, you retain flexibility in managing your tar
 To maintain clarity and organization, you can edit the name of a Targeting Rule after its creation. The rule's conditions and price adjustments remain unchanged.
 1.  Navigate to **Monetization > Targeting Rules**.
 2.  Locate the rule you wish to rename in the list.
-3.  Click the **three-dot menu icon** on that rule's row and select **"Edit"** (or a similar "Rename" option).
-    *[Image: The Targeting Rules list page, with the three-dot menu on a specific rule row expanded to clearly show the "Edit Name" or "Edit" option.]*
+3.  Click the **three-dot menu icon** on that rule's row and select **"Edit"**.
+    <Frame>
+        <img height="200" src="/images/edit-targeting-rules.png" />
+    </Frame> 
 4.  Modify the name in the input field and save your changes.
-    *[Image: The modal or edit view for changing a Targeting Rule's name, showing the name field and save button.]*
 
 ### Editing Offerings to Change Targeting Rules or Paywalls
 The primary way to manage and iterate on your live targeting strategies is by editing the **Offering**. This approach provides significant flexibility without requiring code changes in your application.
@@ -210,10 +233,14 @@ The primary way to manage and iterate on your live targeting strategies is by ed
 
 1.  Navigate to **Monetization > Offerings**.
 2.  Find the Offering you wish to modify in the list.
-3.  Click its **three-dot menu icon** (or an "Edit" icon) and select **"Edit"**.
-    *[Image: The Offerings list page, with the three-dot menu on an offering row expanded to clearly show the "Edit" option.]*
+3.  Click  "**Edit**" icon.
+    <Frame>
+        <img height="200" src="/images/edit-offering.png" />
+    </Frame> 
 4.  In the "Edit offering" modal, you can:
     * Select a **different Targeting Rule** from the dropdown to change the pricing logic applied.
     * Select a **different Paywall** from the dropdown to change the visual presentation.
-    *[Image: The "Edit offering" modal clearly showing dropdown menus for selecting a different Targeting Rule and/or a different Paywall, with options visible.]*
-5.  Click **"Update"** (or "Save changes"). The Offering ID embedded in your code remains unchanged, but it now serves the new configuration (new rule and/or new paywall) to your users.
+     <Frame>
+        <img height="200" src="/images/offerings-edit.png" />
+    </Frame> 
+5.  Click **"Update"**. The Offering ID embedded in your code remains unchanged, but it now serves the new configuration (new rule and/or new paywall) to your users.

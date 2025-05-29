@@ -13,8 +13,9 @@ In ParityDeals, a **Feature** is a distinct piece of functionality in your produ
 
 While a feature is the *thing* itself, an **Entitlement** is the *rule* that grants that feature to a customer as part of a **Plan**. The entitlement defines *how* a plan gets access to a feature—whether it's turned on or off, or available up to a certain limit.
 
-*[Image: A composite diagram showing a "Feature" in the main features list, and an arrow pointing to it being used as an "Entitlement" with a specific rule inside a Plan's configuration.]*
-
+<Frame>
+<img height="200" src="/images/feature-list.png" />
+</Frame>
 This guide focuses on creating and managing the features themselves, which are the fundamental building blocks of your entire monetization strategy.
 
 ---
@@ -26,14 +27,18 @@ You can create and manage all features from one central location.
 1.  From the main sidebar, navigate to **Product Catalog > Features**.
 2.  Click the **"+ Create feature"** button in the top-right corner.
 
-    *[Image: The main "Features" list page with the "+ Create feature" button highlighted.]*
+ <Frame>
+<img height="200" src="/images/create-feature.png" />
+</Frame>
 
 3.  In the "Create feature" modal, fill in the following primary details:
     * **Feature name:** A customer-friendly name. Think of this as the default label your customers will see in paywalls and other UIs.
     * **Identifier:** A unique ID used to reference this feature in your code. This is auto-generated from the name but can be overridden at the time of creation.
     * **Description (optional):** An internal description for your team's reference.
 
-    *[Image: The main "Create feature" modal showing the Name, Identifier, and Description fields being filled out.]*
+    <Frame>
+    <img height="200" src="/images/feature-modal.png" />
+    </Frame>
 
 4.  Select a **Feature type**, which determines how access and usage of the feature are controlled.
 
@@ -63,7 +68,9 @@ A Switch feature is for simple, all-or-nothing access. It's perfect for function
 
 To create one, select **Switch/boolean** as the feature type and click **"Create"**.
 
-*[Image: The Feature Type dropdown with "Switch/boolean" selected.]*
+<Frame>
+    <img height="200" src="/images/switch-boolean.png" />
+</Frame> 
 
 ### Customizable
 
@@ -78,7 +85,9 @@ For Customizable and Metered features, you can define how the unit of value is d
 * Click the pencil icon next to the "Feature unit" field.
 * Enter the singular and plural forms (e.g., "Project" and "Projects"). This ensures the unit is displayed grammatically correct in all UIs.
 
-*[Image: The feature unit editor showing input fields for singular ("Project") and plural ("Projects") forms.]*
+<Frame>
+    <img height="200" src="/images/input-fields.png" />
+</Frame> 
 
 After configuring units, click **"Create"**.
 
@@ -97,7 +106,9 @@ Select this option when your system already calculates total usage for a user.
 3.  You can also toggle on **"Use different feature units for customers"**. When this is enabled, it reveals options to edit the base **Feature unit** (e.g., `call`/`calls`), a customer-facing **Customer unit value** (e.g., `k call`/`k calls`), and the **Internal unit conversion** rate between them. For a detailed explanation of how this conversion works, refer to the "Understanding Unit Conversion" section.
 4.  Click **"Create"** to finish.
 
-*[Image: The creation modal with "Metered" and "Pre-aggregated usage" selected, showing the "Use different feature units for customers" toggle.]*
+<Frame>
+    <img height="200" src="/images/pre-aggregated.png" />
+</Frame> 
 
 #### Raw Usage
 Select this option when you want ParityDeals to calculate usage totals based on an event stream. The creation process involves several key stages:
@@ -119,16 +130,23 @@ graph LR
     * Conditions *inside* a single filter group must *all* be true **(AND)**.
     * You can add *more* filter groups. An event only needs to match one of these *entire groups* **(OR)**.
 
-    *[Image: The Event Filters UI showing conditions with AND/OR logic and the live event preview on the right.]*
+    <Frame>
+    <img height="200" src="/images/define-event-filters.png" />
+    </Frame> 
+
 
 5.  **Configure Aggregation:** Specify how ParityDeals should calculate a single value from the filtered events. All methods besides `Count` require you to select an event property to aggregate.
     * **Example:** To bill for data transfer, you could `Sum` the value of the `bytes_transferred` property on each event.
 
-    *[Image: The Aggregation UI showing the different aggregation methods (Count, Sum, etc.) and the "Over property" dropdown.]*
+    <Frame>
+    <img height="200" src="/images/configure-aggregation.png" />
+    </Frame> 
 
 6.  Click **"Create"** to save the feature and its aggregation rules. You will see a success screen.
 
-*[Image: The success screen after creating a raw usage feature.]*
+<Frame>
+    <img height="200" src="/images/raw-usage-success-screen.png" />
+</Frame> 
 
 ---
 
@@ -161,8 +179,9 @@ When this setup is enabled, your system reports usage to ParityDeals in the base
   **Billing and Rounding:** When integrated with a billing provider, the customer-facing units are **rounded up** to the nearest integer. If a customer uses 200 calls (which is `0.2` k calls, if 1 k call = 1000 calls), they will be billed for the full `1` k call.
 </Info>
 
-*[Image: The unit conversion configuration section in the feature creation modal, showing base units, customer-facing units, and the conversion rate.]*
-
+<Frame>
+    <img height="200" src="/images/unit-conversion.png" />
+</Frame> 
 ---
 
 ## Managing Features
@@ -179,7 +198,9 @@ You can edit a feature's name, description, and other properties after it's been
 2.  Make your changes in the appropriate fields.
 3.  Click **"Save updates"** to apply the changes.
 
-*[Image: The detail page of a feature in edit mode, with the "Save updates" button highlighted.]*
+<Frame>
+    <img height="200" src="/images/edit-feature-entitlement.png" />
+</Frame> 
 
 ### Archiving Features
 
@@ -197,4 +218,6 @@ When a feature is archived:
 
 To archive a feature, click the **three-dot menu** from the feature list and select **"Archive"**. Confirm the action in the dialog.
 
-*[Image: The three-dot menu on a feature row with the "Archive" option highlighted.]*
+<Frame>
+    <img height="200" src="/images/archiving-features.png" />
+</Frame> 
