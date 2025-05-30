@@ -1,0 +1,234 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI Plant Store",
+    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.paritydeals.com/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/stripe-checkout": {
+      "get": {
+        "description": "Returns all Stripe Checkout from the system that the user has access to",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of results to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stripe Checkout response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StripeCheckout"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new Stripe Checkout in the store",
+        "requestBody": {
+          "description": "Stripe Checkout to add to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewStripeCheckout"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Stripe Checkout response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StripeCheckout"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stripe-checkout/{id}": {
+      "delete": {
+        "description": "Deletes a single Stripe Checkout based on the ID supplied",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Stripe Checkout to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Stripe Checkout deleted",
+            "content": {}
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "/stripe-checkout/webhook": {
+      "post": {
+        "description": "Information about a new Stripe Checkout added to the store",
+        "requestBody": {
+          "description": "Stripe Checkout added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewStripeCheckout"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a 200 status to indicate that the data was received successfully"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StripeCheckout": {
+        "required": [
+          "pd_identifier",
+          "success_url"
+        ],
+        "type": "object",
+        "properties": {
+          "pd_identifier": {
+            "description": "This parameter is used to specify a unique identifier associated with a particular deal.",
+            "type": "string"
+          },
+          "ip_address": {
+            "description": "Pass the IP address. This is necessary only if you are implementing this in server-side",
+            "type": "string"
+          },
+          "apply_coupons": {
+            "description": "set this field true to automatically fetches and applies pricing based on the user’s location at checkout.",
+            "type": "string"
+          },
+          "checkout_data": {
+            "description": "You will need to pass the checkout_data as a object checkout_data is similar as th data specified in stripe documentation. This Parameter is required if payment_id is not provided.",
+            "type": "object"
+          },
+          "payment_id": {
+            "description": "The unique identifier for the product on Stripe .This Parameter is required if checkout_data is not provided.",
+            "type": "string"
+          },
+          "success_url": {
+            "description": "The URL to which a user will be redirected after a successful purchase.",
+            "type": "string"
+          }
+        }
+      },
+      "NewStripeCheckout": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StripeCheckout"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Identification number of the Stripe Checkout",
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

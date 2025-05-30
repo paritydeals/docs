@@ -51,7 +51,6 @@ Let's implement a usage-based pricing model for an illustrative product: **"Pixe
     * **Identifier**: `product-pixelvault-api`
     * **Subscription type**: Select **Single active subscription**.
 4.  Click **Create**.
-    * `[Image: ParityDeals "Create product" modal filled for "PixelVault Cloud API".]`
 
 ### Step 2: Create Your Billable (Metered) Features
 
@@ -72,8 +71,6 @@ Navigate to **Product Catalog > Feature entitlements**.
     * **Aggregation Method**: `Maximum` (to bill for the peak storage used during the billing period) or `Average` (if that makes more sense for your model).
     * **Over Property**: The property in your event that contains the storage amount (e.g., `gb_used`).
 6.  Click **Create**.
-    * `[Image: "Create feature" modal for "Storage Consumed" with Metered (Raw) type selected, including event filter/aggregation setup.]`
-
 #### Feature B: Images Processed
 
 1.  Click **+ Create feature**.
@@ -86,7 +83,6 @@ Navigate to **Product Catalog > Feature entitlements**.
 5.  **Configure Aggregation**:
     * **Aggregation Method**: `Count` (if each event represents one image processed) or `Sum` (if an event includes an `image_count` property).
 6.  Click **Create**.
-    * `[Image: "Create feature" modal for "Images Processed" with Metered (Raw) type selected.]`
 
 ### Step 3: Design Your Usage-Based Plan
 
@@ -94,7 +90,6 @@ For this guide, we'll create a single plan focused purely on usage. You could al
 
 Navigate to your **PixelVault Cloud API** product page.
 
-* `[Image: Product detail page for "PixelVault Cloud API".]`
 
 #### 1. Create the Plan
 1.  On the product page, click **+ Create plan**.
@@ -102,7 +97,7 @@ Navigate to your **PixelVault Cloud API** product page.
     * **Plan name**: `Pay-as-you-go API`
     * **Description**: `Flexible access to PixelVault API. Pay only for what you use.`
 3.  Click **Create**.
-    * `[Image: "Create plan" modal filled for "Pay-as-you-go API".]`
+    
 
 #### 2. Configure Pricing
 1.  On the `Pay-as-you-go API` plan page, click **Set price**.
@@ -121,7 +116,7 @@ Navigate to your **PixelVault Cloud API** product page.
         * Tier 2: `First unit: 101`, `Last unit: 1000` (GB), `Unit price: $0.08` (per GB)
         * Tier 3: `First unit: 1001`, `Last unit: Unlimited` (GB), `Unit price: $0.05` (per GB)
     * Click **Add**.
-    * `[Image: Configuring a Tiered charge for "Storage Consumed" on the plan.]`
+    
 
 6.  **Add Usage-Based Charge for "Images Processed"**:
     * Click **Add usage-based charges** again.
@@ -130,7 +125,7 @@ Navigate to your **PixelVault Cloud API** product page.
     * For "Pricing model," select **Per-unit**.
     * **Unit price**: `$0.01` (per image processed).
     * Click **Add**.
-    * `[Image: Configuring a Per-unit charge for "Images Processed" on the plan.]`
+   
 
 7.  **Save** the pricing configuration.
 8.  Finally, **Publish** the plan.
@@ -143,7 +138,7 @@ Navigate to your **PixelVault Cloud API** product page.
 ### Step 5: Design the Paywall and Activate
 
 1.  Navigate to **Monetization > Paywalls** and design a paywall to present your `Pay-as-you-go API` plan. Clearly list the per-unit or tiered rates for each billable metric.
-    * `[Image: Conceptual image of a paywall showcasing the usage-based rates for "PixelVault Cloud API".]`
+  
 2.  Navigate to **Monetization > Offerings** and create an offering, linking your paywall and the `PixelVault Cloud API` product.
 3.  Use the generated **Offering ID** in your application to display the pricing and allow sign-ups.
 

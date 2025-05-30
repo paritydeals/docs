@@ -30,7 +30,6 @@ First, create the "Product" that represents your AI Agent service.
     * **Identifier**: `product-ai-task-agent`
     * **Subscription type**: Select **Single active subscription**.
 4.  Click **Create**.
-    * `[Image: ParityDeals "Create product" modal filled for "Autonomous AI Task Agent Service".]`
 
 ---
 
@@ -50,7 +49,6 @@ This feature limits how many AI agents a customer can have active simultaneously
     * **Feature type**: `Customizable`
     * **Feature unit**: `Agent Slot` / `Agent Slots`
 3.  Click **Create**.
-    * `[Image: "Create feature" modal for "Active Agent Slots" with "Customizable" type selected.]`
 </Accordion>
 
 <Accordion title="Feature B: Tasks Executed (Metered)">
@@ -65,7 +63,6 @@ This feature tracks the number of tasks completed by the AI agents. This will be
 4.  **Define Event Filters**: Set a filter (e.g., `event name` `equals` `agent.task.completed`).
 5.  **Configure Aggregation**: Select `Count` (if each event represents one task) or `Sum` (if an event includes a `task_count` property). For this example, we'll assume `Count`.
 6.  Click **Create**.
-    * `[Image: "Create feature" modal for "Tasks Executed" with Metered (Raw) type, and event filter/aggregation setup.]`
 </Accordion>
 
 <Accordion title="Feature C: Premium Agent Capabilities (Switch)">
@@ -76,7 +73,6 @@ This is an optional boolean feature that could grant access to advanced agent fu
     * **Feature name**: `Premium Agent Capabilities`
     * **Feature type**: `Switch/boolean`
 3.  Click **Create**.
-    * `[Image: "Create feature" modal for "Premium Agent Capabilities" with "Switch/boolean" type selected.]`
 </Accordion>
 </AccordionGroup>
 
@@ -88,7 +84,6 @@ Let's create two illustrative plans: "Agent Solo" and "Agent Team."
 
 Navigate to your **Autonomous AI Task Agent Service** product page.
 
-* `[Image: Product detail page for "Autonomous AI Task Agent Service".]`
 
 <Tabs>
 <Tab title="Plan A: Agent Solo">
@@ -99,21 +94,18 @@ Navigate to your **Autonomous AI Task Agent Service** product page.
     * **Plan name**: `Agent Solo`
     * **Description**: `Perfect for individual users or small-scale automation.`
 3.  Click **Create**.
-    * `[Image: "Create plan" modal filled for "Agent Solo".]`
 
 ### 2. Configure Pricing (Hybrid Model)
 1.  On the `Agent Solo` plan page, click **Set price**.
 2.  Select **Paid**, add a **Monthly** billing cycle, and continue.
 3.  **Add a Fixed Charge**:
     * **Monthly price**: `$49`
-    * `[Image: Adding Fixed Charge of $49/month to "Agent Solo" plan.]`
 4.  **Add a Usage-Based Charge** for overage tasks:
     * Choose the **Tasks Executed** feature.
     * For "Pricing model," select **Tiered**.
     * **Configure the tiers:**
         * **Tier 1 (Included Quota)**: `First unit: 1`, `Last unit: 500`, `Unit price: $0.00` (500 tasks included in the $49)
         * **Tier 2 (Overage)**: `First unit: 501`, `Last unit: Unlimited`, `Unit price: $0.10` (e.g., $0.10 per additional task)
-    * `[Image: Configuring Tiered PAYG charge for "Tasks Executed" on "Agent Solo", showing included and overage tiers.]`
 5.  **Save** the pricing configuration.
 
 ### 3. Assign Feature Entitlements
@@ -123,7 +115,6 @@ Navigate to your **Autonomous AI Task Agent Service** product page.
 3.  Click **+ Add** and select **Premium Agent Capabilities**:
     * Ensure the toggle is set to **Disallowed** (or not added if default is off).
 4.  **Save** the entitlements, then **Publish** the plan.
-    * `[Image: Entitlements section for "Agent Solo" plan, showing "Active Agent Slots" limit 1 and "Premium Agent Capabilities" disallowed.]`
 
 </Tab>
 <Tab title="Plan B: Agent Team">
@@ -134,21 +125,17 @@ Navigate to your **Autonomous AI Task Agent Service** product page.
     * **Plan name**: `Agent Team`
     * **Description**: `Ideal for teams needing multiple agents and higher task volumes.`
 3.  Click **Create**.
-    * `[Image: "Create plan" modal filled for "Agent Team".]`
 
 ### 2. Configure Pricing (Hybrid Model)
 1.  On the `Agent Team` plan page, click **Set price**.
 2.  Select **Paid**, add a **Monthly** billing cycle, and continue.
 3.  **Add a Fixed Charge**:
     * **Monthly price**: `$199`
-    * `[Image: Adding Fixed Charge of $199/month to "Agent Team" plan.]`
-4.  **Add a Usage-Based Charge** for overage tasks:
     * Choose the **Tasks Executed** feature.
     * For "Pricing model," select **Tiered**.
     * **Configure the tiers:**
         * **Tier 1 (Included Quota)**: `First unit: 1`, `Last unit: 2500`, `Unit price: $0.00` (2500 tasks included)
         * **Tier 2 (Overage)**: `First unit: 2501`, `Last unit: Unlimited`, `Unit price: $0.08` (e.g., $0.08 per additional task)
-    * `[Image: Configuring Tiered PAYG charge for "Tasks Executed" on "Agent Team".]`
 5.  **Save** the pricing configuration.
 
 ### 3. Assign Feature Entitlements
@@ -158,7 +145,6 @@ Navigate to your **Autonomous AI Task Agent Service** product page.
 3.  Click **+ Add** and select **Premium Agent Capabilities**:
     * Set the toggle to **Allowed**.
 4.  **Save** the entitlements, then **Publish** the plan.
-    * `[Image: Entitlements section for "Agent Team" plan, showing "Active Agent Slots" limit 5 and "Premium Agent Capabilities" allowed.]`
 
 </Tab>
 </Tabs>
@@ -174,7 +160,6 @@ Consider adding a time-based trial (e.g., 14 days) to the "Agent Solo" or "Agent
 3.  Set the **Trial period** (e.g., `14 days`).
 4.  Configure post-trial actions.
 5.  Save and re-publish the plan.
-    * `[Image: Plan pricing modal with "Provide free trial" checked and configured for 14 days.]`
 
 ---
 
@@ -183,7 +168,6 @@ Consider adding a time-based trial (e.g., 14 days) to the "Agent Solo" or "Agent
 1.  Navigate to **Monetization > Paywalls** and design a paywall to present these plans.
 2.  Navigate to **Monetization > Offerings** and create an offering, linking your paywall and the `Autonomous AI Task Agent Service` product.
 3.  Use the generated **Offering ID** in your application to display the pricing.
-    * `[Image: Conceptual image of a paywall showcasing the "Agent Solo" and "Agent Team" plans.]`
 
 ---
 
