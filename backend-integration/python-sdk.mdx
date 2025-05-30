@@ -252,6 +252,7 @@ response = await async_client.checkout.create_session(
     paywallId="6db2717a-4e43-4ae1-a293-6c0a775f6264",
     ruleId="f2ebc23f-3f79-4cf4-b17e-fe8e30a42ab2",
     features=[{'identifier':"seats", 'quantity': 5}],
+    ipAddress="103.154.35.20",
 )
 print(f"Checkout Session URL: {response.checkoutUrl}")
 
@@ -307,6 +308,8 @@ print(f"Checkout Session URL: {response.checkoutUrl}")
         * `"identifier"` (str): The unique identifier for the feature.
         * `"quantity"` (int): The desired quantity for this feature.
             * Example: `[{"identifier": "seats", "quantity": 10}, {"identifier": "api-calls-tier1", "quantity": 5000}]`
+
+    * `ipAddress` (str): The IP Address of the customer, used for location based pricing.
 
 
 **Returns**:
@@ -681,81 +684,83 @@ An instance of ReportEventResponse (Pydantic model), which includes:
 The subscriptions module allows you to manage customer subscriptions, including updates and cancellation. You can access these operations via the `subscriptions` attribute on an initialized ParityDeals client instance.
 
 
-{/* ### Updates an existing subscription to a new plan */}
+### Updates an existing subscription to a new plan
 
 
-{/* **Synchronous**: */}
+**Synchronous**:
 
-{/* ```python */}
-{/* # Assuming 'client' is your synchronous ParityDeals client */}
-{/* try: */}
-{/*     response = client.subscriptions.update( */}
-{/*         subscriptionId="78058918-9746-4280-9b9b-1bd5115eec6e", */}
-{/*         planIdentifier="premium-plan", */}
-{/*         chargePeriod="MONTHLY", # e.g., "MONTHLY", "YEARLY" */}
-{/*         # Optional parameters below */}
-{/*         # offeringId="offer_abc", */}
-{/*         # paywallId="pw_def", */}
-{/*         # ruleId="rule_ghi", */}
-{/*         # features=[{'identifier': "seats", 'quantity': 10}] */}
-{/*     ) */}
-{/*     print(response.message) */}
-{/* except Exception as e: */}
-{/*     print(f"Error updating subscription: {e}") */}
-{/* ``` */}
+```python
+# Assuming 'client' is your synchronous ParityDeals client
+try:
+    response = client.subscriptions.update(
+        subscriptionId="78058918-9746-4280-9b9b-1bd5115eec6e",
+        planIdentifier="premium-plan",
+        chargePeriod="MONTHLY",
+    )
+    print(response.message)
+except Exception as e:
+    print(f"Error updating subscription: {e}")
+```
 
 
-{/* **Asynchronous**: */}
+**Asynchronous**:
 
-{/* ```python */}
-{/* # Assuming 'async_client' is your asynchronous ParityDeals client */}
-{/* try: */}
-{/*     response = await async_client.subscriptions.update( */}
-{/*         subscriptionId="78058918-9746-4280-9b9b-1bd5115eec6e", */}
-{/*         planIdentifier="new_plan_enterprise", */}
-{/*         chargePeriod="YEARLY", */}
-{/*         features=[{'identifier': "api-calls", 'quantity': 100000}] */}
-{/*     ) */}
-{/*     print(response.message) */}
-{/* except Exception as e: */}
-{/*     print(f"Error updating subscription: {e}") */}
-{/* ``` */}
+```python
+# Assuming 'async_client' is your asynchronous ParityDeals client
+try:
+    response = await async_client.subscriptions.update(
+        subscriptionId="78058918-9746-4280-9b9b-1bd5115eec6e",
+        planIdentifier="new_plan_enterprise",
+        chargePeriod="YEARLY",
+        offeringId="offer_abc",
+        paywallId="pw_def",
+        ruleId="rule_ghi",
+        ipAddress="103.154.35.20",
+        features=[{'identifier': "seats", 'quantity': 10}]
+    )
+    print(response.message)
+except Exception as e:
+    print(f"Error updating subscription: {e}")
+```
 
-{/* <Accordion title="Response"> */}
+<Accordion title="Response">
 
-{/*   ```json */}
-{/*    { */}
-{/*       "message": "Subscription updated successfully." */}
-{/*    } */}
-{/*   ``` */}
-{/* </Accordion> */}
+  ```json
+   {
+      "message": "Subscription updated successfully."
+   }
+  ```
+</Accordion>
 
-{/* **Required Parameters**: */}
+**Required Parameters**:
 
-{/* * `subscriptionId` (str): Required. The unique identifier of the subscription to be updated. */}
-{/* * `planIdentifier` (str): Required. The identifier of the new plan. */}
-{/* * `chargePeriod` (str): Required. The new charging period for the subscription. Must be one of: */}
-{/*     * `"ONE_TIME"` */}
-{/*     * `"MONTHLY"` */}
-{/*     * `"YEARLY"` */}
-{/*     * `"WEEKLY"` */}
-{/*     * `"DAILY"` */}
-{/*     * `"THREE_MONTHS"` */}
-{/*     * `"SIX_MONTHS"` */}
-{/* * `offeringId` (str): Optional. The ID of the new offering, if applicable. */}
-{/* * `paywallId` (str): Optional. The ID of the new paywall, if applicable. */}
-{/* * `ruleId` (str): Optional. The ID of the new pricing rule, if applicable. */}
-{/* * `features` ([List[Dict[str, Any]]]): Optional. A list of dictionaries, where each dictionary represents a feature and its desired quantity to update for the subscription. Each dictionary **must** have two keys: */}
-{/*     * `"identifier"` (str): The unique identifier for the feature. */}
-{/*     * `"quantity"` (int): The desired quantity for this feature. */}
-{/*         * Example: `[{'identifier': 'seats', 'quantity': 10}, {'identifier': 'projects', 'quantity': 5}]` */}
+* `subscriptionId` (str): Required. The unique identifier of the subscription to be updated.
+* `planIdentifier` (str): Required. The identifier of the new plan.
+* `chargePeriod` (str): Required. The new charging period for the subscription. Must be one of:
+    * `"ONE_TIME"`
+    * `"MONTHLY"`
+    * `"YEARLY"`
+    * `"WEEKLY"`
+    * `"DAILY"`
+    * `"THREE_MONTHS"`
+    * `"SIX_MONTHS"`
 
-{/* **Returns**: */}
+**Optional Parameters:**
 
-{/* An instance of `UpdateSubscriptionResponse`, which includes: */}
+* `offeringId` (str): Optional. The ID of the new offering, if applicable.
+* `paywallId` (str): Optional. The ID of the new paywall, if applicable.
+* `ruleId` (str): Optional. The ID of the new pricing rule, if applicable.
+* `ipAddress` (str): The IP Address of the customer, used for location based pricing.
+* `features` ([List[Dict[str, Any]]]): Optional. A list of dictionaries, where each dictionary represents a feature and its desired quantity to update for the subscription. Each dictionary **must** have two keys:
+    * `"identifier"` (str): The unique identifier for the feature.
+    * `"quantity"` (int): The desired quantity for this feature.
+        * Example: `[{'identifier': 'seats', 'quantity': 10}, {'identifier': 'projects', 'quantity': 5}]`
 
-{/* * `message` (str): A confirmation message indicating the result of the update request. */}
+**Returns**:
 
+An instance of `UpdateSubscriptionResponse`, which includes:
+
+* `message` (str): A confirmation message indicating the result of the update request.
 
 
 ### Cancel an active subscription for a customer.
