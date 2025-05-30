@@ -131,23 +131,26 @@ All methods are available in both synchronous and asynchronous versions, dependi
 </Accordion>
 
 
-**Parameters:**
+**Required Parameters:**
 
-* `customerId` (str): Required. A unique identifier for the customer that you define. This ID will be used to reference the customer in subsequent API calls. 
-* `email` (Optional[str]): Required. The email address of the customer. Must be a valid email format.
-* `name` (Optional[str], default: None): The name of the customer.
-* `metadata` (Optional[Dict[str, Any]], default: None): A dictionary of custom key-value pairs to store additional information about the customer.
+* `customerId` (str): A unique identifier for the customer that you define. This ID will be used to reference the customer in subsequent API calls.
+
+**Optional Parameters:**
+
+* `email` (str): The email address of the customer. Must be a valid email format.
+* `name` (str): The name of the customer.
+* `metadata` (Dict[str, str]): A dictionary of custom key-value pairs to store additional information about the customer.
+
 
 **Returns:**
 An instance of `CustomerResponse` (Pydantic model), representing the newly created customer record. Key attributes include:
 
 * `id` (str): The server-generated unique UUID for the customer record.
 * `customerId` (str): The client-provided customer identifier.
-* `name` (Optional[str]): The customer's name.
-* `email` (Optional[str]): The customer's email.
-* `details` (Optional[Dict[str, Any]]): Any server-added details about the customer (typically read-only).
-* `metadata` (Optional[Dict[str, Any]]): The metadata associated with the customer.
-* `subscriptions` (Optional[int]): Typically represents the count of active subscriptions (may be 0 for new customers).
+* `name` (str): The customer's name.
+* `email` (str): The customer's email.
+* `details` ([Dict[str, Any]]): Any server-added details about the customer (typically read-only).
+* `metadata` ([Dict[str, str]]): The metadata associated with the customer.
 
 
 ### Updates an existing customer
@@ -195,21 +198,26 @@ This operation performs a partial update (PATCH), so you only need to provide th
 
 **Parameters:**
 
-* `customerId` (str): Required. A unique identifier for the customer that you define.
-* `email` (Optional[str]): Required. The email address of the customer. Must be a valid email format.
-* `name` (Optional[str], default: None): The name of the customer.
-* `metadata` (Optional[Dict[str, Any]], default: None): A dictionary of custom key-value pairs to store additional information about the customer.
+**Required Parameters:**
+
+* `customerId` (str): A unique identifier for the customer that you define. This ID will be used to reference the customer in subsequent API calls.
+
+**Optional Parameters:**
+
+* `email` (str): The email address of the customer. Must be a valid email format.
+* `name` (str): The name of the customer.
+* `metadata` (Dict[str, str]): A dictionary of custom key-value pairs to store additional information about the customer.
+
 
 **Returns:**
 An instance of `CustomerResponse` (Pydantic model), representing the newly created customer record. Key attributes include:
 
 * `id` (str): The server-generated unique UUID for the customer record.
 * `customerId` (str): The client-provided customer identifier.
-* `name` (Optional[str]): The customer's name.
-* `email` (Optional[str]): The customer's email.
-* `details` (Optional[Dict[str, Any]]): Any server-added details about the customer (typically read-only).
-* `metadata` (Optional[Dict[str, Any]]): The metadata associated with the customer.
-* `subscriptions` (Optional[int]): Typically represents the count of active subscriptions (may be 0 for new customers).
+* `name` (str): The customer's name.
+* `email` (str): The customer's email.
+* `details` ([Dict[str, Any]]): Any server-added details about the customer (typically read-only).
+* `metadata` ([Dict[str, Any]]): The metadata associated with the customer.
 
 ---
 
@@ -224,12 +232,9 @@ This operation creates a new checkout session for a customer, allowing them to p
 
 ```python
 response = client.checkout.create_session(
-    paywallId="pw_123",
-    ruleId="rule_abc",
+    planIdentifier="plan-pro-monthly",
     chargePeriod="MONTHLY",
-    customerId="cust_789",
-    features=[{'identifier':"seats", 'quantity': 5}],
-    planIdentifier="plan_pro_monthly",
+    customerId="cust_789", // Recommended, otherwise it will create a new customer
     successUrl="https://paritydeals.com/checkout/success"
 )
 print(f"Checkout Session URL: {response.checkoutUrl}")
@@ -239,13 +244,15 @@ print(f"Checkout Session URL: {response.checkoutUrl}")
 
 ```python
 response = await async_client.checkout.create_session(
-    paywallId="pw_123",
-    ruleId="rule_abc",
+    planIdentifier="plan-pro-monthly",
     chargePeriod="MONTHLY",
     customerId="cust_789",
+    successUrl="https://paritydeals.com/checkout/success",
+    offeringId="96d3a293-34ac-48a5-b73d-976b15781afd",
+    paywallId="6db2717a-4e43-4ae1-a293-6c0a775f6264",
+    ruleId="f2ebc23f-3f79-4cf4-b17e-fe8e30a42ab2",
     features=[{'identifier':"seats", 'quantity': 5}],
-    planIdentifier="plan_pro_monthly", # or offeringId="offer_xyz"
-    successUrl="https://example.com/checkout/success"
+    ipAddress="103.154.35.20",
 )
 print(f"Checkout Session URL: {response.checkoutUrl}")
 
@@ -256,20 +263,20 @@ print(f"Checkout Session URL: {response.checkoutUrl}")
 
   ```json
    {
-        "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_b1sNi7D6u9iMCUFV1UZi9ZaiXKdOOmr3DCUW6XdCZIr5Id1F7#fid2cGd2ZndsdXsdjahsdkhsdhc%2FY2RpdmApJ3Zxd2x1YERmZmpwa3EnPydkZmZxWjRLZjV3X0BAckFBYGJKSEInKSdkdWxOYHwnPyd1blpxYHZxWjA0Tj1DSGdWRmwxYkdiMFxGQ29zf2BdTldOTGQzUlNqfWd9U1ZkanNHMlVnczxidEg0fFFqYVJNYzw8XEh2YVA8dkQ1bmA9NW5sS1c2PHE8dX89Q11Uf1E2NTVgY0M1Q0ZmYycpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwc",
+        "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_b1sNi7D6u9iMCUFV1UZi9ZaiXKdOOmr3DCUW6XdCZIr5Id1F7#fid2cGd2ZndsdXsdjahsdkhsdhc%2FY2RpdmApJ3Zxd2x1YERmZmpwa3EnPydkZmZxWjRLZjV3X0BAckFBYGJKSEInKSdkdWxOYHwnPyd1blpxYHZxWjA0Tj1DSGdWRmwxYkdiMFxGQ29zf2BdTldOTGQzUlNqfWd9U1ZkanNHMlVnczxidEg0fFFqYVJNYzw8XEh2YVA8dkQ1bmA9NW5sS1c2PHE8hH89Q11Uf1E2NTVgY0M1Q0ZmYycpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwc",
         "checkoutSessionId": "cs_test_b1sNi7D6u9iMCUFV1UZi9ZwerfaiXKdOOmr3DCUW6XdCZIr5Id1F7G",
     }
   ```
 </Accordion>
 
-**Parameters**:
 
+**Required Parameters:**
 
-    * `paywallId` (str): Required. The id (uuid) of the paywall being used for this checkout.
+* `planIdentifier` (str): The identifier of the specific plan the customer is checking out with. planIdentifier is mandatory.
 
-    * `ruleId` (str): Required. The id (uuid) of the pricing rule being applied.
+* `successUrl` (str): The URL to which the user will be redirected after a successful checkout.
 
-    * `chargePeriod` (ChargePeriod: Literal string): Required. The billing cycle for the subscription. Must be one of:
+* `chargePeriod` (str): Required. The billing cycle for the subscription. Must be one of:
 
         * `"ONE_TIME"`
 
@@ -284,20 +291,26 @@ print(f"Checkout Session URL: {response.checkoutUrl}")
         * `"THREE_MONTHS"`
 
         * `"SIX_MONTHS"`
-    * `customerId` (str): Required. The ID of the customer initiating the checkout.
 
-    * `featuresList` (List[Dict[str, Union[str, int]]]): **Required**. A list of dictionaries, where each dictionary represents a feature and its desired quantity. Each dictionary **must** have two keys:
+
+
+**Optional Parameters:**
+
+    * `offeringId` (str): The ID (uuid) of the offering the customer is checking out with.
+
+    * `paywallId` (str): Required. The id (uuid) of the paywall being used for this checkout. (Considered only if `offeringId` is not provided)
+
+    * `ruleId` (str): Required. The id (uuid) of the pricing rule being applied. (Considered only if `offeringId` is not provided)
+
+    * `customerId` (str): Required. The ID of the customer initiating the checkout. (If not provided, a new customer will be created)
+
+    * `features` (List[Dict[str, Union[str, int]]]): **Required**. A list of dictionaries, where each dictionary represents a feature and its desired quantity. Each dictionary **must** have two keys:
         * `"identifier"` (str): The unique identifier for the feature.
         * `"quantity"` (int): The desired quantity for this feature.
             * Example: `[{"identifier": "seats", "quantity": 10}, {"identifier": "api-calls-tier1", "quantity": 5000}]`
 
-    * `planIdentifier` (str): The identifier of the specific plan the customer is checking out with. planIdentifier is mandatory.
+    * `ipAddress` (str): The IP Address of the customer, used for location based pricing.
 
-    * `offeringId` (Optional[str], default: None): The ID (uuid) of the offering the customer is checking out with.
-
-    * `successUrl` (Optional[str], default: None): The URL to which the user will be redirected after a successful checkout. If not provided, and the checkout is initiated from a UI, it may default to redirecting back to that UI.
-
-Constraint: You must provide planIdentifier and  chargePeriod.
 
 **Returns**:
 
@@ -314,7 +327,8 @@ An instance of CreateCheckoutSessionResponse (Pydantic model), which includes:
 The entitlements module allows you to check and retrieve customer entitlements for various features. These operations target a specific edge API endpoint (https://edge.api.paritydeals.com by default) and use the GET HTTP method with query parameters.
 
 
-Checks if a specific customer has access to a particular feature. This method directly returns a boolean indicating access status.
+### Checks if a specific customer has access to a particular feature.
+This method directly returns a boolean indicating access status.
 
 **Synchronous**:
 
@@ -341,18 +355,19 @@ has_feature_access = await async_client.entitlements.has_access(
   ```
 </Accordion>
 
-**Parameters**:
+**Required Parameters**:
 
-    * `customerId` (str): Required. The unique identifier for the customer.
+    * `customerId` (str): The unique identifier for the customer.
 
-    * `featureId` (str): Required. The unique identifier for the feature whose access is being checked.
+    * `featureId` (str): The unique identifier for the feature whose access is being checked.
 
 **Returns**:
 
     * `bool`: True if the customer has access to the specified feature (considering feature type, limits, etc.), False otherwise or if the feature is not found in their entitlements.
 
 
-Retrieves the detailed entitlement information for a specific feature for a given customer.
+
+### Retrieves the detailed entitlement information for a specific feature for a given customer.
 
 **Synchronous**:
 
@@ -394,11 +409,11 @@ entitlement_response = await async_client.entitlements.get_entitlement(
   ```
 </Accordion>
 
-**Parameters**:
+**Required Parameters**:
 
-    * `customerId` (str): Required. The unique identifier for the customer.
+    * `customerId` (str): The unique identifier for the customer.
 
-    * `featureId` (str): Required. The unique identifier for the feature whose access is being checked.
+    * `featureId` (str): The unique identifier for the feature whose access is being checked.
 
 **Returns**:
 
@@ -412,9 +427,9 @@ An instance of CheckEntitlementsResponse (Pydantic model). When querying for a s
 
         * `hasAccess`: bool
 
-        * `featureType`: Optional[str]
+        * `featureType`: str
 
-        * `resetAt`: Optional[str]
+        * `resetAt`: str
 
         * `hardLimit`: Optional[bool]
 
@@ -425,7 +440,7 @@ An instance of CheckEntitlementsResponse (Pydantic model). When querying for a s
         * `remaining`: Optional[int]
 
 
-Retrieves all entitlements for a given customer.
+### Retrieves all entitlements for a given customer.
 
 **Synchronous**:
 
@@ -465,9 +480,10 @@ all_entitlements_response = await async_client.entitlements.get_all_entitlements
   ```
 </Accordion>
 
-**Parameters**:
+**Required Parameters**:
 
-    * `customerId` (str): Required. The unique identifier for the customer.
+    * `customerId` (str): The unique identifier for the customer.
+
 
 **Returns**:
 
@@ -480,9 +496,9 @@ all_entitlements_response = await async_client.entitlements.get_all_entitlements
 
         * `hasAccess`: bool
 
-        * `featureType`: Optional[str]
+        * `featureType`: str
 
-        * `resetAt`: Optional[str]
+        * `resetAt`: str
 
         * `hardLimit`: Optional[bool]
 
@@ -543,13 +559,13 @@ response = await async_client.reporting.report_usage(
 </Accordion>
 
 
-**Parameters**:
+**Required Parameters**:
 
-    * `value` (int): Required. The usage value being reported.
+    * `value` (int): The usage value being reported.
 
-    * `customerId` (str): Required. The unique identifier for the customer associated with this usage.
+    * `customerId` (str): The unique identifier for the customer associated with this usage.
 
-    * `featureId` (str): Required. The unique identifier for the feature for which usage is being reported.
+    * `featureId` (str): The unique identifier for the feature for which usage is being reported.
 
     * `behaviour` parameter dictates how the usage is updated:
 
@@ -576,7 +592,7 @@ An instance of ReportUsageResponse (Pydantic model), which includes:
 
     * `idempotencyKey` (str): A unique idempotency key generated by the server for this specific usage report instance.
 
-    * `timestamp` (str): The server-generated UTC timestamp (string format) indicating when the usage report was processed.
+    * `timestamp` (str): The server-generated UTC timestamp (str format) indicating when the usage report was processed.
 
 
 ### Reporting raw events for customer
@@ -633,17 +649,17 @@ response = await async_client.reporting.report_event(
 </Accordion>
 
 
-**Parameters**:
+**Required Parameters**:
 
-    * `customerId` (str): Required. The unique identifier for the customer who performed the event. 
+    * `customerId` (str): The unique identifier for the customer who performed the event.
 
-    * `eventName` (str): Required. The name of the event (e.g., "user_login", "item_purchased", "feature_activated"). 
+    * `eventName` (str): The name of the event (e.g., "user_login", "item_purchased", "feature_activated").
 
-    * `idempotencyKey` (str): Required. A unique client-generated key to ensure that the event is processed at most once, even if the request is retried. A UUID is a good choice. 
+    * `idempotencyKey` (str): A unique client-generated key to ensure that the event is processed at most once, even if the request is retried. A UUID is a good choice.
 
-    * `timestamp` (str): Required. The UTC timestamp indicating when the event occurred. This must be a string formatted as "%Y-%m-%d %H:%M:%S.%f" (e.g., "2025-05-23 10:30:00.123456").
+    * `timestamp` (str): The UTC timestamp indicating when the event occurred. This must be a str formatted as "%Y-%m-%d %H:%M:%S.%f" (e.g., "2025-05-23 10:30:00.123456").
 
-    * `properties` (Optional[Dict[str, Any]], default: None): A dictionary of additional custom properties associated with the event. Values can be strings, numbers, booleans.
+    * `properties` ([Dict[str, Any]], default: None): A dictionary of additional custom properties associated with the event. Values can be strs, numbers, booleans.
 
 **Returns**:
 
@@ -655,9 +671,9 @@ An instance of ReportEventResponse (Pydantic model), which includes:
 
     * `idempotencyKey` (str): The idempotency key that was used for the request.
 
-    * `timestamp` (str): The timestamp (string format) that was recorded for the event.
+    * `timestamp` (str): The timestamp (str format) that was recorded for the event.
 
-    * `properties` (Optional[Dict[str, Any]]): The custom properties associated with the event, if provided and returned by the server.
+    * `properties` ([Dict[str, Any]]): The custom properties associated with the event, if provided and returned by the server.
 
     * `orgId` (str): The organization ID associated with this record, as determined by the server.
 
@@ -679,12 +695,7 @@ try:
     response = client.subscriptions.update(
         subscriptionId="78058918-9746-4280-9b9b-1bd5115eec6e",
         planIdentifier="premium-plan",
-        chargePeriod="MONTHLY", # e.g., "MONTHLY", "YEARLY"
-        # Optional parameters below
-        # offeringId="offer_abc",
-        # paywallId="pw_def",
-        # ruleId="rule_ghi",
-        # features=[{'identifier': "seats", 'quantity': 10}]
+        chargePeriod="MONTHLY",
     )
     print(response.message)
 except Exception as e:
@@ -701,7 +712,11 @@ try:
         subscriptionId="78058918-9746-4280-9b9b-1bd5115eec6e",
         planIdentifier="new_plan_enterprise",
         chargePeriod="YEARLY",
-        features=[{'identifier': "api-calls", 'quantity': 100000}]
+        offeringId="offer_abc",
+        paywallId="pw_def",
+        ruleId="rule_ghi",
+        ipAddress="103.154.35.20",
+        features=[{'identifier': "seats", 'quantity': 10}]
     )
     print(response.message)
 except Exception as e:
@@ -717,7 +732,7 @@ except Exception as e:
   ```
 </Accordion>
 
-**Parameters**:
+**Required Parameters**:
 
 * `subscriptionId` (str): Required. The unique identifier of the subscription to be updated.
 * `planIdentifier` (str): Required. The identifier of the new plan.
@@ -729,10 +744,14 @@ except Exception as e:
     * `"DAILY"`
     * `"THREE_MONTHS"`
     * `"SIX_MONTHS"`
-* `offeringId` (Optional[str]): Optional. The ID of the new offering, if applicable.
-* `paywallId` (Optional[str]): Optional. The ID of the new paywall, if applicable.
-* `ruleId` (Optional[str]): Optional. The ID of the new pricing rule, if applicable.
-* `features` (Optional[List[Dict[str, Any]]]): Optional. A list of dictionaries, where each dictionary represents a feature and its desired quantity to update for the subscription. Each dictionary **must** have two keys:
+
+**Optional Parameters:**
+
+* `offeringId` (str): Optional. The ID of the new offering, if applicable.
+* `paywallId` (str): Optional. The ID of the new paywall, if applicable.
+* `ruleId` (str): Optional. The ID of the new pricing rule, if applicable.
+* `ipAddress` (str): The IP Address of the customer, used for location based pricing.
+* `features` ([List[Dict[str, Any]]]): Optional. A list of dictionaries, where each dictionary represents a feature and its desired quantity to update for the subscription. Each dictionary **must** have two keys:
     * `"identifier"` (str): The unique identifier for the feature.
     * `"quantity"` (int): The desired quantity for this feature.
         * Example: `[{'identifier': 'seats', 'quantity': 10}, {'identifier': 'projects', 'quantity': 5}]`
@@ -742,7 +761,6 @@ except Exception as e:
 An instance of `UpdateSubscriptionResponse`, which includes:
 
 * `message` (str): A confirmation message indicating the result of the update request.
-
 
 
 ### Cancel an active subscription for a customer.
@@ -787,17 +805,17 @@ except Exception as e:
   ```
 </Accordion>
 
-**Parameters**:
+**Required Parameters**:
 
-* `subscriptionId` (str): Required. The unique identifier of the subscription to be cancelled.
+* `subscriptionId` (str): The unique identifier of the subscription to be cancelled.
 
-* `cancellationType` (str): Required. The type of cancellation to perform. Must be one of:
+* `cancellationType` (str): The type of cancellation to perform. Must be one of:
 
     * `"IMMEDIATE"`: The subscription is cancelled immediately.
     * `"CURRENT_PERIOD_ENDS"`: The subscription will remain active until the end of the current billing period and then cancel.
     * `"SPECIFIC_DATE"`: The subscription will be cancelled on the specified `cancellationDate`.
 
-* `cancellationDate` (Optional[str]): The specific date for cancellation if `cancellationType` is `"SPECIFIC_DATE"`. Must be in `YYYY-MM-DD` format. This parameter is **required** if `cancellationType` is `"SPECIFIC_DATE"`.
+* `cancellationDate` (str): The specific date for cancellation if `cancellationType` is `"SPECIFIC_DATE"`. Must be in `YYYY-MM-DD` format. This parameter is **required** if `cancellationType` is `"SPECIFIC_DATE"`.
 
 **Returns**:
 
