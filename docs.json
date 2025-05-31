@@ -93,19 +93,16 @@
       },
       
       {
-        "tab": "API Reference",
+        "tab": "APIs & SDKs",
         "groups": [
           {
             "group": "API Documentation",
-            "pages": ["api-reference/introduction"]
+            "openapi": "api-reference/openapi.json"
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Backend Integration",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/backend-integration/python-sdk"
             ]
           }
         ]
