@@ -237,7 +237,7 @@ const response = await client.checkout.createSession({
 
 * `successUrl` : The URL to which the user will be redirected after a successful checkout.
 
-* `chargePeriod` : Required. The billing cycle for the subscription. Must be one of:
+* `chargePeriod` :  The billing cycle for the subscription. Must be one of:
 
         * `"ONE_TIME"`
 
@@ -259,11 +259,11 @@ const response = await client.checkout.createSession({
 
     * `offeringId` : The ID (uuid) of the offering the customer is checking out with.
 
-    * `paywallId` : Required. The id (uuid) of the paywall being used for this checkout. (Considered only if `offeringId` is not provided)
+    * `paywallId` :  The id (uuid) of the paywall being used for this checkout. (Considered only if `offeringId` is not provided)
 
-    * `ruleId` : Required. The id (uuid) of the pricing rule being applied. (Considered only if `offeringId` is not provided)
+    * `ruleId` :  The id (uuid) of the pricing rule being applied. (Considered only if `offeringId` is not provided)
 
-    * `customerId` : Required. The ID of the customer initiating the checkout. (If not provided, a new customer will be created)
+    * `customerId` :  The ID of the customer initiating the checkout. (If not provided, a new customer will be created)
 
     * `features`: **Required**. A list of dictionaries, where each dictionary represents a feature and its desired quantity. Each dictionary **must** have two keys:
         * `"identifier"` : The unique identifier for the feature.
@@ -622,9 +622,9 @@ except Exception as e:
 
 **Required Parameters**:
 
-* `subscriptionId` : Required. The unique identifier of the subscription to be updated.
-* `planIdentifier` : Required. The identifier of the new plan.
-* `chargePeriod` : Required. The new charging period for the subscription. Must be one of:
+* `subscriptionId` :  The unique identifier of the subscription to be updated.
+* `planIdentifier` :  The identifier of the new plan.
+* `chargePeriod` :  The new charging period for the subscription. Must be one of:
     * `"ONE_TIME"`
     * `"MONTHLY"`
     * `"YEARLY"`
