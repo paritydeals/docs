@@ -115,7 +115,9 @@ const newCustomer = await client.customers.create({
   "metadata": {
     "source": "sdk_import",
     "priority": "high"
-  }
+  },
+  "createdOn": "2025-06-04T06:03:30.195790Z",
+  "modifiedOn": "2025-06-04T06:03:30.195831Z"
 }
 ```
 </Accordion>
@@ -140,6 +142,8 @@ An instance of `CustomerResponse` (Pydantic model), representing the newly creat
 * `email` : The customer's email.
 * `details` : Any server-added details about the customer (typically read-only).
 * `metadata` : The metadata associated with the customer.
+* `createdOn` : ISO 8601 timestamp of when the customer was created.
+* `modifiedOn` : ISO 8601 timestamp of when the customer was last modified.
 
 
 ### Updates an existing customer
@@ -168,7 +172,10 @@ const updatedCustomer = await client.customers.update({
   "details": {}, // Or any server-added details
   "metadata": {
     "tier": "premium_plus"
-  }
+  },
+  "createdOn": "2025-06-04T06:03:30.195790Z",
+  "modifiedOn": "2025-06-04T06:03:30.195831Z"
+
 }
 ```
 </Accordion>
@@ -196,6 +203,8 @@ An instance of `CustomerResponse` (Pydantic model), representing the newly creat
 * `email` : The customer's email.
 * `details` : Any server-added details about the customer (typically read-only).
 * `metadata` : The metadata associated with the customer.
+* `createdOn` : ISO 8601 timestamp of when the customer was created.
+* `modifiedOn` : ISO 8601 timestamp of when the customer was last modified.
 
 ---
 

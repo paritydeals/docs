@@ -66,6 +66,18 @@
               "source": "sdk_import",
               "priority": "high"
             }
+          },
+          "createdOn": {
+            "type": "string",
+            "nullable": false,
+            "description": "Customer created date and time",
+            "example": "2025-06-04T06:03:30.195790Z"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "nullable": false,
+            "description": "Customer updated date and time",
+            "example": "2025-06-04T06:03:30.195790Z"
           }
         }
       },
@@ -625,7 +637,9 @@
                   "metadata": {
                     "source": "sdk_import",
                     "priority": "high"
-                  }
+                  },
+                  "createdOn": "2025-06-04T06:03:30.195790Z",
+                  "modifiedOn": "2025-06-04T06:03:30.195831Z"
                 }
               }
             }
@@ -681,7 +695,9 @@
                     "source": "sdk_import",
                     "priority": "high",
                     "status": "active"
-                  }
+                  },
+                  "createdOn": "2025-06-04T06:03:30.195790Z",
+                  "modifiedOn": "2025-06-04T06:03:30.195831Z"
                 }
               }
             }

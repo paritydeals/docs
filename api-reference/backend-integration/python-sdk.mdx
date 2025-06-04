@@ -125,7 +125,9 @@ All methods are available in both synchronous and asynchronous versions, dependi
   "metadata": {
     "source": "sdk_import",
     "priority": "high"
-  }
+  },
+  "createdOn": "2025-06-04T06:03:30.195790Z",
+  "modifiedOn": "2025-06-04T06:03:30.195831Z"
 }
 ```
 </Accordion>
@@ -151,7 +153,8 @@ An instance of `CustomerResponse` (Pydantic model), representing the newly creat
 * `email` (str): The customer's email.
 * `details` ([Dict[str, Any]]): Any server-added details about the customer (typically read-only).
 * `metadata` ([Dict[str, str]]): The metadata associated with the customer.
-
+* `createdOn` (string) : ISO 8601 timestamp of when the customer was created.
+* `modifiedOn` (string) : ISO 8601 timestamp of when the customer was last modified.
 
 ### Updates an existing customer
 
@@ -190,7 +193,9 @@ This operation performs a partial update (PATCH), so you only need to provide th
     "source": "sdk_import",
     "priority": "high",
     "status": "active"
-  }
+  },
+  "createdOn": "2025-06-04T06:03:30.195790Z",
+  "modifiedOn": "2025-06-04T06:03:30.195831Z"
 }
 ```
 </Accordion>
@@ -218,6 +223,8 @@ An instance of `CustomerResponse` (Pydantic model), representing the newly creat
 * `email` (str): The customer's email.
 * `details` ([Dict[str, Any]]): Any server-added details about the customer (typically read-only).
 * `metadata` ([Dict[str, Any]]): The metadata associated with the customer.
+* `createdOn` (string) : ISO 8601 timestamp of when the customer was created.
+* `modifiedOn` (string) : ISO 8601 timestamp of when the customer was last modified.
 
 ---
 
