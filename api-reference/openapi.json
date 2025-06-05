@@ -835,7 +835,7 @@
         }
       }
     },
-    "/reporting/usage/": {
+    "/report/usage/": {
       "post": {
         "tags": [
           "Reporting"
@@ -877,7 +877,7 @@
         }
       }
     },
-    "/reporting/events/": {
+    "/report/events/": {
       "post": {
         "tags": [
           "Reporting"
