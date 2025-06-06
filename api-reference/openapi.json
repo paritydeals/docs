@@ -554,9 +554,9 @@
       "UpdateSubscriptionResponse": {
         "type": "object",
         "properties": {
-          "message": {
+          "subscriptionId": {
             "type": "string",
-            "example": "Subscription updated successfully."
+            "example": "dffaf07e-4517-47db-ba3a-59a05aa2d465"
           }
         }
       },
@@ -953,14 +953,14 @@
         },
         "responses": {
           "200": {
-            "description": "Subscription updated successfully.",
+            "description": "UUID of the updated subscription",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UpdateSubscriptionResponse"
                 },
                 "example": {
-                  "message": "Subscription updated successfully."
+                  "subscriptionId": "dffaf07e-4517-47db-ba3a-59a05aa2d465"
                 }
               }
             }

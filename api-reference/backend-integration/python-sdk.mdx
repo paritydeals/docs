@@ -704,7 +704,7 @@ try:
         planIdentifier="premium-plan",
         chargePeriod="MONTHLY",
     )
-    print(response.message)
+    print(response.subscriptionId)
 except Exception as e:
     print(f"Error updating subscription: {e}")
 ```
@@ -725,7 +725,7 @@ try:
         ipAddress="103.154.35.20",
         features=[{'identifier': "seats", 'quantity': 10}]
     )
-    print(response.message)
+    print(response.subscriptionId)
 except Exception as e:
     print(f"Error updating subscription: {e}")
 ```
@@ -734,7 +734,7 @@ except Exception as e:
 
   ```json
    {
-      "message": "Subscription updated successfully."
+      "subscriptionId": "dffaf07e-4517-47db-ba3a-59a05aa2d465"
    }
   ```
 </Accordion>
@@ -767,7 +767,7 @@ except Exception as e:
 
 An instance of `UpdateSubscriptionResponse`, which includes:
 
-* `message` (str): A confirmation message indicating the result of the update request.
+* `subscriptionId` (str): UUID of the updated subscription.
 
 
 ### Cancel an active subscription for a customer.
