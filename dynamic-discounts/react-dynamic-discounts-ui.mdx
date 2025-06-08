@@ -1,0 +1,187 @@
+---
+title: "React"
+description: "Documentation for the ParityDeals React Dynamic Discounts UI"
+icon: 'react'
+---
+
+# ParityDeals React Dynamic Discounts UI
+
+A React SDK for integrating ParityDeals pricing and discount functionality into your React application.
+
+## Installation
+
+```bash
+npm install @paritydeals/react-sdk
+```
+
+## Quick Start
+
+Wrap your application with the `ParityDealsProvider`:
+
+```tsx
+import { ParityDealsProvider } from '@paritydeals/react-sdk';
+
+function App() {
+    return (
+        <ParityDealsProvider>{/* Your app components */}</ParityDealsProvider>
+    );
+}
+```
+
+## Components
+
+### PDBanner
+
+Displays a customizable banner with pricing information.
+
+```tsx
+import { PDBanner } from '@paritydeals/react-sdk';
+
+// Basic usage
+<PDBanner />
+
+// Use custom styles to override the default styles
+<PDBanner
+  backgroundColor="#f0f0f0"
+  fontColor="#333"
+  borderRadius="4px"
+  fontSize="16px"
+  unStyled={false}
+  addCloseIcon={true}
+  className="custom-banner"
+  onClose={() => console.log('Banner closed')}
+/>
+```
+
+### PDPriceFormatted
+
+#### Regular Price Display
+
+Used to show the current price (with any applicable discounts):
+
+```tsx
+import { PDPriceFormatted } from '@paritydeals/react-sdk';
+
+// Basic usage - shows current price
+<PDPriceFormatted
+    originalPrice={99.99}
+    showDecimal={true}
+    showCurrencyCode={true}
+    showCurrencySymbol={true}
+    convertToLocal={true}
+/>;
+```
+
+#### Original Price Display (Strikethrough)
+
+Used to show the original price as a strikethrough when there's a discount. The component will only render if `displayPrice` is provided.
+
+```tsx
+import { PDPriceFormatted } from '@paritydeals/react-sdk';
+
+// Shows strikethrough original price when there's a discount
+<PDPriceFormatted
+    originalPrice={99.99}
+    displayPrice={99.99} // If the calculated price is less than displayPrice, shows strikethrough
+    isOriginalDisplay={true} // Renders as <s> tag
+    showCurrencySymbol={true}
+    convertToLocal={true}
+/>;
+```
+
+Typical usage combining both to show original and discounted prices:
+
+```tsx
+<div className="price-container">
+    {/* Current/discounted price */}
+    <PDPriceFormatted originalPrice={99.99} showCurrencySymbol={true} />
+
+    {/* Original price (strikethrough) */}
+    <PDPriceFormatted
+        originalPrice={99.99}
+        displayPrice={99.99}
+        isOriginalDisplay={true}
+        showCurrencySymbol={true}
+    />
+</div>
+```
+
+#### Price Component Building Blocks
+
+For more granular control, you can use individual price components:
+
+##### PDPriceInteger
+
+Displays the integer part of the price.
+
+```tsx
+import { PDPriceInteger } from '@paritydeals/react-sdk';
+
+<PDPriceInteger originalPrice={99.99} className="price-integer" />;
+```
+
+##### PDPriceDecimal
+
+Displays the decimal part of the price.
+
+```tsx
+import { PDPriceDecimal } from '@paritydeals/react-sdk';
+
+<PDPriceDecimal originalPrice={99.99} className="price-decimal" />;
+```
+
+##### PDPriceCurrencySymbol
+
+Displays the currency symbol.
+
+```tsx
+import { PDPriceCurrencySymbol } from '@paritydeals/react-sdk';
+
+<PDPriceCurrencySymbol convertToLocal={true} className="currency-symbol" />;
+```
+
+##### PDPriceCurrencyCode
+
+Displays the currency code.
+
+```tsx
+import { PDPriceCurrencyCode } from '@paritydeals/react-sdk';
+
+<PDPriceCurrencyCode convertToLocal={true} className="currency-code" />;
+```
+
+### Building Custom Price Displays
+
+You can combine the individual components to create custom price displays:
+
+```tsx
+<div className="custom-price-display">
+    <PDPriceCurrencySymbol convertToLocal={true} />
+    <PDPriceInteger originalPrice={99.99} />
+    <span className="decimal-separator">.</span>
+    <PDPriceDecimal originalPrice={99.99} />
+    <PDPriceCurrencyCode convertToLocal={true} />
+</div>
+```
+
+## Price Formatting Options
+
+All price components accept these common formatting options:
+
+```typescript
+interface DefaultFormatConfig {
+    thousandsSeparator: string; // Default: ","
+    decimalSeparator: string; // Default: "."
+    decimalPlaces: number; // Default: 2
+    roundTo: string; // "none" | "up" | "down"
+    showDecimal: boolean; // Default: true
+    convertToLocal: boolean; // Default: false
+    showCurrencyCode: boolean; // Default: false
+    showCurrencySymbol: boolean; // Default: true
+    isOriginalDisplay: boolean; // Default: false
+}
+```
+
+## Help
+
+If you have any questions or need assistance, please contact us at admin@paritydeals.com.

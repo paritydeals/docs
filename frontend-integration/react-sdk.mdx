@@ -1,7 +1,7 @@
 ---
 title: "React SDK"
 description: "Documentation for the ParityDeals React SDK"
-icon: 'code'
+icon: 'js'
 ---
 
 # **@paritydeals/react-sdk Documentation**
@@ -49,7 +49,7 @@ const App = () => {
     <ParityDealsProvider
       orgId="your-organization-id"
       customerId="your-customer-id"
-      authToken={staticAuthToken}
+      accessToekn={staticaccessToekn}
     >
       <MyAppContent />
     </ParityDealsProvider>
@@ -72,19 +72,20 @@ export default App;
 
 ### Required Props for `ParityDealsProvider`
 
-- `apiUrl: string`
-  - The base URL for your ParityDeals API. For example, `https://edge.stagingapi.paritydeals.com/api/v1`.
-- `entitlementsPath: string`
-  - The specific path for the endpoint that returns all entitlements for a customer. This path will be appended to `apiUrl`. For example, `entitlement-check` or `user-entitlements`.
 - `orgId: string`
   - The ID of the organization for which entitlements are being fetched. This will be sent as a query parameter (`org_id`).
 - `customerId: string`
   - The ID of the customer for whom entitlements are being fetched. This will be sent as a query parameter (`customer_id`).
+- `accessToekn?: string | null`
+  - Your static API token or Bearer token for authenticating requests to the ParityDeals API. If provided, it will be included in the `Authorization: Bearer <accessToekn>` header.
 
 ### Optional Props for `ParityDealsProvider`
-
-- `authToken?: string | null`
-  - Your static API token or Bearer token for authenticating requests to the ParityDeals API. If provided, it will be included in the `Authorization: Bearer <authToken>` header.
+<Expandable title="Optional Props">
+  
+- `apiUrl: string`
+  - The base URL for your ParityDeals API. For example, `https://edge.stagingapi.paritydeals.com/api/v1`.
+- `entitlementsPath: string`
+  - The specific path for the endpoint that returns all entitlements for a customer. This path will be appended to `apiUrl`. For example, `entitlement-check` or `user-entitlements`.
 - `config?: ParityDealsApiBehaviorOptions`
   - An optional object to configure more advanced behaviors of the SDK.
 
@@ -105,6 +106,8 @@ This optional object can contain the following properties:
 - `fetchEntitlementsOnMount?: boolean`
   - Defaults to `true`. If true, entitlements are fetched automatically when the `ParityDealsProvider` mounts.
   - Set to `false` if you want to control the initial fetch manually using the `refreshAllEntitlements` function from the `useParityDeals` hook.
+</Expandable>
+
 
 ## **4. Fetching Entitlements**
 
@@ -118,6 +121,7 @@ The `isLoading` state from `useParityDeals()` will be `true` during this initial
 
 If `fetchEntitlementsOnMount` is set to `false`, or if you need to re-fetch entitlements at any point (e.g., after a user action that might change their entitlements), you can use the `refreshAllEntitlements` function.
 
+<Expandable title="Code Example">
 ``` tsx
 import { useParityDeals } from '@paritydeals/react-sdk';
 
@@ -145,7 +149,7 @@ function MyComponent() {
 }
 
 ```
-
+</Expandable>
 ## **5. Accessing Entitlement Data (Hooks)**
 
 The SDK provides several hooks to access entitlement data and SDK state.
@@ -348,14 +352,14 @@ You can import these types from `@paritydeals/react-sdk/types` (assuming your `s
 
 A comprehensive example is provided within the comments of the SDK code, demonstrating provider setup and component usage. The core setup involves:
 
-1. Wrapping your application with `ParityDealsProvider` and providing the required props (`apiUrl`, `entitlementsPath`, `orgId`, `customerId`) and any optional `config` or `authToken`.
+1. Wrapping your application with `ParityDealsProvider` and providing the required props (`apiUrl`, `entitlementsPath`, `orgId`, `customerId`) and any optional `config` or `accessToekn`.
 2. Using hooks like `useBooleanEntitlement` or conditional components like `ShowWhenBooleanEntitled` in your components to control UI and behavior based on entitlements.
 
 ## **10. API Request Service**
 
-The SDK relies on an `apiRequest` function for making HTTP requests. The SDK's `ParityDealsProvider` passes configuration like `timeout`, `maxRetries`, `backoffBaseDelay`, and `authToken` to this function.
+The SDK relies on an `apiRequest` function for making HTTP requests. The SDK's `ParityDealsProvider` passes configuration like `timeout`, `maxRetries`, `backoffBaseDelay`, and `accessToekn` to this function.
 
-- **Your Responsibility:** You need to ensure that your project includes an implementation of this `apiRequest` service (e.g., in `src/services/makeRequest.service.ts`) that matches the `ApiRequestConfig` and `ApiResponse` interfaces used by the SDK. This service should handle actual HTTP communication, including appending query parameters passed via `ApiRequestConfig.queryParams` and using the `authToken` to set the `Authorization` header.
+- **Your Responsibility:** You need to ensure that your project includes an implementation of this `apiRequest` service (e.g., in `src/services/makeRequest.service.ts`) that matches the `ApiRequestConfig` and `ApiResponse` interfaces used by the SDK. This service should handle actual HTTP communication, including appending query parameters passed via `ApiRequestConfig.queryParams` and using the `accessToekn` to set the `Authorization` header.
 - The placeholder `apiRequest` function included in the SDK's source code is for demonstration and type-checking purposes only and will not make real API calls.
 
 ## **11. Project Structure (for contributors/reference)**
