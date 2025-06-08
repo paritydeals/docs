@@ -58,15 +58,6 @@
             ]
           },
           {
-            "group": "Frontend Integration",
-            "pages": [
-              "frontend-integration/javascript-sdk",
-              "frontend-integration/javascript-ui",
-              "frontend-integration/react-sdk",
-              "frontend-integration/react-ui"
-            ]
-          },
-          {
             "group": "Deals",
             "pages": [
               "deals-ui/what-is-a-deal",
@@ -74,8 +65,8 @@
               {
                 "group": "Frontend integration",
                 "pages": [
-                  "deals-ui/react-deals-ui",
-                  "deals-ui/javascript-deals-ui"
+                  "frontend-integration/js-promotions-ui",
+                  "frontend-integration/react-promotions-ui"
                 ]
               }
             ]
@@ -104,6 +95,15 @@
             "pages": [
               "api-reference/backend-integration/python-sdk",
               "api-reference/backend-integration/node-sdk"
+            ]
+          },
+          {
+            "group": "Frontend Integration",
+            "pages": [
+              "frontend-integration/js-sdk",
+              "frontend-integration/js-ui",
+              "frontend-integration/react-sdk",
+              "frontend-integration/react-ui"
             ]
           }
         ]
