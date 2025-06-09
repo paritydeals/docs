@@ -1,0 +1,101 @@
+## Overview
+
+This guide explains how to add ParityDeals discount banners to your website for location-based promotions, and how to build a fully custom integration using the Promotions API.
+
+---
+
+<Tab title="Banner & Site Integration">
+    This tab allows you to customize the promotional banner and provides the code needed to add it to your website.
+
+    ### Adding Discounts to Your Site
+
+    You have two primary methods for displaying location-based discounts to your customers:
+
+    <CardGroup cols={2}>
+      <Card title="Discount Banners (Recommended)" href="#discount-banners">
+        The simplest method. Add a single line of JavaScript to your site, and ParityDeals will automatically display a customizable, location-aware banner to eligible visitors.
+      </Card>
+      <Card title="Custom Solution via API" href="#build-a-custom-design-using-api">
+        For full control over the user experience. Use our API to fetch discount data and build a completely custom promotion UI within your application.
+      </Card>
+    </CardGroup>
+
+    ---
+    
+    ### Discount Banners
+    Discount banners will be visible on your site if a visitor is eligible for a discount based on the criteria you've set up in the promotion.
+
+    #### Getting Started: Add the Script
+    To enable discount banners, you need to add a single line of JavaScript to your website.
+    
+    That's it. ParityDeals will automatically handle the logic to display the correct banner and coupon code based on your promotion rules and the visitor's location. For details on styling the banner, refer to the "Banner Styling & Placement" section below.
+
+    #### How to Get the JavaScript Code
+    You can get the necessary code snippet from two places in the dashboard:
+    
+    1.  From the promotion's detail page after creation.
+        <Frame>
+        <img height="200" src="/images/banner-tab-javascript-snippet.png" alt="Banner tab showing JavaScript snippet" />
+        </Frame>
+    2.  Click the **three-dot menu** on any promotion in the Promotions list and select **"Get code"**.
+        <Frame>
+        <img height="200" src="/images/three-dot-menu-get-code.png" alt="Three-dot menu showing Get code option" />
+        </Frame>
+    
+    **The Code Snippet:**
+    ```html
+    <script src="https://cdn.paritydeals.com/banner.js"></script>
+    ```
+    <Info>Place this script tag in the `<head>` or before the closing `</body>` tag of your site's HTML template.</Info>
+
+    #### Testing the Banner Locally
+    To test and view the discount banner on a local development server (e.g., `localhost:3000`), you must pass the banner's unique identifier via a URL parameter.
+
+    1.  **Create a Temporary Discount:** First, ensure you have a discount set up for your own country so you are eligible to see the banner during testing.
+    2.  **Append the URL Parameter:** Add `?pd_identifier=YOUR_IDENTIFIER` to the end of your local URL.
+        * **Example:** `http://localhost:3000/pricing/?pd_identifier=07503741-273f-433f-a266-99g7154f3dr6`
+    3.  **Find Your Banner Identifier (`pd_identifier`):** You can find this required ID on the promotion's detail page, within the **API** tab.
+     
+
+    <Warning>
+    **Do not expose your banner identifier (`pd_identifier`) publicly.** It is intended for testing and specific API use cases only. The script tag works for the public without needing the identifier.
+    </Warning>
+
+    #### Banner Styling & Placement
+    * **Styling:** Customize the banner's appearance using the no-code style editor: **Background color, Font color, Border radius, Font size**.
+    * **Copy:** Toggle on **"Banner copy"** to customize the text displayed. You can use dynamic variables like `{country_flag}`, `{coupon_code}`, `{discount_percentage}`.
+    * **Placement:** Choose to display the banner at the **Top** or **Bottom** of the viewport and define the **Banner Container** (an HTML selector like `#container` or `body`).
+
+    <Frame>
+    <img height="200" src="/images/banner-styling-placement.png" alt="Banner styling and placement controls" />
+    </Frame>
+
+    ---
+    
+    ### Build a Custom Design using API
+    For a fully bespoke experience, you can use the ParityDeals API to fetch all relevant promotion data and build your own custom UI.
+    
+    <Info>
+    Access to the Promotions API requires a **PRO plan**.
+    </Info>
+
+    The API provides all the necessary information (e.g., eligible discount percentage, coupon code, country data) to configure discounted pricing however you wish. Please refer to the full API documentation for implementation details.
+  </Tab>
+
+## Best Practices
+
+- Always test your promotion setup on a staging environment before going live.
+- Use clear, descriptive names for each promotion and discount rule.
+- Regularly review and update your discount percentages to match market conditions.
+- Never expose secret identifiers in public code.
+
+## Troubleshooting
+
+**Banner not showing?**
+- Ensure your domain is whitelisted in the promotion settings.
+- Check that the user is eligible for a discount based on your rules.
+
+**No discount applied?**
+- Verify that the correct product and country are selected in your promotion.
+- Make sure your API integration uses the correct identifier and parameters.
+

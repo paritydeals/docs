@@ -1,0 +1,195 @@
+---
+title: 'Promotions API'
+---
+
+The Promotions API enables advanced, programmatic access to location-based discount and promotion data in ParityDeals. Use this API to build custom pricing UIs, power server-side logic, or integrate with third-party systems—beyond the default auto-display banner.
+
+<Info>
+  Access to the Promotions API requires a **PRO plan**. This API is intended for advanced integrations and should be used with care.
+</Info>
+
+---
+
+## When to Use This API
+- You want to fetch real-time discount and coupon data for a user based on their location or context.
+- You are building a custom checkout, pricing page, or analytics integration.
+- You need to power a bespoke UI/UX or server-side logic that cannot use the default ParityDeals banner.
+
+---
+
+## Authentication & Security
+
+<Warning>
+  - The Promotions API is available only to PRO plan users.
+  - **Never expose your `pd_identifier` in public client-side code.**
+  - For client-side calls, your domain must be whitelisted in the Promotion Display Control settings.
+</Warning>
+
+---
+
+## API Endpoint
+
+```
+GET https://api.paritydeals.com/api/v1/deals/discount/
+```
+
+### Request Parameters
+
+| Parameter      | Type   | Required | Description                                                      | Example                                 |
+|---------------|--------|----------|------------------------------------------------------------------|-----------------------------------------|
+| url           | string | Yes*     | The full URL of the page making the request (client-side only).  | `https://yourdomain.com/pricing`        |
+| pd_identifier | string | Yes*     | The secret Banner Identifier for server-side or local testing.    | `07503741-273f-433f-a266-99g7154f3dr6`  |
+| ip_address    | string | No       | Public IP address for server-side testing.                       | `203.0.113.42`                          |
+
+*One of `url` or `pd_identifier` is required, depending on context.
+
+---
+
+## Response Schema
+
+A successful API call returns a JSON object with all relevant promotion details for the user.
+
+### Example Response
+```json
+{
+  "bar": {
+    "backgroundColor": "#04888e",
+    "backgroundTransparency": "0",
+    "fontColor": "#59ebf1",
+    "highlightFontColor": "#DD5C64",
+    "placement": "top",
+    "borderRadius": "0",
+    "addCloseIcon": false,
+    "unStyled": true
+  },
+  "couponCode": "PD8CEXAAJL",
+  "discountPercentage": "50.00",
+  "countryCode": "IN",
+  "currencyCode": "INR",
+  "currencySymbol": "₹",
+  "country": "India",
+  "countryFlag": "🇮🇳",
+  "holiday": null,
+  "time": null,
+  "isProxy": false,
+  "isTor": false,
+  "isVpn": false,
+  "usdConversionRate": "82.2",
+  "message": "Message with <b>HTML</b> tags",
+  "messageText": "Message string"
+}
+```
+
+### Response Fields
+| Field               | Type    | Description                                      | Example         |
+|---------------------|---------|--------------------------------------------------|-----------------|
+| bar                 | object  | Banner styling and placement info                | `...`           |
+| couponCode          | string  | The coupon code to apply                         | "PD8CEXAAJL"   |
+| discountPercentage  | string  | The discount percentage for the user             | "50.00"        |
+| countryCode         | string  | ISO country code                                 | "IN"           |
+| currencyCode        | string  | ISO currency code                                | "INR"          |
+| currencySymbol      | string  | Currency symbol                                  | "₹"            |
+| country             | string  | User's detected country                          | "India"        |
+| countryFlag         | string  | Emoji flag for the country                       | "🇮🇳"           |
+| isProxy             | bool    | True if user is using a proxy                    | false           |
+| isTor               | bool    | True if user is using Tor                        | false           |
+| isVpn               | bool    | True if user is using a VPN                      | false           |
+| usdConversionRate   | string  | USD conversion rate for the user's currency      | "82.2"         |
+| message             | string  | HTML message for display                         | ...             |
+| messageText         | string  | Plain text message                               | ...             |
+| ...                 | ...     | ...                                              | ...             |
+
+---
+
+## Usage Examples
+
+### Client-Side Example
+To fetch discount data from the browser, use the current page URL. Your domain must be whitelisted in the promotion settings.
+
+```js
+const apiUrl = `https://api.paritydeals.com/api/v1/deals/discount/?url=${window.location.href}`;
+fetch(apiUrl)
+  .then(res => res.json())
+  .then(data => {
+    if (data.discountPercentage) {
+      // Apply discount logic
+    }
+  });
+```
+
+<Info>
+  For client-side calls, the API will only respond if the request comes from an allowed domain.
+</Info>
+
+### Server-Side Example
+To fetch discount data from your backend or for local testing, use the `pd_identifier` (never expose this in public code):
+
+```js
+const apiUrl = 'https://api.paritydeals.com/api/v1/deals/discount/?pd_identifier=YOUR_IDENTIFIER';
+fetch(apiUrl)
+  .then(res => res.json())
+  .then(data => {
+    // Use the discount data
+  });
+```
+
+#### How to Find Your Banner Identifier
+You can access the `pd_identifier` from two locations in your ParityDeals dashboard:
+
+1.  Promotion's detail page, **API** tab:
+   
+2.  Promo Hub list page, via the **three-dot menu** > **Get code**:
+    <Frame>
+    <img height="200" src="/images/three-dot-menu-get-code.png" alt="Three-dot menu showing Get code option"/>
+    </Frame>
+
+---
+
+## Testing & Local Development
+
+- For local development, you can use the `pd_identifier` and your public IP address to test server-side calls.
+- Example using `curl`:
+
+```bash
+curl "https://api.paritydeals.com/api/v1/deals/discount/?pd_identifier=YOUR_IDENTIFIER&ip_address=YOUR_PUBLIC_IP"
+```
+
+- To test the auto-display banner script locally, append `?pd_identifier=YOUR_IDENTIFIER` to your local URL:
+
+```
+http://localhost:3000/pricing/?pd_identifier=07503741-273f-433f-a266-99g7154f3dr6
+```
+
+---
+
+## Best Practices
+- **Never expose your `pd_identifier` in public client-side code.**
+- Always validate the API response before applying discounts.
+- Handle cases where no discount is returned (e.g., user not eligible).
+- Respect user privacy and legal requirements for pricing and promotions.
+- Use HTTPS for all API requests.
+
+---
+
+## Troubleshooting & FAQ
+
+**Q: Why am I not receiving a discount in the response?**
+- Ensure the user is eligible for a promotion based on your rules.
+- For client-side calls, verify your domain is whitelisted in the promotion settings.
+- For server-side/local calls, check that your `pd_identifier` is correct and active.
+
+**Q: Can I use this API for all my pricing logic?**
+- The Promotions API is designed for location-based and campaign-based discounts. For full-featured pricing, use the Product Catalog and Monetization APIs.
+
+**Q: What are the rate limits?**
+- The API is rate-limited to prevent abuse. If you receive a 429 error, reduce your request frequency and implement exponential backoff.
+
+**Q: Is the data real-time?**
+- Yes, the API returns real-time discount and promotion data based on the latest rules.
+
+**Q: What if I need help?**
+- Contact ParityDeals support or consult the full API documentation for advanced use cases.
+
+---
+
+
