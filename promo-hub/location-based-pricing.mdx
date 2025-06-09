@@ -1,0 +1,231 @@
+## Overview
+
+This guide covers how to configure and manage location-based pricing promotions in ParityDeals. You'll learn both the recommended integrated workflow (with payment platforms) and the manual setup for custom needs.
+
+---
+<Info>
+  **Is Promo Hub for you?**
+  If you are a creator or company focused on running location-based pricing promotions (like Purchasing Power Parity discounts) without managing full subscription plans within ParityDeals, the Promo Hub is the direct tool for this purpose.
+
+  For a full subscription business model with metered usage, feature entitlements, and advanced pricing models, use the tools within the **[Product Catalog](/quickstart/start)** and **[Monetization](/monetization/targeting-rules)** sections.
+</Info>
+
+## What is the Promo Hub?
+
+The ParityDeals Promo Hub enables you to implement purchasing power parity (PPP) pricing and other location-based discounts, allowing you to offer fair prices worldwide and increase your sales revenue growth.
+
+Location-based discounts are applied to groups of countries based on their economic factors. When a user visits your site from a targeted region, ParityDeals displays a promotional banner with the appropriate discount and coupon code based on their detected location.
+
+<Frame>
+<img height="200" src="/images/promo-hub-empty-state-globe.png" alt="Promo Hub empty state with globe illustration" />
+</Frame>
+
+---
+
+## Getting Started: Two Paths for Promotion Setup
+
+There are two primary workflows for setting up location-based discounts:
+
+<CardGroup cols={2}>
+  <Card title="Via Integrated Platforms (Recommended)" href="#setting-up-promotions-via-integrated-platforms">
+    Connect to your existing payment platform (e.g., Stripe, Paddle). ParityDeals fetches your products and automatically creates the necessary discount coupons for you. This is the fastest and most streamlined method.
+  </Card>
+  <Card title="Custom Promotions Setup (Manual)" href="#setting-up-custom-promotions-manual">
+    Use this method if you do not use one of our integrated platforms or if you need to manage coupon codes manually. You will define the discounts in ParityDeals, then create corresponding coupons in your payment provider and paste the codes back into ParityDeals.
+  </Card>
+</CardGroup>
+
+---
+
+## Setting Up Promotions via Integrated Platforms
+
+This is the recommended workflow if you sell your product via a supported payment platform.
+
+### Step 1: Connect to Your Payment Platform
+
+1.  From the main sidebar, navigate to **Promo Hub**.
+2.  Click the **"+ Create promotion"** button.
+3.  In the "Choose your platform" modal, select the platform you use.
+    * Supported integrations include **Stripe, Lemon Squeezy, Paddle, Chargebee, Dodo Payments, Polar, Gumroad, and Whop.**
+    <Frame>
+    <img height="200" src="/images/promo-hub-choose-platform-modal.png" alt="Choose your platform modal with payment logos" />
+    </Frame>
+4.  If connecting for the first time, an authentication modal will appear. Enter the required credentials (e.g., Vendor ID, Auth code/API key) to connect your account.
+    <Frame>
+    <img height="200" src="/images/promo-hub-authenticate-with-paddle-modal.png" alt="Authenticate with Paddle modal" />
+    </Frame>
+
+### Step 2: Select Your Product
+
+After authenticating, the two-step promotion creation flow begins.
+
+1.  **Select Product:** A list of products fetched from your connected platform account (e.g., Stripe) is displayed.
+2.  Choose the product for which you want to set up discounts and click **"Continue"**.
+    <Frame>
+    <img height="200" src="/images/promo-hub-create-promo-step-1-select-product.png" alt="Select product screen" />
+    </Frame>
+
+### Step 3: Set Discounts
+
+You will now see the "Set up discounts" screen, which displays countries grouped by their purchasing power parity factor.
+
+1.  **Review Discounts:** Review the predefined discount percentages for each PPP group and update them as needed. If you do not want to offer a deal for a specific group, leave the discount box empty.
+    <Info>ParityDeals will automatically create the necessary discount coupons on your integrated platform based on the percentage values you set here.</Info>
+    
+2.  **(Optional) Override Group Discounts:** To set a different discount for a specific country that overrides its group's default discount, click the **"+ Create country-specific discount"** button.
+    * In the modal that appears, select a country from the dropdown, enter the `Override discount %`, and optionally a specific `Coupon code` if you want to use a pre-existing one.
+    * Click **"+ Add more"** to specify overrides for multiple countries.
+    * Click **"Create"** to save your overrides.
+    <Frame>
+    <img height="200" src="/images/promo-hub-create-country-specific-discount-overrides.png" alt="Country-specific discount overrides modal" />
+    </Frame>
+
+### Step 4: Create the Promotion
+
+1.  Once you are satisfied with your discount settings, click the **"Create promo"** button at the bottom-right of the page.
+  
+
+---
+
+## Setting Up Custom Promotions (Manual)
+
+Use this method if you do not use one of our integrated platforms or prefer to manage coupon codes manually.
+
+### Step 1: Initiate Custom Setup
+
+1.  Navigate to **Promo Hub** from the sidebar and click **"+ Create promotion"**.
+2.  Select **"Custom setup"** from the platform choice modal.
+    <Frame>
+    <img height="200" src="/images/promo-hub-choose-platform-custom-setup.png" alt="Choose platform custom setup modal" />
+    </Frame>
+
+### Step 2: Define Product and Set Discounts
+
+This action takes you to the "Create Promotion" page.
+
+1.  **Product Setup:** In the "Product setup" section, enter your **Product name** manually.
+    <Frame>
+    <img height="200" src="/images/promo-hub-custom-promotions-product-name.png" alt="Product name input field" />
+    </Frame>
+2.  **Set Up Coupons:** This section displays countries grouped by purchasing power parity.
+    * **Review Discounts:** Review the predefined discount percentages for each group and update them as needed.
+    * **Enter Coupon Codes:** You must first manually create the corresponding discount coupons in your payment provider's platform. Then, paste each coupon code into the respective **"Coupon code"** field in ParityDeals.
+    
+3.  **(Optional) Override Group Discounts:**
+    * Click the **"+ Create country-specific discount"** button.
+    * In the modal, select a country, set the `Override discount %`, and paste the specific `Coupon code` you created for it.
+    * Click **"+ Add more"** for additional country-specific overrides.
+    * Click **"Create"** to save your overrides.
+  
+
+### Step 3: Create the Promotion
+
+1.  Once all discounts and coupon codes are set, click the **"Create promo"** button at the bottom-right corner.
+   
+
+---
+
+## After Creation: Configuring Your Promotion
+
+After creating a promotion using either method, you will land on its detail page and see a success message. This page contains multiple tabs for powerful post-creation configurations.
+
+<Frame>
+<img height="200" src="/images/promo-hub-promotion-detail-page.png" alt="Promotion detail page with success message and tabs" />
+</Frame>
+
+<Tabs>
+  <Tab title="Banner Customization & Integration">
+    This tab allows you to customize the promotional banner that will be displayed on your site and provides the code to make it live.
+
+    #### Adding the Banner to Your Site
+    First, add a single line of code—a tiny JavaScript file—to your website's HTML to enable the display of discount banners.
+
+    ```html
+    <script src="https://cdn.paritydeals.com/banner.js"></script>
+    ```
+    <Info>Place this script tag in the `<head>` or before the closing `</body>` tag of your site's HTML template.</Info>
+
+    #### Banner Styling
+    Customize the banner's appearance to match your website's theme using the no-code style editor:
+    * **Background color, Font color, Border radius, Font size**
+
+    #### Banner Copy
+    Toggle on **"Banner copy"** to customize the text displayed. You can use dynamic variables to make the banner more personalized:
+    * ` {country_flag} ` - The visitor's country flag emoji.
+    * ` {country} ` - The visitor's country name.
+    * ` {coupon_code} ` - The specific coupon code for the visitor's region.
+    * ` {discount_percentage} ` - The discount percentage.
+    * **Example Copy:** `Hello {country_flag}! It looks like you're from {country}. We support Parity Purchasing Power. Use the code <b>{coupon_code}</b> to get <b>{discount_percentage}%</b> off your subscription at checkout.`
+
+    #### Banner Placement
+    * **Position:** Choose to display the banner at the **Top** or **Bottom** of the viewport.
+    * **Banner Container:** Enter the HTML container selector where you want the banner to be placed (e.g., `#container`, `.main-content`, `body`).
+
+    <Frame>
+    <img height="200" src="/images/promo-hub-banner-tab.png" alt="Banner customization and placement controls" />
+    </Frame>
+
+  </Tab>
+  <Tab title="Settings">
+    This tab allows you to configure security and display rules for your promotion.
+
+    #### Security
+    Enable or disable security features to protect your promotion from unauthorized access based on your product and target audience.
+    * **VPN protection:** Safeguards against users masking their location with VPNs to exploit geo-pricing.
+    * **Tor browser protection:** Prevents anonymous Browse that bypasses regional pricing.
+    * **Proxy servers protection:** Blocks access from IP-hiding proxies to ensure fair purchasing power parity pricing.
+    <Frame>
+    <img height="200" src="/images/promo-hub-security-tab.png" alt="Security tab with VPN, Tor, and Proxy toggles" />
+    </Frame>
+
+    #### Promotion Display Control
+    Connect your website and define the specific pages where your promotional banner should appear.
+    1.  **Enter your website URL:** Enter the full URL, including `http://` or `https://` (e.g., `https://www.example.com`). Do not add anything after the main website URL.
+        <Frame>
+        <img height="200" src="/images/promo-hub-promotion-display-control-website-url.png" alt="Promotion display control website URL input" />
+        </Frame>
+    2.  **Target a specific page:** Enter the path of a specific page to target (e.g., `/pricing` or `/products/new`). Do not include your domain. Add multiple page paths by clicking **"Add Page Path"** after each entry.
+        
+    3.  Click the **"Save"** button to apply your display rules.
+        
+  </Tab>
+</Tabs>
+
+---
+
+## Managing Promotions
+
+You can edit a promotion at any time after it has been created.
+
+1.  Navigate to the **Promo Hub** list page.
+2.  Click the **three-dot menu** on the promotion you wish to edit and select the **"Edit"** option from the dropdown. (Alternatively, you can navigate to the promotion's detail page and find an "Edit" option there).
+    <Frame>
+    <img height="200" src="/images/promo-hub-edit-promotion-three-dot-menu.png" alt="Edit promotion three-dot menu" />
+    </Frame>
+3.  This action takes you back into the promotion editing flow where you update the details.
+4.  Click **"Update promo"** (or a similar button) to save your changes. Your updates will be reflected live for your users.
+
+---
+
+## Best Practices
+
+- Always test your promotion setup on a staging environment before going live.
+- Use clear, descriptive names for each promotion and discount rule.
+- Regularly review and update your discount percentages to match market conditions.
+- Use country overrides sparingly and only when necessary.
+- Never expose secret identifiers in public code.
+
+---
+
+## Troubleshooting
+
+**Discount not applied?**
+- Check your product selection and country rules.
+- Ensure the user is eligible for a discount based on your rules.
+- For integrated platforms, verify your payment provider connection is active.
+
+**Banner not showing?**
+- Ensure your domain is whitelisted in the promotion settings.
+- Make sure your API integration uses the correct identifier and parameters.
+
+---

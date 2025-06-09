@@ -33,7 +33,7 @@
           },
           {
             "group": "Monetization",
-            "pages": ["monetization/paywalls", "monetization/targeting rules" , "monetization/offerings"]
+            "pages": ["monetization/paywalls", "monetization/targeting-rules" , "monetization/offerings"]
           },
           {
             "group": "Customers",
@@ -44,6 +44,12 @@
           {
             "group": "Dynamic Pricing",
             "pages": ["dynamic pricing/tailor-pricing" , "dynamic pricing/purchaisng-parity-power-pricing" , "dynamic pricing/country-based", "dynamic pricing/browser"]
+          },
+          {
+            "group": "Promo Hub",
+            "pages": [
+              "promo-hub/location-based-pricing" , "promo-hub/add-to-site", "promo-hub/promotions-discount-api" , "promo-hub/coupon-code-api" , "promo-hub/lemonsqueezy-buy-now-button" , "promo-hub/stripe-buy-now-button" , "promo-hub/lemonsqueezy-checkout-session" , "promo-hub/stripe-checkout-session" , "promo-hub/customize-discount-banners"
+            ]
           },
           {
             "group": "Backend Integration",
@@ -85,7 +91,7 @@
           }
         ]
       },
-     
+      
       {
         "tab": "API Reference",
         "groups": [

@@ -15,16 +15,13 @@ Let's create a rule that offers a **40% discount** to users in a hypothetical gr
 
 ### 1. Navigate to Targeting Rules
 1.  From the side navigation menu, go to **Monetization > Targeting rules**.
-    * `[Image: ParityDeals navigation sidebar with "Targeting rules" highlighted under "Monetization".]`
 
 ### 2. Create a New Rule
 1.  Click the **+ Create rule** button.
-    * `[Image: "Targeting rules" list page with the "+ Create rule" button highlighted.]`
 
 ### 3. Define Rule Information
 1.  **Rule name**: Enter a descriptive name. For example: `PPP Discount - Developing Regions (40% Off)`.
 2.  **Select product**: Choose the product for which this pricing adjustment will apply (e.g., "My SaaS Product - Annual Plan").
-    * `[Image: "Create rule" modal - Rule Information section, with fields for Rule name and Select product filled.]`
 
 ### 4. Set Conditions
 This is where you specify the PPP group to target.
@@ -33,14 +30,12 @@ This is where you specify the PPP group to target.
 2.  From the list of attributes, choose **PPP group**.
 3.  Select the operator **is any of**.
 4.  In the "Select" values field, search for and select the specific PPP group. For our example, choose **Developing regions (PPP 0.3-0.4)**. (Note: The exact names of PPP groups will be available in your ParityDeals instance).
-    * `[Image: "Create rule" modal - Conditions section, showing "PPP group" selected, operator "is any of", and a PPP group like "Developing regions (PPP 0.3-0.4)" chosen.]`
 
 ### 5. Define the Pricing Adjustment (Action)
 Specify what happens when a customer meets the conditions.
 
 1.  From the action dropdown (e.g., "Then"), select **Decrease price by**.
 2.  Enter `40` in the percentage field.
-    * `[Image: "Create rule" modal - Action section, showing "Decrease price by" selected and "40%" entered.]`
 
 ### 6. Save the Rule
 1.  Click the **Create rule** button at the bottom of the modal.
@@ -55,19 +50,20 @@ A Targeting Rule is inactive until it's connected to an **Offering**. An Offerin
 
 1.  **Navigate to Offerings:**
     * Go to **Monetization > Offerings**.
-    * `[Image: ParityDeals navigation sidebar with "Offerings" highlighted.]`
+
 2.  **Create or Edit an Offering:**
     * Click **+ Create offering**. If you have an existing Offering you wish to use, you can edit it instead.
-    * `[Image: "Offerings" list page with "+ Create offering" button highlighted.]`
+
 3.  **Link the Targeting Rule:**
     * In the "Create offering" (or "Edit offering") modal, you'll typically choose how the product is offered. Select the option that allows you to use a **Targeting rule**.
     * From the rule selection dropdown, choose the `PPP Discount - Developing Regions (40% Off)` rule you just created.
-    * `[Image: "Create offering" modal showing the "Targeting rule" option selected and the "PPP Discount - Developing Regions (40% Off)" rule chosen from a dropdown.]`
+
 4.  **Configure Other Offering Details:**
     * You might need to select a paywall if this offering is presented through one, or configure other offering-specific settings.
+
 5.  **Save/Create the Offering:**
     * Click **Create** (or "Update"). You will get an **Offering ID**.
-    * `[Image: Offering creation success modal, highlighting the generated Offering ID.]`
+
 6.  **Integrate:** Use this Offering ID in your application's code. When your application requests this Offering, ParityDeals will evaluate the associated `PPP Discount - Developing Regions (40% Off)` rule for the current user and apply the discount if the conditions are met.
 
 Your PPP-based pricing adjustment is now live and active through this Offering!
