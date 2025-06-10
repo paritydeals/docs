@@ -1,46 +1,47 @@
 ---
-title: "React"
-description: "Documentation for the ParityDeals React Promotions UI"
-icon: 'react'
+title: "React Promotions UI"
+description: "A React SDK for integrating ParityDeals dynamic pricing and discounts directly into your React application."
+icon: "react"
 ---
 
-# ParityDeals React Dynamic Discounts UI
-
-A React SDK for integrating ParityDeals pricing and discount functionality into your React application.
 
 ## Installation
 
+Install the package using npm:
+
 ```bash
-npm install @paritydeals/react-sdk
+npm install @paritydeals/react-promotions-ui
 ```
 
-## Quick Start
+## Getting Started
 
-Wrap your application with the `ParityDealsProvider`:
+To start using the SDK, wrap your app with the `ParityDealsProvider` at the root level. This sets up the necessary context.
 
 ```tsx
-import { ParityDealsProvider } from '@paritydeals/react-sdk';
+import { ParityDealsProvider } from '@paritydeals/react-promotions-ui';
 
 function App() {
-    return (
-        <ParityDealsProvider>{/* Your app components */}</ParityDealsProvider>
-    );
+  return (
+    <ParityDealsProvider productId="YOUR_PRODUCT_ID">
+      {/* Your app components */}
+    </ParityDealsProvider>
+  );
 }
 ```
 
+---
+
 ## Components
 
-### PDBanner
+Use these ready-made UI components to easily show location-aware pricing and promotional content.
 
-Displays a customizable banner with pricing information.
+### `PDBanner`
+
+Displays a location-aware discount banner. You can style and position it as needed.
 
 ```tsx
-import { PDBanner } from '@paritydeals/react-sdk';
+import { PDBanner } from '@paritydeals/react-promotions-ui';
 
-// Basic usage
-<PDBanner />
-
-// Use custom styles to override the default styles
 <PDBanner
   backgroundColor="#f0f0f0"
   fontColor="#333"
@@ -53,135 +54,132 @@ import { PDBanner } from '@paritydeals/react-sdk';
 />
 ```
 
-### PDPriceFormatted
+---
 
-#### Regular Price Display
+### `PDPriceFormatted`
 
-Used to show the current price (with any applicable discounts):
+Simplified component to display discounted and original prices dynamically based on the user’s location.
 
-```tsx
-import { PDPriceFormatted } from '@paritydeals/react-sdk';
+#### Display Discounted Price
 
-// Basic usage - shows current price
-<PDPriceFormatted
-    originalPrice={99.99}
-    showDecimal={true}
-    showCurrencyCode={true}
-    showCurrencySymbol={true}
-    convertToLocal={true}
-/>;
-```
-
-#### Original Price Display (Strikethrough)
-
-Used to show the original price as a strikethrough when there's a discount. The component will only render if `displayPrice` is provided.
+Use this to show the localized or discounted price:
 
 ```tsx
-import { PDPriceFormatted } from '@paritydeals/react-sdk';
-
-// Shows strikethrough original price when there's a discount
 <PDPriceFormatted
-    originalPrice={99.99}
-    displayPrice={99.99} // If the calculated price is less than displayPrice, shows strikethrough
-    isOriginalDisplay={true} // Renders as <s> tag
-    showCurrencySymbol={true}
-    convertToLocal={true}
-/>;
+  originalPrice={99.99}
+  convertToLocal={true}
+  showDecimal={true}
+  showCurrencyCode={true}
+  showCurrencySymbol={true}
+/>
 ```
 
-Typical usage combining both to show original and discounted prices:
+#### Display Original Price (Strikethrough)
+
+Optionally show the original price with a strikethrough effect:
+
+```tsx
+<PDPriceFormatted
+  originalPrice={99.99}
+  displayPrice={99.99}
+  isOriginalDisplay={true}
+  convertToLocal={true}
+  showCurrencySymbol={true}
+/>
+```
+
+#### Example Usage
+
+Combine both for a side-by-side comparison:
 
 ```tsx
 <div className="price-container">
-    {/* Current/discounted price */}
-    <PDPriceFormatted originalPrice={99.99} showCurrencySymbol={true} />
-
-    {/* Original price (strikethrough) */}
-    <PDPriceFormatted
-        originalPrice={99.99}
-        displayPrice={99.99}
-        isOriginalDisplay={true}
-        showCurrencySymbol={true}
-    />
+  <PDPriceFormatted originalPrice={89.99} showCurrencySymbol={true} />
+  <PDPriceFormatted
+    originalPrice={99.99}
+    displayPrice={99.99}
+    isOriginalDisplay={true}
+    showCurrencySymbol={true}
+  />
 </div>
 ```
 
-#### Price Component Building Blocks
+---
 
-For more granular control, you can use individual price components:
+## Granular Price Components
 
-##### PDPriceInteger
+Use these components individually to build custom price formats with full styling control.
 
-Displays the integer part of the price.
+### `PDPriceInteger`
 
-```tsx
-import { PDPriceInteger } from '@paritydeals/react-sdk';
-
-<PDPriceInteger originalPrice={99.99} className="price-integer" />;
-```
-
-##### PDPriceDecimal
-
-Displays the decimal part of the price.
+Displays just the integer part of the price.
 
 ```tsx
-import { PDPriceDecimal } from '@paritydeals/react-sdk';
-
-<PDPriceDecimal originalPrice={99.99} className="price-decimal" />;
+<PDPriceInteger originalPrice={99.99} className="price-integer" />
 ```
 
-##### PDPriceCurrencySymbol
+### `PDPriceDecimal`
 
-Displays the currency symbol.
+Displays just the decimal portion.
 
 ```tsx
-import { PDPriceCurrencySymbol } from '@paritydeals/react-sdk';
-
-<PDPriceCurrencySymbol convertToLocal={true} className="currency-symbol" />;
+<PDPriceDecimal originalPrice={99.99} className="price-decimal" />
 ```
 
-##### PDPriceCurrencyCode
+### `PDPriceCurrencySymbol`
 
-Displays the currency code.
+Renders the currency symbol (like \$, ₹, €).
 
 ```tsx
-import { PDPriceCurrencyCode } from '@paritydeals/react-sdk';
-
-<PDPriceCurrencyCode convertToLocal={true} className="currency-code" />;
+<PDPriceCurrencySymbol convertToLocal={true} className="currency-symbol" />
 ```
 
-### Building Custom Price Displays
+### `PDPriceCurrencyCode`
 
-You can combine the individual components to create custom price displays:
+Renders the full currency code (like USD, INR, EUR).
+
+```tsx
+<PDPriceCurrencyCode convertToLocal={true} className="currency-code" />
+```
+
+### Custom Display Example
+
+Example using all components to create a custom layout:
 
 ```tsx
 <div className="custom-price-display">
-    <PDPriceCurrencySymbol convertToLocal={true} />
-    <PDPriceInteger originalPrice={99.99} />
-    <span className="decimal-separator">.</span>
-    <PDPriceDecimal originalPrice={99.99} />
-    <PDPriceCurrencyCode convertToLocal={true} />
+  <PDPriceCurrencySymbol convertToLocal={true} />
+  <PDPriceInteger originalPrice={99.99} />
+  <span className="decimal-separator">.</span>
+  <PDPriceDecimal originalPrice={99.99} />
+  <PDPriceCurrencyCode convertToLocal={true} />
 </div>
 ```
 
+---
+
 ## Price Formatting Options
 
-All price components accept these common formatting options:
+All price components accept common formatting options to customize appearance and behavior.
 
-```typescript
+```ts
 interface DefaultFormatConfig {
-    thousandsSeparator: string; // Default: ","
-    decimalSeparator: string; // Default: "."
-    decimalPlaces: number; // Default: 2
-    roundTo: string; // "none" | "up" | "down"
-    showDecimal: boolean; // Default: true
-    convertToLocal: boolean; // Default: false
-    showCurrencyCode: boolean; // Default: false
-    showCurrencySymbol: boolean; // Default: true
-    isOriginalDisplay: boolean; // Default: false
+  thousandsSeparator?: string;     // default: ","
+  decimalSeparator?: string;       // default: "."
+  decimalPlaces?: number;          // default: 2
+  roundTo?: 'none' | 'up' | 'down';
+  showDecimal?: boolean;           // default: true
+  convertToLocal?: boolean;        // default: false
+  showCurrencyCode?: boolean;      // default: false
+  showCurrencySymbol?: boolean;    // default: true
+  isOriginalDisplay?: boolean;     // default: false
 }
 ```
 
-## Help
+Use these props to align with your regional or branding standards.
 
-If you have any questions or need assistance, please contact us at admin@paritydeals.com.
+---
+
+## Support
+
+Need help or have questions? Reach out to us anytime at **[hi@paritydeals.com](mailto:hi@paritydeals.com)**.
