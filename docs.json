@@ -61,14 +61,7 @@
             "group": "Deals",
             "pages": [
               "deals-ui/what-is-a-deal",
-              "deals-ui/creating-deals",
-              {
-                "group": "Frontend integration",
-                "pages": [
-                  "frontend-integration/js-promotions-ui",
-                  "frontend-integration/react-promotions-ui"
-                ]
-              }
+              "deals-ui/creating-deals"
             ]
           }
         ]
@@ -100,10 +93,16 @@
           {
             "group": "Frontend Integration",
             "pages": [
-              "frontend-integration/js-sdk",
-              "frontend-integration/js-ui",
               "frontend-integration/react-sdk",
-              "frontend-integration/react-ui"
+              "frontend-integration/react-ui",
+              "frontend-integration/js-sdk"
+            ]
+          },
+          {
+            "group": "Promotions UI",
+            "pages": [
+              "frontend-integration/js-promotions-ui",
+              "frontend-integration/react-promotions-ui"
             ]
           }
         ]
