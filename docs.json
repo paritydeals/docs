@@ -11,21 +11,11 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Home",
-        "groups": [
-          {
-            "group": "Documentation",
-            "pages": ["home/home-page"]
-          }
-
-        ]
-      },
-      {
         "tab": "Documentation",
         "groups": [
           {
             "group": "Get Started",
-            "pages": ["Getstarted/introduction-to-ParityDeals"]
+            "pages": ["getstarted/introduction-to-paritydeals"]
           },
           {
             "group": "Quickstart",
@@ -71,7 +61,7 @@
         "groups": [
           {
             "group": "Usecases",
-            "pages": ["Usecases/hybridpricing", "Usecases/usage-based" , "Usecases/credit-based", "Usecases/freemium-plan", "Usecases/ai-task-agents", "Usecases/monetization-usage-based"]
+            "pages": ["usecases/hybridpricing", "usecases/usage-based" , "usecases/credit-based", "usecases/freemium-plan", "usecases/ai-task-agents", "usecases/monetization-usage-based"]
           }
         ]
       },
@@ -107,26 +97,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
