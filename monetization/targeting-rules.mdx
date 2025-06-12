@@ -9,7 +9,7 @@ Targeting Rules in ParityDeals are a sophisticated feature designed to empower y
 This powerful capability allows you to:
 * **Implement Granular Pricing Strategies:** Based on customer behavior, demographics, or geographic location.
 * **Maximize Customer Lifetime Value (LTV):** By optimizing pricing for different segments.
-* **Enhance Paywall Effectiveness:** By showing more relevant plans and pricing, increasing conversion rates.
+* **Enhance Pricing Table Effectiveness:** By showing more relevant plans and pricing, increasing conversion rates.
 
 Supported attributes for creating these rules include:
 * **Any audience:** A default or catch-all segment.
@@ -176,7 +176,7 @@ ParityDeals will allow you to create multiple variants within a single Targeting
 
 ## Linking Targeting Rules to Offerings
 
-Creating a Targeting Rule defines the logic, but it doesn't activate it for your users. To make a rule live, you must link it to an **Offering**. An Offering is what connects your Targeting Rules (and/or Paywalls) to your users. These entities work together in a sequence to deliver dynamic pricing:
+Creating a Targeting Rule defines the logic, but it doesn't activate it for your users. To make a rule live, you must link it to an **Offering**. An Offering is what connects your Targeting Rules (and/or Pricing tables) to your users. These entities work together in a sequence to deliver dynamic pricing:
 ```mermaid
 graph LR
     A[User Request with Offering ID in App] --> B[ParityDeals Fetches Offering Config]
@@ -184,7 +184,7 @@ graph LR
     C --> D{Rule Conditions Met?}
     D -->|Yes| E[Price Adjustments Applied]
     D -->|No| F[No Adjustments from This Rule / Default]
-    E --> G[Paywall / Plan Prices]
+    E --> G[Pricing Table Prices]
     F --> G
     G --> H[Final Pricing Displayed to User]
 ```
@@ -195,14 +195,16 @@ After successfully creating a Targeting Rule, you will be directed to the Offeri
         <img height="200" src="/images/create-offering.png" />
 </Frame> 
 1.  **In the "Create offering" (or "Edit offering") modal:**
-    * **Paywall Linking (Optional):** An option exists to "Skip if you don’t want to link a paywall to this offering." If your Offering's purpose is *only* to apply rule-based price adjustments without changing the visual paywall structure, you can skip this. Most often, however, you will link a paywall.
+    * **Pricing Table Linking (Optional):** An option exists to "Skip if you don't want to link a pricing table to this offering." If your Offering's purpose is *only* to apply rule-based price adjustments without changing the visual pricing table structure, you can skip this. Most often, however, you will link a pricing table.
     * **Assign to Targeting Rule:** Ensure **"Targeting Rule"** is selected as the assignment type.
     * **Select Targeting Rule:** The dropdown will automatically have your newly created rule selected. If you are editing an existing offering or creating a new one independently, choose the desired rule from this list.
 2.  Click **"Create"** (or "Update") on the Offering modal.
 
 This action creates (or updates) the Offering and effectively activates your Targeting Rule. You will then receive or see the **Offering ID**.
 
-* **Offering ID:** This ID is essential. Copy this ID and paste it into your application's code where you initialize the ParityDeals SDK or render the paywall component. This `Offering ID` instructs your application to apply the dynamic pricing and paywall configuration determined by the linked Targeting Rule.
+
+* **Offering ID:** This ID is essential. Copy this ID and paste it into your application's code where you initialize the ParityDeals SDK or render the pricing table component. This `Offering ID` instructs your application to apply the dynamic pricing and pricing table configuration determined by the linked Targeting Rule.
+
     <Frame>
         <img height="200" src="/images/offering-id-to-copy.png" />
     </Frame> 
@@ -223,12 +225,13 @@ To maintain clarity and organization, you can edit the name of a Targeting Rule 
     </Frame> 
 4.  Modify the name in the input field and save your changes.
 
-### Editing Offerings to Change Targeting Rules or Paywalls
+
+### Editing Offerings to Change Targeting Rules or Pricing Tables
 The primary way to manage and iterate on your live targeting strategies is by editing the **Offering**. This approach provides significant flexibility without requiring code changes in your application.
 
 <Info>
   **No Code Changes Needed for Iteration!**
-  This system is specifically designed so that Product Managers, Go-To-Market teams, and Sales teams can dynamically update pricing strategies. You can roll out new paywalls, switch which Targeting Rule an Offering uses, or adjust the paywall linked to an Offering, all from the ParityDeals dashboard. The Offering ID in your application remains the same, ensuring seamless updates.
+  This system is specifically designed so that Product Managers, Go-To-Market teams, and Sales teams can dynamically update pricing strategies. You can roll out new pricing tables, switch which Targeting Rule an Offering uses, or adjust the pricing table linked to an Offering, all from the ParityDeals dashboard. The Offering ID in your application remains the same, ensuring seamless updates.
 </Info>
 
 1.  Navigate to **Monetization > Offerings**.
@@ -239,8 +242,8 @@ The primary way to manage and iterate on your live targeting strategies is by ed
     </Frame> 
 4.  In the "Edit offering" modal, you can:
     * Select a **different Targeting Rule** from the dropdown to change the pricing logic applied.
-    * Select a **different Paywall** from the dropdown to change the visual presentation.
+    * Select a **different Pricing Table** from the dropdown to change the visual presentation.
      <Frame>
         <img height="200" src="/images/offerings-edit.png" />
     </Frame> 
-5.  Click **"Update"**. The Offering ID embedded in your code remains unchanged, but it now serves the new configuration (new rule and/or new paywall) to your users.
+5.  Click **"Update"**. The Offering ID embedded in your code remains unchanged, but it now serves the new configuration (new rule and/or new pricing table) to your users.

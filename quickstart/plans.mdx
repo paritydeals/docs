@@ -345,7 +345,7 @@ You can modify the trial for a plan at any time:
 
 Once a plan's pricing is configured, the next step is to define the functionality that customers on this plan are entitled to use. In ParityDeals, the combination of a **feature** and its specific configuration (e.g., on/off, a numeric limit) is called an **entitlement**.
 
-On the plan's detail page, under the "Features" section, you can see all the entitlements assigned to that plan.
+On the plan's detail page, under the "Entitlements" section, you can see all the entitlements assigned to that plan.
 
 <Frame>
 <img height="200" src="/images/features-section.png" />   
@@ -353,7 +353,7 @@ On the plan's detail page, under the "Features" section, you can see all the ent
 
 ### Adding Entitlements to a Plan
 
-1.  Click the **"+ Add"** button under the "Features" section of the selected plan.
+1.  Click the **"+ Add"** button under the "Entitlements" section of the selected plan.
 2.  Search for the features you'd like to assign to the plan and select them from the list.
     <Tip>
       If a feature you need doesn't exist yet, you can type its name and select **"Create new feature"** directly from the dropdown menu without leaving the page.
@@ -361,12 +361,12 @@ On the plan's detail page, under the "Features" section, you can see all the ent
     <Frame>
     <img height="200" src="/images/feature-search.png" /> 
     </Frame>
-3.  Apply the relevant configuration for each selected feature (see Entitlement Types below).
+3.  Apply the relevant configuration for each selected feature (see Features Types below).
 4.  Confirm the action by clicking the **"Add"** button. The features are now assigned to the plan.
 
-### Entitlement Types
+### Features Types
 
-ParityDeals provides several ways to configure feature entitlements to support various business models.
+ParityDeals provides several ways to configure features to support various business models.
 
 <CardGroup cols={3}>
   <Card title="Switch (Boolean)">
@@ -423,28 +423,25 @@ The most critical setting for a metered limit is **Limit Enforcement**. This is 
 
 
 ### Defining the Entitlement Order
-The order of features is critical as it determines their default display order in **paywalls** that are rendered using ParityDeals. You can reorder entitlements to highlight your most important features first. This ordering can be managed in two places:
+The order of entitlement is critical as it determines their default display order in **pricing tables** that are rendered using ParityDeals. You can reorder entitlements to highlight your most important entitlements first. This ordering can be managed in two places:
 
-1.  **From the Plan Details Page:** In the "Features" section of a plan, you can change the order by using the drag-and-drop handle that appears on the left of each feature row. This sets the default order for this specific plan.
+1.  **From the Plan Details Page:** In the "Entitlements" section of a plan, you can change the order by using the drag-and-drop handle that appears on the left of each entitlement row. This sets the default order for this specific plan.
 
     <Frame>
     <img height="200" src="/images/reorder-features.png" />   
     </Frame>
 
-2.  **From the Paywall Editor:** You can also override the default order for a specific paywall directly within the Paywall editor, using a similar drag-and-drop interface.
+2.  **From the Pricing Table Editor:** You can also override the default order for a specific pricing table directly within the Pricing Table editor, using a similar drag-and-drop interface.
 
     <Frame>
-    <img height="200" src="/images/reorder-paywall.png" /> 
+    <img height="200" src="/images/reorder-pricing-table.png" /> 
     </Frame>
 
 ### Removing Entitlements from a Plan
-
-If a feature should no longer be part of a plan, you can easily remove its entitlement.
-
-1.  On the plan's detail page, find the feature you wish to remove in the "Features" list.
-2.  Click the **three-dot menu icon** on the right side of the feature's row.
-3.  Select the **"Remove feature"** action from the dropdown menu.
-4.  A confirmation dialog will appear. Click **"Remove feature"** to permanently remove the entitlement from the plan.
+1.  On the plan's detail page, find the entitlement you wish to remove in the "Entitlement" list.
+2.  Click the **three-dot menu icon** on the right side of the Entitlement's row.
+3.  Select the **"Remove"** action from the dropdown menu.
+4.  A confirmation dialog will appear. Click **"Remove"** to permanently remove the entitlement from the plan.
 
 <Frame>
 <img height="200" src="/images/remove-feature.png" />     
@@ -452,11 +449,11 @@ If a feature should no longer be part of a plan, you can easily remove its entit
 
 ### Customizing Entitlement Display Text
 
-While features have a default name, you often need more customer-friendly or descriptive text for your paywalls. ParityDeals allows you to override the default text for any entitlement on a specific paywall.
+While entitlements have a default name, you often need more customer-friendly or descriptive text for your pricing tables. ParityDeals allows you to override the default text for any entitlement on a specific pricing table.
 
-1.  From the sidebar, navigate to **Monetization > Paywalls**.
-2.  Select the paywall you wish to edit from the list.
-3.  In the paywall editor, find the plan you want to modify and locate its feature list.
+1.  From the sidebar, navigate to **Monetization > Pricing Tables**.
+2.  Select the pricing table you wish to edit from the list.
+3.  In the pricing table editor, find the plan you want to modify and locate its feature list.
 4.  Click the **three-dot menu icon** next to the feature you want to customize and select **"Edit"**.
 
     <Frame>
@@ -464,7 +461,7 @@ While features have a default name, you often need more customer-friendly or des
     </Frame>
 
 5.  A form will appear with the following fields:
-    * **Customer display text:** This is the main text the customer will see for the feature in the paywall (e.g., changing "api_calls_limit" to "Monthly API Requests").
+    * **Customer display text:** This is the main text the customer will see for the feature in the pricing table (e.g., changing "api_calls_limit" to "Monthly API Requests").
     * **Tooltip description:** Add a longer, more descriptive explanation that will appear when a customer hovers over an info icon next to the feature.
 
     <Tip>
@@ -475,7 +472,7 @@ While features have a default name, you often need more customer-friendly or des
     <img height="200" src="/images/edit-feature-display.png" />  
     </Frame>
 
-6.  Click **"Save"** to apply the changes to your paywall.
+6.  Click **"Save"** to apply the changes to your pricing table.
 ---
 ## Publishing and Managing Plans
 
@@ -489,7 +486,7 @@ After a plan has been fully configured with its pricing, features, and entitleme
 2.  Click the **"Publish"** button, typically located in the top-right corner of the plan details page.
 3.  A confirmation dialog will appear. Review the summary and confirm the action.
 
-The plan is now live and can be integrated into your paywalls and checkout flows.
+The plan is now live and can be integrated into your pricing tables and checkout flows.
 
 <Frame>
 <img height="200" src="/images/publish-plan.png" />     
