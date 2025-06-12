@@ -210,11 +210,11 @@
             "description": "The ID (uuid) of the offering the customer is checking out with.",
             "example": "96d3a293-34ac-48a5-b73d-976b15781afd"
           },
-          "paywallId": {
+          "pricingTableId": {
             "type": "string",
             "format": "uuid",
             "nullable": true,
-            "description": "The ID (uuid) of the paywall being used (considered if offeringId is not provided).",
+            "description": "The ID (uuid) of the pricingTable being used (considered if offeringId is not provided).",
             "example": "6db2717a-4e43-4ae1-a293-6c0a775f6264"
           },
           "ruleId": {
@@ -515,11 +515,11 @@
             "description": "The ID of the new offering, if applicable.",
             "example": "e4567-e89b-12d3-a456-426614174000"
           },
-          "paywallId": {
+          "pricingTableId": {
             "type": "string",
             "format": "uuid",
             "nullable": true,
-            "description": "The ID of the new paywall, if applicable.",
+            "description": "The ID of the new pricingTable, if applicable.",
             "example": "e4567-e89b-12d3-a456-426614174001"
           },
           "ruleId": {
@@ -870,49 +870,6 @@
                   "eventName": "aggregated.usage",
                   "idempotencyKey": "597ee95063c744ed9bcc9b1cf5676a8a",
                   "timestamp": "2025-05-22 08:27:45.430732"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/report/events/": {
-      "post": {
-        "tags": [
-          "Reporting"
-        ],
-        "summary": "Report raw events",
-        "description": "Reports raw events for a customer, primarily for metered billing scenarios (pay-as-you-go).",
-        "operationId": "reportEvent",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReportEventRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Event reported successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReportEventResponse"
-                },
-                "example": {
-                  "customerId": "customer_002",
-                  "eventName": "api_invoked",
-                  "idempotencyKey": "45f05c737a0b44d482c6042816d5645d",
-                  "timestamp": "2025-05-22 07:53:55.747959",
-                  "properties": {
-                    "featureId": "api-usage",
-                    "value": 2
-                  },
-                  "orgId": "1"
                 }
               }
             }

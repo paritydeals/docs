@@ -256,7 +256,7 @@ response = await async_client.checkout.create_session(
     customerId="cust_789",
     successUrl="https://paritydeals.com/checkout/success",
     offeringId="96d3a293-34ac-48a5-b73d-976b15781afd",
-    paywallId="6db2717a-4e43-4ae1-a293-6c0a775f6264",
+    pricingTableId="6db2717a-4e43-4ae1-a293-6c0a775f6264",
     ruleId="f2ebc23f-3f79-4cf4-b17e-fe8e30a42ab2",
     features=[{'identifier':"seats", 'quantity': 5}],
     ipAddress="103.154.35.20",
@@ -305,7 +305,7 @@ print(f"Checkout Session URL: {response.checkoutUrl}")
 
     * `offeringId` (str): The ID (uuid) of the offering the customer is checking out with.
 
-    * `paywallId` (str): Required. The id (uuid) of the paywall being used for this checkout. (Considered only if `offeringId` is not provided)
+    * `pricingTableId` (str): Required. The id (uuid) of the pricingTable being used for this checkout. (Considered only if `offeringId` is not provided)
 
     * `ruleId` (str): Required. The id (uuid) of the pricing rule being applied. (Considered only if `offeringId` is not provided)
 
@@ -602,89 +602,89 @@ An instance of ReportUsageResponse (Pydantic model), which includes:
     * `timestamp` (str): The server-generated UTC timestamp (str format) indicating when the usage report was processed.
 
 
-### Reporting raw events for customer
+{/* ### Reporting raw events for customer */}
 
-Raw events are primarily used for metered billing scenarios, particularly when a customer is subscribed to a plan with usage-based billing (often referred to as "pay as you go"). Each event reported can contribute to the billable usage for that customer.
+{/* Raw events are primarily used for metered billing scenarios, particularly when a customer is subscribed to a plan with usage-based billing (often referred to as "pay as you go"). Each event reported can contribute to the billable usage for that customer. */}
 
-**Synchronous**:
+{/* **Synchronous**: */}
 
-```python
-import uuid
+{/* ```python */}
+{/* import uuid */}
 
-# Assuming 'client' is your synchronous ParityDeals client
-response = client.reporting.report_event(
-    customerId="customer_002",
-    eventName="api_invoked",
-    idempotencyKey=uuid.uuid4().hex,
-    timestamp="2025-05-22 07:53:55.747959",
-    properties={"featureId": "api-usage", "value": 2}
-)
+{/* # Assuming 'client' is your synchronous ParityDeals client */}
+{/* response = client.reporting.report_event( */}
+{/*     customerId="customer_002", */}
+{/*     eventName="api_invoked", */}
+{/*     idempotencyKey=uuid.uuid4().hex, */}
+{/*     timestamp="2025-05-22 07:53:55.747959", */}
+{/*     properties={"featureId": "api-usage", "value": 2} */}
+{/* ) */}
 
-```
+{/* ``` */}
 
-**Asynchronous**:
+{/* **Asynchronous**: */}
 
-```python
-import uuid
+{/* ```python */}
+{/* import uuid */}
 
-# Assuming 'async_client' is your asynchronous ParityDeals client
-response = await async_client.reporting.report_event(
-    customerId="customer_002",
-    eventName="api_invoked",
-    idempotencyKey=uuid.uuid4().hex,
-    timestamp="2025-05-22 07:53:55.747959",
-    properties={"featureId": "api-usage", "value": 2}
-)
-```
+{/* # Assuming 'async_client' is your asynchronous ParityDeals client */}
+{/* response = await async_client.reporting.report_event( */}
+{/*     customerId="customer_002", */}
+{/*     eventName="api_invoked", */}
+{/*     idempotencyKey=uuid.uuid4().hex, */}
+{/*     timestamp="2025-05-22 07:53:55.747959", */}
+{/*     properties={"featureId": "api-usage", "value": 2} */}
+{/* ) */}
+{/* ``` */}
 
-<Accordion title="Response">
-
-
-  ```json
-   {
-        "customerId": "customer_002",
-        "eventName": "api_invoked",
-        "idempotencyKey": "45f05c737a0b44d482c6042816d5645d",
-        "timestamp": "2025-05-22 07:53:55.747959",
-        "properties": {
-            "featureId": "api-usage",
-            "value": 2
-        },
-        "orgId": "1"
-    }
-  ```
-</Accordion>
+{/* <Accordion title="Response"> */}
 
 
-**Required Parameters**:
+{/*   ```json */}
+{/*    { */}
+{/*         "customerId": "customer_002", */}
+{/*         "eventName": "api_invoked", */}
+{/*         "idempotencyKey": "45f05c737a0b44d482c6042816d5645d", */}
+{/*         "timestamp": "2025-05-22 07:53:55.747959", */}
+{/*         "properties": { */}
+{/*             "featureId": "api-usage", */}
+{/*             "value": 2 */}
+{/*         }, */}
+{/*         "orgId": "1" */}
+{/*     } */}
+{/*   ``` */}
+{/* </Accordion> */}
 
-    * `customerId` (str): The unique identifier for the customer who performed the event.
 
-    * `eventName` (str): The name of the event (e.g., "user_login", "item_purchased", "feature_activated").
+{/* **Required Parameters**: */}
 
-    * `idempotencyKey` (str): A unique client-generated key to ensure that the event is processed at most once, even if the request is retried. A UUID is a good choice.
+{/*     * `customerId` (str): The unique identifier for the customer who performed the event. */}
 
-    * `timestamp` (str): The UTC timestamp indicating when the event occurred. This must be a str formatted as "%Y-%m-%d %H:%M:%S.%f" (e.g., "2025-05-23 10:30:00.123456").
+{/*     * `eventName` (str): The name of the event (e.g., "user_login", "item_purchased", "feature_activated"). */}
 
-    * `properties` ([Dict[str, Any]], default: None): A dictionary of additional custom properties associated with the event. Values can be strs, numbers, booleans.
+{/*     * `idempotencyKey` (str): A unique client-generated key to ensure that the event is processed at most once, even if the request is retried. A UUID is a good choice. */}
 
-**Returns**:
+{/*     * `timestamp` (str): The UTC timestamp indicating when the event occurred. This must be a str formatted as "%Y-%m-%d %H:%M:%S.%f" (e.g., "2025-05-23 10:30:00.123456"). */}
 
-An instance of ReportEventResponse (Pydantic model), which includes:
+{/*     * `properties` ([Dict[str, Any]], default: None): A dictionary of additional custom properties associated with the event. Values can be strs, numbers, booleans. */}
 
-    * `customerId` (str): The customer ID associated with the event.
+{/* **Returns**: */}
 
-    * `eventName` (str): The name of the event that was recorded.
+{/* An instance of ReportEventResponse (Pydantic model), which includes: */}
 
-    * `idempotencyKey` (str): The idempotency key that was used for the request.
+{/*     * `customerId` (str): The customer ID associated with the event. */}
 
-    * `timestamp` (str): The timestamp (str format) that was recorded for the event.
+{/*     * `eventName` (str): The name of the event that was recorded. */}
 
-    * `properties` ([Dict[str, Any]]): The custom properties associated with the event, if provided and returned by the server.
+{/*     * `idempotencyKey` (str): The idempotency key that was used for the request. */}
 
-    * `orgId` (str): The organization ID associated with this record, as determined by the server.
+{/*     * `timestamp` (str): The timestamp (str format) that was recorded for the event. */}
 
----
+{/*     * `properties` ([Dict[str, Any]]): The custom properties associated with the event, if provided and returned by the server. */}
+
+{/*     * `orgId` (str): The organization ID associated with this record, as determined by the server. */}
+
+{/* --- */}
 
 ## Subscriptions
 
@@ -720,7 +720,7 @@ try:
         planIdentifier="new_plan_enterprise",
         chargePeriod="YEARLY",
         offeringId="offer_abc",
-        paywallId="pw_def",
+        pricingTableId="pw_def",
         ruleId="rule_ghi",
         ipAddress="103.154.35.20",
         features=[{'identifier': "seats", 'quantity': 10}]
@@ -755,7 +755,7 @@ except Exception as e:
 **Optional Parameters:**
 
 * `offeringId` (str): Optional. The ID of the new offering, if applicable.
-* `paywallId` (str): Optional. The ID of the new paywall, if applicable.
+* `pricingTableId` (str): Optional. The ID of the new pricingTable, if applicable.
 * `ruleId` (str): Optional. The ID of the new pricing rule, if applicable.
 * `ipAddress` (str): The IP Address of the customer, used for location based pricing.
 * `features` ([List[Dict[str, Any]]]): Optional. A list of dictionaries, where each dictionary represents a feature and its desired quantity to update for the subscription. Each dictionary **must** have two keys:
