@@ -195,12 +195,13 @@ After successfully creating a Targeting Rule, you will be directed to the Offeri
         <img height="200" src="/images/create-offering.png" />
 </Frame> 
 1.  **In the "Create offering" (or "Edit offering") modal:**
-    * **Pricing Table Linking (Optional):** An option exists to "Skip if you don't want to link a pricing table to this offering." If your Offering's purpose is *only* to apply rule-based price adjustments without changing the visual pricing table structure, you can skip this. Most often, however, you will link a pricing table.
+    * **Pricing Table Linking (Optional):** An option exists to "Skip if you don't want to link a pricing table to this offering." If your Offering's purpose is *only* to apply rule-based price adjustments without using the pricing table, you can skip this.
+    * If you select a **pricing table** you will only be able to select a Targeting Rule that is associated with that pricing table.
     * **Assign to Targeting Rule:** Ensure **"Targeting Rule"** is selected as the assignment type.
     * **Select Targeting Rule:** The dropdown will automatically have your newly created rule selected. If you are editing an existing offering or creating a new one independently, choose the desired rule from this list.
 2.  Click **"Create"** (or "Update") on the Offering modal.
 
-This action creates (or updates) the Offering and effectively activates your Targeting Rule. You will then receive or see the **Offering ID**.
+This action creates (or updates) the Offering and effectively activates your Targeting Rule. You will then see the **Offering ID** in the modal.
 
 
 * **Offering ID:** This ID is essential. Copy this ID and paste it into your application's code where you initialize the ParityDeals SDK or render the pricing table component. This `Offering ID` instructs your application to apply the dynamic pricing and pricing table configuration determined by the linked Targeting Rule.

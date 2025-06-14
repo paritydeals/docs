@@ -163,10 +163,15 @@ Targeting Rules will be discussed in detail in their own documentation section. 
         <img height="200" src="/images/create-offering.png" />
     </Frame>  
 3.  In the "Create offering" modal that appears:
-    * **Select Pricing table:** From the dropdown menu, choose the pricing table you just designed and configured.
-    * **Assign to:** You have two primary options for how this offering will be used:
+    * **Select a Pricing Table:** From the "Select Pricing Table" dropdown menu, choose the pricing table design you want this Offering to display. Selecting a Pricing Table is the primary step, as it contains the product and plans to be shown.
+    * **Select a Targeting Rule (Optional):** If you want to apply dynamic pricing adjustments (like PPP or country-specific discounts) to the selected pricing table, choose a rule from the "Select Targeting Rule" dropdown.
+     If this field is left empty, the pricing table will be displayed with its default pricing to all users.
+    If you select a rule, its logic will be applied to the prices shown on the pricing table for any user who matches the rule's conditions.
+    
+    
+    {/* * **Assign to:** You have two primary options for how this offering will be used:
         * **Product:** Select this option to link the offering (and its associated pricing table) directly to a single product. Choose your desired product from the "Select Product" dropdown. This is the most straightforward way to deploy a pricing table for a specific product.
-        * **Targeting Rule:** (This will be covered in detail in the "Targeting Rules" documentation). Selecting this allows you to associate the offering with a predefined rule, enabling dynamic presentation based on customer segments (e.g., for regional pricing like PPP).
+        * **Targeting Rule:** (This will be covered in detail in the "Targeting Rules" documentation). Selecting this allows you to associate the offering with a predefined rule, enabling dynamic presentation based on customer segments (e.g., for regional pricing like PPP). */}
 
      <Frame>
         <img height="200" src="/images/create-offering-select-pricing-table.png" />
