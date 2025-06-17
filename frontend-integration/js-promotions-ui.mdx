@@ -5,12 +5,12 @@ description: "Documentation for integrating the ParityDeals JavaScript SDK to di
 icon: "code"
 ---
 
-## Installation
-Follow these two simple steps to get the ParityDeals SDK running on your pricing page.
+# Quick Start
 
-#### 1. Add the Script to Your Page
+Get dynamic, localized pricing on your site in just two steps:
 
-Paste the following snippet just before the closing `</head>` tag on your pricing page:
+## 1. Add the ParityDeals Script
+Paste this snippet just before the closing `</head>` tag on your pricing page:
 
 ```html
 <script type="text/javascript">
@@ -18,68 +18,98 @@ function resolvePdSDKFunction(e,...t){return new Promise((n,i)=>{!function r(){w
 </script>
 ```
 
-#### 2. Initialize the SDK
+## 2. Initialize the SDK
+
+Copy your product ID from the listing or promotion details page:
 
 ```js
 ParityDeals.init({
   productId: 'YOUR_PRODUCT_ID',
+  showBanner: true,
 });
 ```
+This will automatically display a discount banner if the user is eligible for a discount.
 
-## Customizing the Pricing Page
+---
 
-The easiest way to display dynamic pricing is by annotating your existing HTML elements with data-pd-* attributes. The SDK will automatically detect these and update the content accordingly.
+# Displaying Dynamic Prices (Basic)
 
-### **Core Price Attributes**
+The easiest way to show dynamic prices is to add the `data-pd-original-price` attribute to a wrapper element, and place a child element with `data-pd-price-formatted` where you want the price to appear. The SDK will automatically update this with the correct price for each visitor.
 
-These are the essential attributes for identifying and grouping your prices.
-
-* `data-pd-original-price`
-    * **Purpose:** Sets the base price for a product or plan before any discounts or currency conversions are applied. This is the **most important attribute**.
-    * **Usage:** Place this on the element that contains the price you want the SDK to update.
-
-* `data-pd-original-price-display`
-    * **Purpose:** Used to display a "compare at" or "strikethrough" price. This is useful for showing the original price when a discount is active.
-    * **Behavior:** The value of this element is never modified by discounts, but it can be converted to local currency if the `convertToLocal` option is enabled.
-
-* `data-pd-rel`
-    * **Purpose:** Groups multiple related price elements together. When a price is updated, all elements sharing the same `data-pd-rel` value will be updated simultaneously.
-    * **Usage:** Assign a unique string (e.g., `basic-plan`, `pro-monthly`) to all elements related to a single product.
-
-#### **Basic Example**
-
-Here's how to set up two pricing tiers. The SDK will find these elements and update their text content with the new prices if a discount is applicable.
+**Example:**
 
 ```html
-<div class="pricing-plan">
+<div class="pricing-plan" data-pd-original-price="99">
   <h3>Basic Plan</h3>
-  <h3 data-pd-original-price="99" data-pd-rel="basic-plan">$99</h3>
-</div>
-
-<div class="pricing-plan">
-  <h3>Standard Plan</h3>
-  <h3 data-pd-original-price="199" data-pd-rel="standard-plan">$199</h3>
+  <h3 data-pd-price-formatted>$99</h3>
 </div>
 ```
 
-### **Controlling Price Display**
+**That's it!** The SDK will find and update these prices automatically.
 
-Instead of having the SDK replace the entire content of an element, you can specify exactly which parts of the price you want to display. This is useful for complex layouts where the price is broken into different elements (e.g., for styling the currency symbol and decimal part differently).
+---
 
-To do this, you place the core `data-pd-original-price` attribute on a parent container and use the following attributes on child elements.
+# Customizing Price Display (Basic)
 
-| Data Attribute | Description |
-| :--- | :--- |
-| `data-pd-price-formatted` | Displays the complete, fully formatted price (e.g., "$99.50"). |
-| `data-pd-currency-symbol` | Displays only the currency symbol (e.g., "$"). |
-| `data-pd-price-integer` | Displays only the integer part of the price (e.g., "99"). |
-| `data-pd-price-decimal` | Displays only the decimal part of the price (e.g., "50"). |
-| `data-pd-price-decimal-point` | Displays the decimal separator (e.g., "."). |
-| `data-pd-currency-code` | Displays the 3-letter currency code (e.g., "USD"). |
+If you want to style different parts of the price (like the currency symbol or decimals), you can break the price into parts using these attributes **inside** a container with `data-pd-original-price`:
 
-#### **Detailed Display Example**
+| Data Attribute             | Description                                      |
+| :------------------------- | :----------------------------------------------- |
+| `data-pd-price-formatted`  | The full formatted price (e.g., "$99.50")        |
+| `data-pd-currency-symbol`  | Only the currency symbol (e.g., "$")             |
+| `data-pd-price-integer`    | Integer part of the price (e.g., "99")           |
+| `data-pd-price-decimal`    | Decimal part (e.g., "50")                        |
+| `data-pd-price-decimal-point` | The decimal separator (e.g., ".")             |
+| `data-pd-currency-code`    | 3-letter currency code (e.g., "USD")             |
 
-In this example, we have a main price and a strikethrough price, both broken down into their constituent parts. Both are linked with `data-pd-rel="pro-plan"`.
+**Example:**
+
+```html
+<div class="price-container" data-pd-original-price="99">
+  <span class="currency" data-pd-currency-symbol></span>
+  <span class="integer" data-pd-price-integer></span>
+  <span class="decimal" data-pd-price-decimal></span>
+</div>
+```
+
+---
+
+# SDK Configuration Options
+
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `productId`          | string  | null     | The product ID to display               |
+| `showBanner`         | boolean | false    | Whether to show the discount banner      |
+| `localizePricing`    | boolean | false    | Convert to local currency               |
+| `baseCurrencyCode`   | string  | null     | The base currency code                  |
+| `baseCurrencySymbol` | string  | null     | The base currency symbol                |
+| `currencyDisplay`    | string  | null     | The currency display format             |
+| `showDecimal`        | boolean | `true`   | Whether to show decimals                 |
+| `minimumDecimalDigits` | number | 0        | The minimum number of decimal digits     |
+| `maximumDecimalDigits` | number | 2        | The maximum number of decimal digits     |
+| `isOriginalDisplay`    | boolean | false    | Whether to show the original price        |
+| `bar.*`              | object  | —        | Customization for the discount banner    |
+| `bar.unStyled`       | boolean | false    | Whether to show the discount banner    |
+| `bar.showCloseButton`| boolean | true     | Whether to show the close button    |
+| `bar.placement`      | string  | 'top'    | The placement of the discount banner    |
+| `bar.container`      | string  | null     | The container for the discount banner    |
+| `bar.backgroundColor`| string  | '#f0f0f0'    | The background color of the discount banner    |
+| `bar.fontColor`      | string  | '#333333'    | The font color of the discount banner    |
+| `bar.borderRadius`   | string  | '0px'    | The border radius of the discount banner    |
+| `bar.fontSize`       | string  | '14px'   | The font size of the discount banner    |
+
+---
+
+# Advanced Usage
+
+## Grouping and Strikethrough Prices
+
+For more complex pricing layouts, you can use these advanced attributes:
+
+* `data-pd-original-price-display`: Shows a "compare at" or strikethrough price (never discounted, but can be localized).
+* `data-pd-rel`: Groups related price elements so they update together (e.g., main price and strikethrough).
+
+**Example:**
 
 ```html
 <div class="pricing-card">
@@ -100,118 +130,67 @@ In this example, we have a main price and a strikethrough price, both broken dow
 </div>
 ```
 
-## SDK Configuration Options
+You can assign the same `data-pd-rel` value to all elements that should update together.
+
+---
+
+# API Reference (Advanced)
+
+All SDK functions are asynchronous and return a `Promise`.
+
+## `getUpdatedPrice`
+Calculate and return the updated price for a given base price (does not update the DOM):
 
 ```js
-ParityDeals.init({
-  convertToLocal: true,
-  thousandsSeparator: ',',
-  decimalSeparator: '.',
-  decimalPlaces: 2,
-  roundTo: 'none',
-  showDecimal: true,
-  bar: {
-    unStyled: false,
-    showCloseButton: true,
-    placement: 'top',
-    container: null,
-    backgroundColor: '#f0f0f0',
-    fontColor: '#333333',
-    borderRadius: '0px',
-    fontSize: '14px'
-  }
-});
-```
-
-| Option               | Type    | Default  | Description                              |
-| -------------------- | ------- | -------- | ---------------------------------------- |
-| `convertToLocal`     | boolean | false    | Convert to local currency                |
-| `thousandsSeparator` | string  | `,`      | Character for thousands                  |
-| `decimalSeparator`   | string  | `.`      | Character for decimals                   |
-| `decimalPlaces`      | number  | `2`      | Decimal precision                        |
-| `roundTo`            | string  | `'none'` | Rounding behavior (`up`, `down`, `none`) |
-| `showDecimal`        | boolean | `true`   | Whether to show decimals                 |
-| `bar.*`              | object  | —        | Customization for the discount banner    |
-
-## **API Reference (Advanced Usage)**
-
-For full control, you can use these public JavaScript functions. All functions are asynchronous and return a `Promise`.
-
-### **getUpdatedPrice**
-
-Calculates and returns the updated price information for a given base price without updating the DOM.
-
-```javascript
 const originalPrice = 99.99;
-const options = { convertToLocal: true };
+const options = { localizePricing: true };
 
 ParityDeals.getUpdatedPrice(originalPrice, options)
   .then(result => {
     console.log('Updated price object:', result);
-    // result = { formattedPrice: "€92.50", currency: {..}, ... }
-  })
-  .catch(error => {
-    console.error('Error getting updated price:', error);
   });
 ```
 
-### **updatePriceElement**
+## `updatePriceElement`
+Update a specific DOM element's price:
 
-Calculates the updated price for a specific DOM element and updates its content. The element must have a `data-pd-original-price` attribute.
-
-```javascript
+```js
 const priceElement = document.querySelector('#basic-price');
 const options = { roundTo: 'up' };
 
 ParityDeals.updatePriceElement(priceElement, options)
   .then(result => {
     console.log('Price element updated successfully.');
-  })
-  .catch(error => {
-    console.error('Error updating price element:', error);
   });
 ```
 
-### **updatePrice**
+## `updatePrice`
+Bulk update multiple price elements with custom templates:
 
-Updates multiple, arbitrary price elements on the page using custom templates. This is the most powerful function for complex, dynamic updates.
-
-#### **Template Placeholders**
-
-Your `template` string can include these placeholders, which will be replaced with the calculated price values:
-
-* `{{formattedPrice}}`
-* `{{currencySymbol}}`
-* `{{integerPart}}`
-* `{{decimalPart}}`
-* `{{decimalSeparator}}`
-* `{{currencyCode}}`
-
-```javascript
+```js
 const priceUpdates = [
-    {
-        element: document.querySelector('#price-1'),
-        price: 10,
-        options: { convertToLocal: true },
-        template: '<div class="price">{{formattedPrice}}</div>'
-    },
-    {
-        element: document.querySelector('#price-2'),
-        price: 20,
-        options: { isOriginalDisplay: true }, // isOriginalDisplay prevents discounts
-        template: '<span>{{currencySymbol}}</span>{{integerPart}}'
-    }
+  {
+    element: document.querySelector('#price-1'),
+    price: 10,
+    options: { localizePricing: true },
+    template: '<div class="price">{{formattedPrice}}</div>'
+  },
+  {
+    element: document.querySelector('#price-2'),
+    price: 20,
+    options: { isOriginalDisplay: true },
+    template: '<span>{{currencySymbol}}</span>{{integerPart}}'
+  }
 ];
 
 ParityDeals.updatePrice(priceUpdates)
   .then(results => {
     console.log('All prices updated:', results);
-  })
-  .catch(error => {
-    console.error('Error performing bulk price update:', error);
   });
 ```
 
-## Support
+---
+
+# Support
 
 Need help or have questions? Reach out to us anytime at **[hi@paritydeals.com](mailto:hi@paritydeals.com)**.

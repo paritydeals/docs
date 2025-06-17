@@ -67,7 +67,7 @@ Use this to show the localized or discounted price:
 ```tsx
 <PDPriceFormatted
   originalPrice={99.99}
-  convertToLocal={true}
+  localizePricing={true}
   showDecimal={true}
   showCurrencyCode={true}
   showCurrencySymbol={true}
@@ -83,7 +83,7 @@ Optionally show the original price with a strikethrough effect:
   originalPrice={99.99}
   displayPrice={99.99}
   isOriginalDisplay={true}
-  convertToLocal={true}
+  localizePricing={true}
   showCurrencySymbol={true}
 />
 ```
@@ -131,7 +131,7 @@ Displays just the decimal portion.
 Renders the currency symbol (like \$, ₹, €).
 
 ```tsx
-<PDPriceCurrencySymbol convertToLocal={true} className="currency-symbol" />
+<PDPriceCurrencySymbol localizePricing={true} className="currency-symbol" />
 ```
 
 ### `PDPriceCurrencyCode`
@@ -139,7 +139,7 @@ Renders the currency symbol (like \$, ₹, €).
 Renders the full currency code (like USD, INR, EUR).
 
 ```tsx
-<PDPriceCurrencyCode convertToLocal={true} className="currency-code" />
+<PDPriceCurrencyCode localizePricing={true} className="currency-code" />
 ```
 
 ### Custom Display Example
@@ -148,11 +148,11 @@ Example using all components to create a custom layout:
 
 ```tsx
 <div className="custom-price-display">
-  <PDPriceCurrencySymbol convertToLocal={true} />
+  <PDPriceCurrencySymbol localizePricing={true} />
   <PDPriceInteger originalPrice={99.99} />
   <span className="decimal-separator">.</span>
   <PDPriceDecimal originalPrice={99.99} />
-  <PDPriceCurrencyCode convertToLocal={true} />
+  <PDPriceCurrencyCode localizePricing={true} />
 </div>
 ```
 
@@ -169,7 +169,7 @@ interface DefaultFormatConfig {
   decimalPlaces?: number;          // default: 2
   roundTo?: 'none' | 'up' | 'down';
   showDecimal?: boolean;           // default: true
-  convertToLocal?: boolean;        // default: false
+  localizePricing?: boolean;        // default: false
   showCurrencyCode?: boolean;      // default: false
   showCurrencySymbol?: boolean;    // default: true
   isOriginalDisplay?: boolean;     // default: false
