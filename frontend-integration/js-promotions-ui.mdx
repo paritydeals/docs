@@ -156,7 +156,7 @@ Update a specific DOM element's price:
 
 ```js
 const priceElement = document.querySelector('#basic-price');
-const options = { roundTo: 'up' };
+const options = { showDecimal: false };
 
 ParityDeals.updatePriceElement(priceElement, options)
   .then(result => {
