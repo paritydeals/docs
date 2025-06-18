@@ -9,12 +9,12 @@ icon: "code"
 
 Get dynamic, localized pricing on your site in just two steps:
 
-## 1. Add the ParityDeals Script
+## 1. Add the PDPromotionUI Script
 Paste this snippet just before the closing `</head>` tag on your pricing page:
 
 ```html
 <script type="text/javascript">
-function resolvePdSDKFunction(e,...t){return new Promise(((n,i)=>{!function o(){window.ParityDealsSDK&&"function"==typeof window.ParityDealsSDK[e]?window.ParityDealsSDK[e](...t).then(n).catch(i):setTimeout(o,100)}()}))}!function(e,t,n,i,o,r,a){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(Array.prototype.slice.call(arguments))},r=t.createElement(n),a=t.getElementsByTagName(n)[0],r.id="parity-deals-sdk",r.async=1,r.src="https://cdn.paritydeals.com/js-promotions-ui/js-promotions-ui-1.0.0.umd.js",r.type="module",a.parentNode.insertBefore(r,a)}(window,document,"script","ParityDealsSDK"),window.ParityDeals={init:function(e){ParityDealsSDK("init",e)},getUpdatedPrice:function(e,t){return resolvePdSDKFunction("getUpdatedPrice",e,t)},updatePriceElement:function(e,t){return resolvePdSDKFunction("updatePriceElement",e,t)},updatePrice:function(e){return resolvePdSDKFunction("updatePrice",e)}};
+function resolvePdSDKFunction(e,...t){return new Promise((n,i)=>{!function r(){window.PDPromotionUISDK&&"function"==typeof window.PDPromotionUISDK[e]?window.PDPromotionUISDK[e](...t).then(n).catch(i):setTimeout(r,100)}()})}!function(e,t,n,i,r,a,c){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(Array.prototype.slice.call(arguments))},a=t.createElement(n),c=t.getElementsByTagName(n)[0],a.id="parity-deals-sdk",a.async=1,a.src=r,c.parentNode.insertBefore(a,c)}(window,document,"script","PDPromotionUISDK","https://cdn.paritydeals.com/js-promotions-ui/1.0.0/js-promotions-ui.umd.js"),window.PDPromotionUI={init:function(e){PDPromotionUISDK("init",e)},getUpdatedPrice:function(e,t){return resolvePdSDKFunction("getUpdatedPrice",e,t)},updatePriceElement:function(e,t){return resolvePdSDKFunction("updatePriceElement",e,t)},updatePrice:function(e){return resolvePdSDKFunction("updatePrice",e)}};
 </script>
 ```
 
@@ -23,7 +23,7 @@ function resolvePdSDKFunction(e,...t){return new Promise(((n,i)=>{!function o(){
 Copy your product ID from the listing or promotion details page:
 
 ```js
-ParityDeals.init({
+PDPromotionUI.init({
   productId: 'YOUR_PRODUCT_ID',
   showBanner: true,
 });
@@ -145,7 +145,7 @@ Calculate and return the updated price for a given base price (does not update t
 const originalPrice = 99.99;
 const options = { localizePricing: true };
 
-ParityDeals.getUpdatedPrice(originalPrice, options)
+PDPromotionUI.getUpdatedPrice(originalPrice, options)
   .then(result => {
     console.log('Updated price object:', result);
   });
@@ -158,7 +158,7 @@ Update a specific DOM element's price:
 const priceElement = document.querySelector('#basic-price');
 const options = { showDecimal: false };
 
-ParityDeals.updatePriceElement(priceElement, options)
+PDPromotionUI.updatePriceElement(priceElement, options)
   .then(result => {
     console.log('Price element updated successfully.');
   });
@@ -183,7 +183,7 @@ const priceUpdates = [
   }
 ];
 
-ParityDeals.updatePrice(priceUpdates)
+PDPromotionUI.updatePrice(priceUpdates)
   .then(results => {
     console.log('All prices updated:', results);
   });
