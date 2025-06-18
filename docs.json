@@ -94,6 +94,10 @@
               "frontend-integration/js-promotions-ui",
               "frontend-integration/react-promotions-ui"
             ]
+          },
+          {
+            "group": "Promotions API",
+            "openapi": "api-reference/promotions_openapi.json"
           }
         ]
       }

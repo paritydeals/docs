@@ -1,0 +1,481 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ParityDeals Checkout API",
+    "version": "1.0.0",
+    "description": "The ParityDeals Checkout API extends the capabilities of Stripe's Checkout API by incorporating dynamic pricing adjustments based on user location, holidays, and other criteria defined within ParityDeals."
+  },
+  "servers": [
+    {
+      "url": "https://api.paritydeals.com/api/v1"
+    }
+  ],
+  "paths": {
+    "/deals/discount/": {
+      "get": {
+        "summary": "Retrieve Deals Discount Information",
+        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Required for client-side API calls. The browser's current URL (e.g., window.location.href). The API call will only return a response if made from a website configured in the deal for security.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "examples": {
+              "clientSide": {
+                "value": "https://your-website.com/page"
+              }
+            }
+          },
+          {
+            "name": "pd_identifier",
+            "in": "query",
+            "description": "Required for server-side API calls. A unique identifier associated with a particular banner deal.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "serverSide": {
+                "value": "BANNER_IDENTIFIER"
+              }
+            }
+          },
+          {
+            "name": "ip_address",
+            "in": "query",
+            "description": "Required for server-side API calls. The user's IP address.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "examples": {
+              "serverSide": {
+                "value": "34.98.207.242"
+              }
+            }
+          },
+          {
+            "name": "base_currency_code",
+            "in": "query",
+            "description": "Optional for server-side API calls. The desired base currency code for the discount information (e.g., EUR).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "serverSide": {
+                "value": "EUR"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of discount information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bar": {
+                      "type": "object",
+                      "properties": {
+                        "backgroundColor": {
+                          "type": "string",
+                          "example": "#04888e"
+                        },
+                        "backgroundTransparency": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "fontColor": {
+                          "type": "string",
+                          "example": "#59ebf1"
+                        },
+                        "highlightFontColor": {
+                          "type": "string",
+                          "example": "#DD5C64"
+                        },
+                        "placement": {
+                          "type": "string",
+                          "example": "top"
+                        },
+                        "borderRadius": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "addCloseIcon": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "unStyled": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    },
+                    "couponCode": {
+                      "type": "string",
+                      "nullable": true,
+                      "example": "PD8CEXAAJL"
+                    },
+                    "discountPercentage": {
+                      "type": "string",
+                      "example": "50.00"
+                    },
+                    "countryCode": {
+                      "type": "string",
+                      "example": "IN"
+                    },
+                    "currencyCode": {
+                      "type": "string",
+                      "example": "INR"
+                    },
+                    "currencySymbol": {
+                      "type": "string",
+                      "example": "₹"
+                    },
+                    "country": {
+                      "type": "string",
+                      "example": "India"
+                    },
+                    "countryFlag": {
+                      "type": "string",
+                      "example": "🇮🇳"
+                    },
+                    "holiday": {
+                      "type": "string",
+                      "nullable": true,
+                      "example": null
+                    },
+                    "time": {
+                      "type": "string",
+                      "nullable": true,
+                      "example": null
+                    },
+                    "isProxy": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "isTor": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "isVpn": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "usdConversionRate": {
+                      "type": "string",
+                      "example": "82.2"
+                    },
+                    "baseCurrencyConversionRate": {
+                      "type": "string",
+                      "example": "82.2"
+                    },
+                    "pricingLocale": {
+                      "type": "string",
+                      "example": "en-IN"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Message with HTML tags.",
+                      "example": "Message with HTML tags"
+                    },
+                    "messageText": {
+                      "type": "string",
+                      "description": "Plain text message.",
+                      "example": "Message string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Additional data related to the discount.",
+                      "properties": {
+                        "stripePromoCodeId": {
+                          "type": "string",
+                          "example": "promo_1RaFH8EEwDDegOMGqiAG"
+                        },
+                        "polarDiscountId": {
+                          "type": "string",
+                          "example": "DISC123"
+                        },
+                        "dodoDiscountId": {
+                          "type": "string",
+                          "example": "DODO123"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stripe-checkout/": {
+      "post": {
+        "summary": "Create a Stripe Checkout Session for Promotions",
+        "description": "This endpoint creates a checkout session with Stripe and applies geographic pricing and discounts as configured in ParityDeals. It returns a checkout URL.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pd_identifier": {
+                    "type": "string",
+                    "description": "Unique identifier associated with a particular deal.",
+                    "example": "your_pd_identifier"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "description": "Pass the IP address. This is necessary only if you are implementing this in server-side.",
+                    "nullable": true,
+                    "example": "192.168.1.1"
+                  },
+                  "apply_coupons": {
+                    "type": "boolean",
+                    "description": "Set this field true to automatically fetches and applies pricing based on the user’s location at checkout. **Warning:** If this is set to `false`, the Stripe `price_id` for adjusted pricing may not be available directly in the response.",
+                    "default": false,
+                    "example": true
+                  },
+                  "success_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The URL to which a user will be redirected after a successful purchase.",
+                    "example": "https://your-success-url.com"
+                  }
+                },
+                "required": [
+                  "pd_identifier",
+                  "success_url"
+                ],
+                "oneOf": [
+                  {
+                    "required": [
+                      "checkout_data"
+                    ],
+                    "properties": {
+                      "checkout_data": {
+                        "type": "object",
+                        "description": "Checkout data similar to the data specified in Stripe documentation (https://docs.stripe.com/api/checkout/sessions/create). This parameter is required if payment_id is not provided.",
+                        "additionalProperties": true,
+                        "example": {}
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "payment_id"
+                    ],
+                    "properties": {
+                      "payment_id": {
+                        "type": "string",
+                        "description": "The unique identifier for the product on Stripe. This parameter is required if checkout_data is not provided.",
+                        "example": "your_payment_id"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created Checkout session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier for the Stripe Checkout Session.",
+                      "example": "cs_live_a1HmmI9644trNrGaxfCMYrsZgK3QMiklsMqNEBNzEKWmNkzJtViECUBNpB"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "The URL to redirect the user to for completing the checkout process.",
+                      "example": "https://checkout.stripe.com/c/pay/cs_live_a1HmmI9644trNrGaxfCMYrsZgK3QMiklsMqNEBNpB#fid2cXdsdWBEZmZqcGtxJz8nZGZmcVo0SnYzXGdJSzZUVUlxRnRgJyknZHVsTmB8Jz8ndW5aaWxzYFowNE49Q0hnVkZsMWJHYjBcRmBGVEZ8ZFxWVF1XcUpEVXRgYE9HNGExQElMMz1IaDQ1ZkpqTl0wTGdwRm1AUVddbzdHclRIR1J8MjJfPEhKY3Z1czU1NF1PbX9TclMnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing or invalid parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Missing pd_identifier or success_url"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Failed to create Stripe Checkout session"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lemon-squeezy-checkout/": {
+      "post": {
+        "summary": "Create a LemonSqueezy Checkout Session for Promotions",
+        "description": "This endpoint creates a checkout session with LemonSqueezy and applies geographic pricing and discounts as configured in ParityDeals. It returns a checkout URL.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pd_identifier": {
+                    "type": "string",
+                    "description": "Unique identifier associated with a particular deal.",
+                    "example": "your_pd_identifier"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "description": "Pass the IP address. This is necessary only if you are implementing this in server-side.",
+                    "nullable": true,
+                    "example": "192.168.1.1"
+                  },
+                  "store_id": {
+                    "type": "string",
+                    "description": "The unique identifier for the product on LemonSqueezy.",
+                    "example": "your_store_id"
+                  },
+                  "success_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The URL to which a user will be redirected after a successful purchase.",
+                    "nullable": true,
+                    "example": "https://your-success-url.com"
+                  }
+                },
+                "required": [
+                  "pd_identifier",
+                  "store_id"
+                ],
+                "oneOf": [
+                  {
+                    "required": [
+                      "checkout_data"
+                    ],
+                    "properties": {
+                      "checkout_data": {
+                        "type": "object",
+                        "description": "Checkout data similar to the data specified in LemonSqueezy documentation (https://docs.lemonsqueezy.com/api/checkouts/create-checkout). This parameter is required if variants is not provided.",
+                        "additionalProperties": true,
+                        "example": {}
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "variants"
+                    ],
+                    "properties": {
+                      "variants": {
+                        "type": "string",
+                        "description": "Represents different variations of a product, each with unique pricing options, files, and license key settings. Pass the variants as a comma-separated list. This parameter is required if checkout_data is not provided.",
+                        "example": "variant_id_1,variant_id_2"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created Checkout session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier for the LemonSqueezy Checkout Session.",
+                      "example": "994d1506-2baf-41b3-80a9-7c0ac9c9e368"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "The URL to redirect the user to for completing the checkout process.",
+                      "example": "https://paritydeals.lemonsqueezy.com/checkout/custom/994d1506-2baf-41b3-80a9-7c0ac9c9e368?signature=f43c0fd78c65f2649bbccf28b544b141353b528e05d30743def15c917ea5ecf0"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing or invalid parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Missing pd_identifier, store_id, or one of checkout_data/variants"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Failed to create LemonSqueezy Checkout session"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
