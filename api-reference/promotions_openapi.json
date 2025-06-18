@@ -77,7 +77,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful retrieval of discount information.",
+            "description": "Successful retrieval of discount information. The response will either contain the discount details or a message indicating that no discounts are available.",
             "content": {
               "application/json": {
                 "schema": {
@@ -210,6 +210,51 @@
                           "example": "DODO123"
                         }
                       }
+                    }
+                  }
+                },
+                "examples": {
+                  "discountFound": {
+                    "summary": "A discount was found for the user.",
+                    "value": {
+                      "bar": {
+                        "backgroundColor": "#04888e",
+                        "backgroundTransparency": "0",
+                        "fontColor": "#59ebf1",
+                        "highlightFontColor": "#DD5C64",
+                        "placement": "top",
+                        "borderRadius": "0",
+                        "addCloseIcon": false,
+                        "unStyled": true
+                      },
+                      "couponCode": "PD8CEXAAJL",
+                      "discountPercentage": "50.00",
+                      "countryCode": "IN",
+                      "currencyCode": "INR",
+                      "currencySymbol": "₹",
+                      "country": "India",
+                      "countryFlag": "🇮🇳",
+                      "holiday": null,
+                      "time": null,
+                      "isProxy": false,
+                      "isTor": false,
+                      "isVpn": false,
+                      "usdConversionRate": "82.2",
+                      "baseCurrencyConversionRate": "82.2",
+                      "pricingLocale": "en-IN",
+                      "message": "Message with HTML tags",
+                      "messageText": "Message string",
+                      "data": {
+                        "stripePromoCodeId": "promo_1RaFH8EEwDDegOMGqiAG",
+                        "polarDiscountId": "DISC123",
+                        "dodoDiscountId": "DODO123"
+                      }
+                    }
+                  },
+                  "noDiscountFound": {
+                    "summary": "No discounts were available for the user.",
+                    "value": {
+                      "message": "No discounts available"
                     }
                   }
                 }
