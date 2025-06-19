@@ -97,6 +97,13 @@
               "frontend-integration/js-promotions-ui",
               "frontend-integration/react-promotions-ui"
             ]
+          },
+          {
+            "group": "Buy Now Button",
+            "pages": [
+              "frontend-integration/stripe-buy-now-button",
+              "frontend-integration/lemonsqueezy-buy-now-button"
+            ]
           }
         ]
       }

@@ -1,0 +1,31 @@
+---
+title: "LemonSqueezy buy now button"
+description: "The ParityDeals buy now button enhances LemonSqueezy's checkout link by creating dynamic checkout links that adjust prices based on user location, holidays, and other criteria set in ParityDeals."
+---
+
+
+#### Overview
+To integrate ParityDeals with LemonSqueezy, replace your existing LemonSqueezy checkout link with the corresponding ParityDeals buy now button on your website. For security reasons, this link functions only when accessed directly from the specified website.
+
+#### Example
+```tsx
+<a href="https://www.paritydeals.com/api/v1/lemon-squeezy-buy-now/?store_id=2757
+&variants=34813,64877,94575&pd_suite_id=792
+&success_url=https://www.yourdomain.com">Buy Now</a>
+```
+
+
+#### Parameters
+- **`store_id`** (required): The unique identifier for the store on LemonSqueezy.
+- **`variants`** (required): A comma-separated list of product variant IDs available for purchase. The first ID in this list will be pre-selected in the checkout session.
+- **`pd_suite_id`** (required): The ParityDeals deal identifier used to apply specific pricing and discounts.
+- **`success_url`** (required): The URL to which a user will be redirected after a successful purchase.
+
+#### Behavior
+- **Geographic Pricing**: When a user accesses the checkout page via the generated buy-now link, the API automatically fetches and applies pricing based on the user's location, holidays and other criteria set in ParityDeals. For example, if the product is priced at $100 in the US and $50 in India, a user from India will see the price as $50 at checkout.
+- **Variant Handling**: In cases where multiple product variants are available, the API sets the first variant in the `variants` parameter as the default selection. If a user switches between variants, a temporary discount coupon is generated to maintain the correct price.<br/> 
+This coupon:
+  - Can be used only once.
+  - Expires in 30 minutes.
+  - Is automatically applied to ensure the price adjusts without reverting to the default.
+
