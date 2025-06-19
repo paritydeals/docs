@@ -36,12 +36,6 @@
             "pages": ["dynamic pricing/tailor-pricing" , "dynamic pricing/purchaisng-parity-power-pricing" , "dynamic pricing/country-based", "dynamic pricing/browser"]
           },
           {
-            "group": "Promo Hub",
-            "pages": [
-              "promo-hub/location-based-pricing" , "promo-hub/add-to-site", "promo-hub/promotions-discount-api" , "promo-hub/coupon-code-api" , "promo-hub/lemonsqueezy-buy-now-button" , "promo-hub/stripe-buy-now-button" , "promo-hub/lemonsqueezy-checkout-session" , "promo-hub/stripe-checkout-session" , "promo-hub/customize-discount-banners"
-            ]
-          },
-          {
             "group": "Deals",
             "pages": [
               "deals-ui/what-is-a-deal",
@@ -85,24 +79,30 @@
         ]
       },
       {
-        "tab": "Promotions APIs & SDKs",
+        "tab": "Promotions",
         "groups": [
           {
+            "group": "Get Started",
+            "pages": [
+              "promotions/overview"
+            ]
+          },
+          {
             "group": "API Documentation",
-            "openapi": "api-reference/promotions_openapi.json"
+            "openapi": "promotions/openapi.json"
           },
           {
             "group": "Frontend Integration",
             "pages": [
-              "frontend-integration/js-promotions-ui",
-              "frontend-integration/react-promotions-ui"
+              "promotions/frontend-integration/js-promotions-ui",
+              "promotions/frontend-integration/react-promotions-ui"
             ]
           },
           {
             "group": "Buy Now Button",
             "pages": [
-              "frontend-integration/stripe-buy-now-button",
-              "frontend-integration/lemonsqueezy-buy-now-button"
+              "promotions/frontend-integration/stripe-buy-now-button",
+              "promotions/frontend-integration/lemonsqueezy-buy-now-button"
             ]
           }
         ]
