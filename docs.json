@@ -81,17 +81,22 @@
               "frontend-integration/react-ui",
               "frontend-integration/js-sdk"
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Promotions APIs & SDKs",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "openapi": "api-reference/promotions_openapi.json"
           },
           {
-            "group": "Promotions UI",
+            "group": "Frontend Integration",
             "pages": [
               "frontend-integration/js-promotions-ui",
               "frontend-integration/react-promotions-ui"
             ]
-          },
-          {
-            "group": "Promotions API",
-            "openapi": "api-reference/promotions_openapi.json"
           }
         ]
       }
