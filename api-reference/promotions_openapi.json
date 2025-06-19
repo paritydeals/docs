@@ -120,6 +120,10 @@
                         "unStyled": {
                           "type": "boolean",
                           "example": true
+                        },
+                        "noStyle": {
+                          "type": "boolean",
+                          "example": true
                         }
                       }
                     },
@@ -228,7 +232,8 @@
                         "placement": "top",
                         "borderRadius": "0",
                         "addCloseIcon": false,
-                        "unStyled": true
+                        "unStyled": true,
+                        "noStyle": false
                       },
                       "couponCode": "PD8CEXAAJL",
                       "discountPercentage": "50.00",
