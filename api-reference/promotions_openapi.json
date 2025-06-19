@@ -16,7 +16,7 @@
         "tags": [
           "Promotions"
         ],
-        "summary": "Retrieve Deals Discount Information",
+        "summary": "Promotion Details",
         "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements.",
         "parameters": [
           {
@@ -272,7 +272,7 @@
         "tags": [
           "Checkout"
         ],
-        "summary": "Create a Stripe Checkout Session for Promotions",
+        "summary": "Stripe Checkout",
         "description": "This endpoint creates a checkout session with Stripe and applies geographic pricing and discounts as configured in ParityDeals. It returns a checkout URL.",
         "requestBody": {
           "required": true,
@@ -404,7 +404,7 @@
         "tags": [
           "Checkout"
         ],
-        "summary": "Create a LemonSqueezy Checkout Session for Promotions",
+        "summary": "LemonSqueezy Checkout",
         "description": "This endpoint creates a checkout session with LemonSqueezy and applies geographic pricing and discounts as configured in ParityDeals. It returns a checkout URL.",
         "requestBody": {
           "required": true,
