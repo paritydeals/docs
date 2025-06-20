@@ -10,7 +10,7 @@ To integrate ParityDeals with LemonSqueezy, replace your existing LemonSqueezy c
 #### Example
 ```tsx
 <a href="https://www.paritydeals.com/api/v1/lemon-squeezy-buy-now/?store_id=2757
-&variants=34813,64877,94575&pd_suite_id=792
+&variants=34813,64877,94575&product_id=promo_c1a4e298186d439586d78l20b2d98b80
 &success_url=https://www.yourdomain.com">Buy Now</a>
 ```
 
@@ -18,7 +18,7 @@ To integrate ParityDeals with LemonSqueezy, replace your existing LemonSqueezy c
 #### Parameters
 - **`store_id`** (required): The unique identifier for the store on LemonSqueezy.
 - **`variants`** (required): A comma-separated list of product variant IDs available for purchase. The first ID in this list will be pre-selected in the checkout session.
-- **`pd_suite_id`** (required): The ParityDeals deal identifier used to apply specific pricing and discounts.
+- **`product_id`** (required): The ParityDeals product identifier used to apply specific pricing and discounts.
 - **`success_url`** (required): The URL to which a user will be redirected after a successful purchase.
 
 #### Behavior

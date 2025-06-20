@@ -10,7 +10,7 @@ To integrate ParityDeals with LemonSqueezy, replace your existing LemonSqueezy c
 
 ### Parameters
 - **`payment_id`** (required): The unique identifier for the product on Stripe.
-- **`pd_suite_id`** (required): The ParityDeals deal identifier used to apply specific pricing and discounts.
+- **`product_id`** (required): The ParityDeals product identifier used to apply specific pricing and discounts.
 - **`success_url`** (required): The URL to which a user will be redirected after a successful purchase.
 
 ### Behavior
@@ -22,7 +22,7 @@ Here is how you can construct a URL for integrating the API with a buy-now butto
 ```tsx
 <a 
   href="https://www.paritydeals.com/api/v1/stripe-buy-now/?payment_id=plink_1Q0iiSLN3QPLtCqeBFPkbiay
-  &pd_suite_id=792
+  &product_id=promo_c1a4e298186d439586d78l20b2d98b80
   &success_url=https://www.lightgalleryjs.com/"
 >Buy Now</a>
 ```
