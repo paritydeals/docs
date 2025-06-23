@@ -117,13 +117,9 @@
                           "type": "boolean",
                           "example": false
                         },
-                        "unStyled": {
-                          "type": "boolean",
-                          "example": true
-                        },
                         "noStyle": {
                           "type": "boolean",
-                          "example": true
+                          "example": false
                         }
                       }
                     },
@@ -232,7 +228,6 @@
                         "placement": "top",
                         "borderRadius": "0",
                         "addCloseIcon": false,
-                        "unStyled": true,
                         "noStyle": false
                       },
                       "couponCode": "PD8CEXAAJL",

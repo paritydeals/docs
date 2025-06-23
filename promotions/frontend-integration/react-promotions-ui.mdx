@@ -29,6 +29,17 @@ function App() {
 }
 ```
 
+## Attributes:
+
+You can use the following attributes to customize the behavior of the components.
+
+| Attribute | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `productId` | string | '' | The product ID to display |
+| `baseCurrencyCode` | string | USD | If you use any base currency other than USD, you must provide this. Currency conversion will be done using this code. |
+| `baseCurrencySymbol` | string  | $     | If you use any base currency other than USD, you must provide this. Only for the displaying purpose, but still important.              
+
+
 ---
 
 ## Components
@@ -47,7 +58,7 @@ import { PDBanner } from '@paritydeals/react-promotions-ui';
   fontColor="#333"
   borderRadius="4px"
   fontSize="16px"
-  unStyled={false}
+  noStyles={false}
   addCloseIcon={true}
   className="custom-banner"
   onClose={() => console.log('Banner closed')}
@@ -56,23 +67,33 @@ import { PDBanner } from '@paritydeals/react-promotions-ui';
 
 ---
 
-### `PDPriceFormatted`
+### PDPriceFormatted
 
 Simplified component to display discounted and original prices dynamically based on the user’s location.
 
 #### Display Discounted Price
 
-Use this to show the localized or discounted price:
+Use this to show the localized or discounted price. The price is automatically formatted based on the user's location, including currency symbols, decimal separators, and digit grouping — for example, ₹9,999.99 for India, ¥10,000 for Japan, and 9.999,99 € for Italy where the currency symbol appears on the right.
 
 ```tsx
 <PDPriceFormatted
-  originalPrice={99.99}
-  localizePricing={true}
-  showDecimal={true}
-  showCurrencyCode={true}
-  showCurrencySymbol={true}
+  price={99.99}
 />
 ```
+
+##### Configuration Options
+
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `localizePricing`    | boolean | true    | Convert to local currency               |
+| `price`    | number | 0    | The price of the product.               |
+| `className`    | string | ''    | custom class name for the component               |
+| `currencyDisplay`    | `symbol\|code\|name`  | symbol     | The currency display format. This only works on the `data-pd-price-formatted` element.            |
+| `showDecimal`        | boolean | false   | Whether to show decimals                 |
+| `minimumDecimalDigits` | number | 0        | The minimum number of decimal digits     |
+| `maximumDecimalDigits` | number | 2        | The maximum number of decimal digits. Maximum is 2.     |
+| `isOriginalDisplay`    | boolean | false    | Used to show the original price when there’s a discount, typically for comparison (e.g., strikethrough price). This price is not modified by discounts but may still be affected by currency conversions.|
+| `displayPrice`    | number | 0    | The price to display. If not provided, the original price will be displayed.               |
 
 #### Display Original Price (Strikethrough)
 
@@ -80,11 +101,9 @@ Optionally show the original price with a strikethrough effect:
 
 ```tsx
 <PDPriceFormatted
-  originalPrice={99.99}
+  price={99.99}
   displayPrice={99.99}
   isOriginalDisplay={true}
-  localizePricing={true}
-  showCurrencySymbol={true}
 />
 ```
 
@@ -94,12 +113,11 @@ Combine both for a side-by-side comparison:
 
 ```tsx
 <div className="price-container">
-  <PDPriceFormatted originalPrice={89.99} showCurrencySymbol={true} />
+  <PDPriceFormatted price={89.99} />
   <PDPriceFormatted
-    originalPrice={99.99}
+    price={99.99}
     displayPrice={99.99}
     isOriginalDisplay={true}
-    showCurrencySymbol={true}
   />
 </div>
 ```
@@ -110,37 +128,84 @@ Combine both for a side-by-side comparison:
 
 Use these components individually to build custom price formats with full styling control.
 
-### `PDPriceInteger`
+### PDPriceInteger
 
 Displays just the integer part of the price.
 
 ```tsx
-<PDPriceInteger originalPrice={99.99} className="price-integer" />
+<PDPriceInteger price={99.99} />
 ```
+##### Configuration Options
 
-### `PDPriceDecimal`
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `localizePricing`    | boolean | true    | Convert to local currency               |
+| `price`    | number | 0    | The price of the product.               |
+| `className`    | string | ''    | custom class name for the component
+
+---
+
+### PDPriceDecimal
 
 Displays just the decimal portion.
 
 ```tsx
-<PDPriceDecimal originalPrice={99.99} className="price-decimal" />
+<PDPriceDecimal price={99.99} />
 ```
+##### Configuration Options
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `localizePricing`    | boolean | true    | Convert to local currency               |
+| `price`    | number | 0    | The price of the product.               |
+| `className`    | string | ''    | custom class name for the component
 
-### `PDPriceCurrencySymbol`
+---
+
+### PDPriceCurrencySymbol
 
 Renders the currency symbol (like \$, ₹, €).
 
 ```tsx
-<PDPriceCurrencySymbol localizePricing={true} className="currency-symbol" />
+<PDPriceCurrencySymbol  className="currency-symbol" />
 ```
+##### Configuration Options
+
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `localizePricing`    | boolean | true    | Convert to local currency               |
+| `className`    | string | ''    | custom class name for the component
+
+---
 
 ### `PDPriceCurrencyCode`
 
 Renders the full currency code (like USD, INR, EUR).
 
 ```tsx
-<PDPriceCurrencyCode localizePricing={true} className="currency-code" />
+<PDPriceCurrencyCode />
 ```
+##### Configuration Options
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `localizePricing`    | boolean | true    | Convert to local currency               |
+| `className`    | string | ''    | custom class name for the component
+
+---
+
+### PDPriceDecimalSeparator
+
+Renders the decimal separator based on the user's location (e.g., ".").
+
+```tsx
+<PDPriceDecimalSeparator />
+```
+
+##### Configuration Options
+| Option               | Type    | Default  | Description                              |
+| -------------------- | ------- | -------- | ---------------------------------------- |
+| `localizePricing`    | boolean | true    | Convert to local currency               |
+| `price`    | number | 0    | The price of the product.               |
+| `className`    | string | ''    | custom class name for the component
 
 ### Custom Display Example
 
@@ -149,34 +214,12 @@ Example using all components to create a custom layout:
 ```tsx
 <div className="custom-price-display">
   <PDPriceCurrencySymbol localizePricing={true} />
-  <PDPriceInteger originalPrice={99.99} />
-  <span className="decimal-separator">.</span>
-  <PDPriceDecimal originalPrice={99.99} />
+  <PDPriceInteger price={99.99} />
+  <PDPriceDecimalSeparator />
+  <PDPriceDecimal price={99.99} />
   <PDPriceCurrencyCode localizePricing={true} />
 </div>
 ```
-
----
-
-## Price Formatting Options
-
-All price components accept common formatting options to customize appearance and behavior.
-
-```ts
-interface DefaultFormatConfig {
-  thousandsSeparator?: string;     // default: ","
-  decimalSeparator?: string;       // default: "."
-  decimalPlaces?: number;          // default: 2
-  roundTo?: 'none' | 'up' | 'down';
-  showDecimal?: boolean;           // default: true
-  localizePricing?: boolean;        // default: false
-  showCurrencyCode?: boolean;      // default: false
-  showCurrencySymbol?: boolean;    // default: true
-  isOriginalDisplay?: boolean;     // default: false
-}
-```
-
-Use these props to align with your regional or branding standards.
 
 ---
 

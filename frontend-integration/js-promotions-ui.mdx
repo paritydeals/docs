@@ -34,12 +34,12 @@ This will automatically display a discount banner if the user is eligible for a 
 
 # Displaying Dynamic Prices (Basic)
 
-The easiest way to show dynamic prices is to add the `data-pd-original-price` attribute to a wrapper element, and place a child element with `data-pd-price-formatted` where you want the price to appear. The SDK will automatically update this with the correct price for each visitor.
+The easiest way to show dynamic prices is to add the `data-pd-price` attribute to a wrapper element, and place a child element with `data-pd-price-formatted` where you want the price to appear. The SDK will automatically update this with the correct price for each visitor.
 
 **Example:**
 
 ```html
-<div class="pricing-plan" data-pd-original-price="99">
+<div class="pricing-plan" data-pd-price="99">
   <h3>Basic Plan</h3>
   <h3 data-pd-price-formatted>$99</h3>
 </div>
@@ -51,7 +51,7 @@ The easiest way to show dynamic prices is to add the `data-pd-original-price` at
 
 # Customizing Price Display (Basic)
 
-If you want to style different parts of the price (like the currency symbol or decimals), you can break the price into parts using these attributes **inside** a container with `data-pd-original-price`:
+If you want to style different parts of the price (like the currency symbol or decimals), you can break the price into parts using these attributes **inside** a container with `data-pd-price`:
 
 | Data Attribute             | Description                                      |
 | :------------------------- | :----------------------------------------------- |
@@ -60,15 +60,15 @@ If you want to style different parts of the price (like the currency symbol or d
 | `data-pd-currency-code`    | 3-letter currency code (e.g., "USD")             |
 | `data-pd-price-integer`    | Integer part of the price (e.g., "99")           |
 | `data-pd-price-decimal`    | Decimal part (e.g., "50")                        |
-| `data-pd-price-decimal-point` | The decimal separator (e.g., ".")             |
+| `data-pd-price-decimal-separator` | The decimal separator (e.g., ".")             |
 
 **Example:**
 
 ```html
-<div class="price-container" data-pd-original-price="99">
+<div class="price-container" data-pd-price="99">
   <span class="currency" data-pd-currency-symbol></span>
   <span class="integer" data-pd-price-integer></span>
-  <span class="integer" data-pd-price-decimal-point></span>
+  <span class="integer" data-pd-price-decimal-separator></span>
   <span class="decimal" data-pd-price-decimal></span>
 </div>
 ```
@@ -110,7 +110,7 @@ You can override the default properties of the price elements by adding a `data-
 In the below example, we override the `showDecimal` property to false.
 
 ```html
-<div data-pd-original-price="99" data-pd-show-decimal="false">
+<div data-pd-price="99" data-pd-show-decimal="false">
   <span class="currency" data-pd-currency-symbol></span>
   <span class="integer" data-pd-price-integer></span>
 </div>
@@ -141,13 +141,13 @@ For more complex pricing layouts, you can use these advanced attributes:
 <div class="pricing-card">
   <h3>Pro Plan</h3>
 
-  <div class="price-container" data-pd-original-price="99" data-pd-rel="pro-plan">
+  <div class="price-container" data-pd-price="99" data-pd-rel="pro-plan">
     <span class="currency" data-pd-currency-symbol></span>
     <span class="integer" data-pd-price-integer></span>
     <span class="decimal" data-pd-price-decimal></span>
   </div>
 
-  <div class="original-price" data-pd-original-price-display="120" data-pd-rel="pro-plan">
+  <div class="original-price" data-pd-price-display="120" data-pd-rel="pro-plan">
     <s>
       <span data-pd-currency-symbol></span>
       <span data-pd-price-integer></span>
@@ -170,10 +170,10 @@ All SDK functions are asynchronous and return a `Promise`.
 Calculate and return the updated price for a given base price (does not update the DOM):
 
 ```js
-const originalPrice = 99.99;
+const price = 99.99;
 const options = { localizePricing: true };
 
-PDPromotionUI.getUpdatedPrice(originalPrice, options)
+PDPromotionUI.getUpdatedPrice(price, options)
   .then(result => {
     console.log('Updated price object:', result);
   });
