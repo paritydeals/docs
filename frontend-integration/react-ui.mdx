@@ -1,95 +1,601 @@
 ---
-title: "React UI"
-description: "Documentation for the ParityDeals React UI SDK"
+title: "ParityDeals React UI SDK"
+description: "Documentation for the ParityDeals React UI SDK - A comprehensive pricing table and paywall solution"
 icon: "react"
 ---
 
 ## 1. Overview
 
-The **ParityDeals React UI SDK** provides a set of React components and utilities designed to help developers quickly and easily integrate a dynamic, customizable pricing paywall into their web applications.
-It handles fetching paywall data, displaying pricing plans, managing localization, and formatting prices.
+The **ParityDeals React UI SDK** provides a complete React-based solution for integrating dynamic, customizable pricing tables and paywalls into web applications. It handles fetching offering data, displaying pricing plans with multiple billing periods, managing subscriptions, and processing checkouts with full localization support.
 
 ---
 
-## **2. Installation**
+## 2. Installation
 
 Install the SDK using npm or yarn:
 
 ```bash
-npm install @paritydeals/react-sdk
+npm install @paritydeals/react-ui
 # or
-yarn add @paritydeals/react-sdk
+yarn add @paritydeals/react-ui
 ```
-
-### `ParityDealsProvider`
-
-This is the top-level component that initializes the SDK. It fetches the paywall data and makes it available to all child components via React Context.
 
 ---
 
-## 4\. Setup & Configuration (`ParityDealsProvider`)
+## 3. Quick Start
 
-To use the SDK, wrap the relevant part of your application (or the entire app) with the `ParityDealsProvider`.
+### Basic Setup
 
 ```tsx
-import { ParityDealsProvider } from "@paritydeals/react-promotions-ui";
+import { ParityDealsProvider, PDPricingTable } from '@paritydeals/react-ui';
 
 function App() {
   return (
     <ParityDealsProvider
       accessToken="YOUR_ACCESS_TOKEN"
       offeringId="YOUR_OFFERING_ID"
+      customerId="OPTIONAL_CUSTOMER_ID"
     >
-      {/* Your app components */}
+      <PDPricingTable />
     </ParityDealsProvider>
   );
 }
 ```
 
-### Required Props for `ParityDealsProvider`
+### With Custom Event Handling
 
-| Prop          | Type     | Description               |
-| :------------ | :------- | :------------------------ |
-| `accessToken` | `string` | Your client access token. |
-| `offeringId`  | `string` | The offering ID.          |
+```tsx
+import { ParityDealsProvider, PDPricingTable } from '@paritydeals/react-ui';
 
-### Optional Props for `ParityDealsProvider`
-
-| Prop                 | Type     | Description                                         |
-| :------------------- | :------- | :-------------------------------------------------- |
-| `customerId`         | `string` | The customer ID.                                    |
-| `checkoutSuccessUrl` | `string` | The URL to redirect to after a successful checkout. |
-
-### Example:
-
-```jsx
-import React from "react";
-import {
-  ParityDealsProvider,
-  PDPaywall,
-} from "@paritydeals/react-promotions-ui";
-
-const App = () => {
-  const handlePlanSelection = (plan, period) => {
-    console.log("Plan Selected:", plan.displayName, "Period:", period);
-    // Add your logic for handling plan selection (e.g., redirect to checkout)
+function App() {
+  const handleCustomPriceClick = (details) => {
+    console.log('Custom price plan clicked:', details);
+    // Handle custom pricing logic
   };
 
   return (
     <ParityDealsProvider
       accessToken="YOUR_ACCESS_TOKEN"
       offeringId="YOUR_OFFERING_ID"
+      customerId="OPTIONAL_CUSTOMER_ID"
     >
-      <YourAppContent />
-      {/* PDPaywall can be placed anywhere within the provider */}
-      <PDPaywall onPlanSelected={handlePlanSelection} />
+      <PDPricingTable
+        onCustomPriceClick={handleCustomPriceClick}
+        customStyles={{
+          style: {
+            cardBackgroundColor: '#ffffff',
+            buttonBackgroundColor: '#007bff',
+            titleColor: '#333333'
+          }
+        }}
+      />
     </ParityDealsProvider>
   );
-};
+}
+```
 
-const YourAppContent = () => {
-  // This component can also use useParityDeals() if needed
-  return <h1>My Application</h1>;
+---
+
+## 4. Core Components
+
+### 4.1. `ParityDealsProvider`
+
+The top-level provider component that initializes the SDK and manages the global state.
+
+#### Required Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `accessToken` | `string` | Your ParityDeals client access token |
+| `offeringId` | `string` | The unique identifier for your offering |
+
+#### Optional Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `customerId` | `string` | `undefined` | Customer identifier for personalized pricing |
+| `checkoutSuccessUrl` | `string` | `window.location.href` | URL to redirect after successful checkout |
+| `apiConfig` | `ParityDealsAPIConfig` | `{}` | Advanced API configuration options |
+
+#### API Configuration Options
+
+```tsx
+interface ParityDealsAPIConfig {
+  onError?: (error: Error) => void;
+  maxRetries?: number; // Default: 3
+  timeout?: number; // Default: 5000ms
+  backoffBaseDelay?: number;
+  offeringApiUrl?: string;
+  subscriptionApiUrl?: string;
+  checkoutApiUrl?: string;
+}
+```
+
+### 4.2. `PDPricingTable`
+
+The main pricing table component that displays all plans and handles user interactions.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `customStyles` | `PricingTableStyle` | `{}` | Custom styling configuration |
+| `customActionButton` | `CustomActionButton` | `undefined` | Custom button component |
+| `customCheckIcon` | `React.ReactNode` | `undefined` | Custom check icon |
+| `customUnCheckIcon` | `React.ReactNode` | `undefined` | Custom uncheck icon |
+| `customTooltipIcon` | `React.ReactNode` | `undefined` | Custom tooltip icon |
+| `onCustomPriceClick` | `(details: PlanClickDetails) => void` | `undefined` | Callback for custom price plans |
+
+#### Example Usage
+
+```tsx
+<PDPricingTable
+  onCustomPriceClick={(details) => {
+    console.log('Custom plan selected:', details.plan.displayName);
+    // Handle custom pricing logic
+  }}
+  customStyles={{
+    style: {
+      cardBackgroundColor: '#f8f9fa',
+      buttonBackgroundColor: '#28a745',
+      buttonColor: '#ffffff',
+      titleColor: '#212529'
+    },
+    typography: {
+      titleFontSize: 24,
+      titleFontWeight: '600'
+    },
+    layout: {
+      gap: 20,
+      minWidth: 280,
+      maxWidth: 400
+    }
+  }}
+/>
+```
+
+### 4.3. `PDPlan`
+
+Renders a list of pricing plans with billing period switching.
+
+#### Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `plans` | `OfferingPlan[]` | Yes | Array of plans to display |
+| `pricingTable` | `PricingTable` | Yes | Pricing table configuration |
+| `billingPeriods` | `BillingPeriod[]` | Yes | Available billing periods |
+| `countryCode` | `string` | Yes | Country code for localization |
+| `currencyCode` | `string` | Yes | Currency code (e.g., "USD") |
+| `currencySymbol` | `string` | Yes | Currency symbol (e.g., "$") |
+| `currencyConversionRate` | `number` | Yes | Currency conversion rate |
+| `pricingLocale` | `string` | Yes | Locale for price formatting |
+| `onPlanClick` | `(details: PlanClickDetails) => void` | Yes | Plan selection callback |
+| `customStyles` | `PricingTableStyle` | No | Custom styling |
+| `customActionButton` | `CustomActionButton` | No | Custom button component |
+| `actionButtonLoadingPlanIdentifier` | `string` | No | Loading state for specific plan |
+| `noStyles` | `boolean` | No | Disable default styling |
+
+### 4.4. `PDPlanItem`
+
+Displays a single pricing plan card.
+
+#### Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `plan` | `OfferingPlan` | Yes | Plan data to display |
+| `pricingTable` | `PricingTable` | Yes | Pricing table configuration |
+| `period` | `ChargePeriodEnum` | Yes | Current billing period |
+| `countryCode` | `string` | Yes | Country code |
+| `currencyCode` | `string` | Yes | Currency code |
+| `currencySymbol` | `string` | Yes | Currency symbol |
+| `currencyConversionRate` | `number` | Yes | Conversion rate |
+| `pricingLocale` | `string` | Yes | Locale for formatting |
+| `onPdPlanItemClick` | `(details: PlanClickDetails) => void` | Yes | Click handler |
+| `customActionButton` | `CustomActionButton` | No | Custom button |
+| `actionButtonText` | `string` | No | Button text |
+| `actionButtonLoading` | `boolean` | No | Loading state |
+| `actionButtonDisabled` | `boolean` | No | Disabled state |
+| `isActive` | `boolean` | No | Active plan indicator |
+| `successText` | `string` | No | Success message |
+| `noStyles` | `boolean` | No | Disable styling |
+
+### 4.5. `PDPrice`
+
+Renders formatted price display with currency and period information.
+
+#### Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `price` | `number` | Yes | Price amount |
+| `countryCode` | `string` | Yes | Country code |
+| `currencyCode` | `string` | Yes | Currency code |
+| `currencySymbol` | `string` | Yes | Currency symbol |
+| `currencyConversionRate` | `number` | Yes | Conversion rate |
+| `pricingLocale` | `string` | Yes | Locale for formatting |
+| `period` | `ChargePeriodEnum` | Yes | Billing period |
+| `showDecimal` | `boolean` | Yes | Show decimal places |
+| `showCurrencySymbol` | `boolean` | Yes | Show currency symbol |
+| `showCurrencyCode` | `boolean` | Yes | Show currency code |
+| `minimumFractionDigits` | `number` | Yes | Minimum decimal places |
+| `maximumFractionDigits` | `number` | Yes | Maximum decimal places |
+
+### 4.6. `PDFeatures`
+
+Renders the features list for a plan.
+
+#### Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `features` | `OfferingFeature[]` | Yes | Array of features |
+| `period` | `ChargePeriodEnum` | Yes | Current billing period |
+| `customCheckIcon` | `React.ReactNode` | No | Custom check icon |
+| `customUnCheckIcon` | `React.ReactNode` | No | Custom uncheck icon |
+| `customTooltipIcon` | `React.ReactNode` | No | Custom tooltip icon |
+| `descriptionTooltipEnabled` | `boolean` | No | Enable tooltips |
+| `onUsageChange` | `(featureId: string, quantity: number) => void` | No | Usage change handler |
+
+---
+
+## 5. Data Types
+
+### Core Types
+
+```tsx
+// Billing periods
+enum ChargePeriodEnum {
+  ONE_TIME = 'ONE_TIME',
+  MONTHLY = 'MONTHLY',
+  YEARLY = 'YEARLY',
+  WEEKLY = 'WEEKLY',
+  DAILY = 'DAILY',
+  THREE_MONTHS = 'THREE_MONTHS',
+  SIX_MONTHS = 'SIX_MONTHS'
+}
+
+// Price types
+enum PriceTypeEnum {
+  FREE = 'FREE',
+  PAID = 'PAID',
+  CUSTOM = 'CUSTOM'
+}
+
+// Price models
+enum PriceModelEnum {
+  FLAT = 'FLAT',
+  PACKAGE = 'PACKAGE',
+  TIERED = 'TIERED',
+  VOLUME = 'VOLUME'
+}
+
+// Plan structure
+interface OfferingPlan {
+  id: string;
+  name: string;
+  displayName: string;
+  displayDescription: string;
+  identifier: string;
+  isArchived: boolean;
+  features: OfferingFeature[];
+  price: OfferingPlanPrice;
+  shouldHighlight: boolean;
+  enabled: boolean;
+}
+
+// Plan click details
+interface PlanClickDetails {
+  plan: OfferingPlan;
+  chargePeriod: ChargePeriodEnum;
+  usageMap: Record<string, number>;
+}
+
+// Pricing table style
+interface PricingTableStyle {
+  style: PricingTableColorConfig;
+  typography: PricingTableTypographyConfig;
+  layout: PricingTableLayoutConfig;
+}
+```
+
+### Color Configuration
+
+```tsx
+interface PricingTableColorConfig {
+  primaryColor: string;
+  primaryHoverColor: string;
+  onPrimaryColor: string;
+  secondaryColor: string;
+  cardBackgroundColor: string;
+  billingSwitchBackgroundColor: string;
+  billingSwitchColor: string;
+  billingSwitchSelectedColor: string;
+  titleColor: string;
+  descriptionColor: string;
+  priceColor: string;
+  priceUnitColor: string;
+  pricePeriodColor: string;
+  featureColor: string;
+  dividerColor: string;
+  buttonBackgroundColor: string;
+  buttonColor: string;
+  buttonHoverBackgroundColor: string;
+  advancedMode: boolean;
+}
+```
+
+### Typography Configuration
+
+```tsx
+interface PricingTableTypographyConfig {
+  titleFontSize: number;
+  titleFontWeight: string;
+  descriptionFontSize: number;
+  descriptionFontWeight: string;
+  priceFontSize: number;
+  priceFontWeight: string;
+  priceUnitFontSize: number;
+  priceUnitFontWeight: string;
+  featureFontSize: number;
+  featureFontWeight: string;
+  pricePeriodFontSize: number;
+  pricePeriodFontWeight: string;
+}
+```
+
+### Layout Configuration
+
+```tsx
+interface PricingTableLayoutConfig {
+  minWidth: number;
+  maxWidth: number;
+  gap: number;
+  align: 'start' | 'center' | 'end';
+}
+```
+
+---
+
+## 6. Styling and Customization
+
+### 6.1. CSS Variables
+
+The SDK uses CSS variables for styling. You can override these in your CSS:
+
+```css
+:root {
+  --pd-card-bg: #ffffff;
+  --pd-title-color: #333333;
+  --pd-description-color: #666666;
+  --pd-price-color: #000000;
+  --pd-button-bg: #007bff;
+  --pd-button-color: #ffffff;
+  --pd-button-hover-bg: #0056b3;
+  --pd-billing-switch-bg: #f8f9fa;
+  --pd-billing-switch-color: #6c757d;
+  --pd-billing-switch-selected-color: #007bff;
+  --pd-gap: 20px;
+  --pd-min-width: 280px;
+  --pd-max-width: 400px;
+}
+```
+
+### 6.2. Custom Styles Object
+
+```tsx
+const customStyles: PricingTableStyle = {
+  style: {
+    cardBackgroundColor: '#ffffff',
+    buttonBackgroundColor: '#28a745',
+    buttonColor: '#ffffff',
+    titleColor: '#212529',
+    descriptionColor: '#6c757d',
+    priceColor: '#000000',
+    featureColor: '#495057'
+  },
+  typography: {
+    titleFontSize: 24,
+    titleFontWeight: '600',
+    descriptionFontSize: 14,
+    descriptionFontWeight: '400',
+    priceFontSize: 32,
+    priceFontWeight: '700'
+  },
+  layout: {
+    gap: 24,
+    minWidth: 300,
+    maxWidth: 450,
+    align: 'center'
+  }
+};
+```
+
+### 6.3. Custom Action Button
+
+```tsx
+const CustomButton: CustomActionButton = ({ onClick, children, plan, disabled }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className="my-custom-button"
+    style={{
+      backgroundColor: plan.shouldHighlight ? '#ff6b35' : '#007bff',
+      color: '#ffffff',
+      padding: '12px 24px',
+      border: 'none',
+      borderRadius: '6px',
+      cursor: disabled ? 'not-allowed' : 'pointer'
+    }}
+  >
+    {children}
+  </button>
+);
+
+<PDPricingTable customActionButton={CustomButton} />
+```
+
+### 6.4. noStyles Mode
+
+For complete styling control, use the `noStyles` prop:
+
+```tsx
+<PDPricingTable noStyles={true} />
+```
+
+---
+
+## 7. Advanced Features
+
+### 7.1. Usage-Based Pricing
+
+The SDK supports metered billing and tiered pricing:
+
+```tsx
+// Features with usage tracking
+const features = [
+  {
+    identifier: 'api_calls',
+    displayName: 'API Calls',
+    priceModel: PriceModelEnum.VOLUME,
+    charges: [
+      {
+        chargePeriod: ChargePeriodEnum.MONTHLY,
+        tiers: [
+          { flatAmount: 0, unitAmount: 0.01, upTo: 1000 },
+          { flatAmount: 10, unitAmount: 0.008, upTo: 10000 },
+          { flatAmount: 82, unitAmount: 0.005, upTo: null }
+        ]
+      }
+    ]
+  }
+];
+```
+
+### 7.2. Custom Price Plans
+
+Handle custom pricing plans with the `onCustomPriceClick` callback:
+
+```tsx
+<PDPricingTable
+  onCustomPriceClick={(details) => {
+    // Open contact form or custom pricing modal
+    openCustomPricingModal(details.plan);
+  }}
+/>
+```
+
+### 7.3. Subscription Management
+
+The SDK automatically handles subscription updates:
+
+- **New Subscriptions**: Redirects to checkout
+- **Plan Upgrades/Downgrades**: Updates existing subscription
+- **Free Plan Upgrades**: Handles free trial to paid conversion
+
+### 7.4. Error Handling
+
+```tsx
+<ParityDealsProvider
+  accessToken="YOUR_TOKEN"
+  offeringId="YOUR_OFFERING"
+  apiConfig={{
+    onError: (error) => {
+      console.error('ParityDeals Error:', error);
+      // Show user-friendly error message
+      showErrorMessage('Unable to load pricing. Please try again later.');
+    },
+    maxRetries: 3,
+    timeout: 10000
+  }}
+>
+  <PDPricingTable />
+</ParityDealsProvider>
+```
+
+---
+
+## 8. Complete Example
+
+```tsx
+import React from 'react';
+import {
+  ParityDealsProvider,
+  PDPricingTable,
+  PricingTableStyle
+} from '@paritydeals/react-ui';
+
+const App: React.FC = () => {
+  const customStyles: PricingTableStyle = {
+    style: {
+      cardBackgroundColor: '#ffffff',
+      buttonBackgroundColor: '#007bff',
+      buttonColor: '#ffffff',
+      buttonHoverBackgroundColor: '#0056b3',
+      titleColor: '#212529',
+      descriptionColor: '#6c757d',
+      priceColor: '#000000',
+      featureColor: '#495057',
+      dividerColor: '#dee2e6',
+      billingSwitchBackgroundColor: '#f8f9fa',
+      billingSwitchColor: '#6c757d',
+      billingSwitchSelectedColor: '#007bff'
+    },
+    typography: {
+      titleFontSize: 24,
+      titleFontWeight: '600',
+      descriptionFontSize: 14,
+      descriptionFontWeight: '400',
+      priceFontSize: 32,
+      priceFontWeight: '700',
+      priceUnitFontSize: 16,
+      priceUnitFontWeight: '400',
+      featureFontSize: 14,
+      featureFontWeight: '400',
+      pricePeriodFontSize: 14,
+      pricePeriodFontWeight: '400'
+    },
+    layout: {
+      gap: 24,
+      minWidth: 300,
+      maxWidth: 450,
+      align: 'center'
+    }
+  };
+
+  const handleCustomPriceClick = (details) => {
+    console.log('Custom plan selected:', details.plan.displayName);
+    // Open contact form or pricing calculator
+    window.open('/contact', '_blank');
+  };
+
+  return (
+    <div className="app">
+      <header>
+        <h1>Choose Your Plan</h1>
+        <p>Select the perfect plan for your needs</p>
+      </header>
+      
+      <ParityDealsProvider
+        accessToken="your-access-token"
+        offeringId="your-offering-id"
+        customerId="optional-customer-id"
+        checkoutSuccessUrl="https://yourapp.com/success"
+        apiConfig={{
+          onError: (error) => {
+            console.error('Pricing Error:', error);
+          },
+          timeout: 10000
+        }}
+      >
+        <PDPricingTable
+          customStyles={customStyles}
+          onCustomPriceClick={handleCustomPriceClick}
+        />
+      </ParityDealsProvider>
+    </div>
+  );
 };
 
 export default App;
@@ -97,257 +603,62 @@ export default App;
 
 ---
 
-## 5\. Main Components
+## 9. API Endpoints
 
-### 5.1. `PDPaywall`
+The SDK uses the following default API endpoints:
 
-The primary component for rendering a full paywall UI. It uses the data provided by `ParityDealsProvider`.
+- **Offering API**: `https://api.paritydeals.com/api/v1/monetization/public-offering`
+- **Checkout API**: `https://api.paritydeals.com/api/v1/checkout/`
+- **Subscription API**: `https://api.paritydeals.com/api/v1/subscriptions`
 
-| Prop             | Type                                   | Default     | Description                                                                                                              |
-| :--------------- | :------------------------------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `customStyles`   | `object`                               | `{}`        | An object to provide custom CSS styles for the paywall container, loading/error messages, and plan container. See below. |
-| `onPlanSelected` | `(plan: Plan, period: Period) => void` | `undefined` | Callback function triggered when a user selects a plan. Receives the `Plan` object and the active `Period`.              |
-| `initialPeriod`  | `Period`                               | `'monthly'` | The default period ('monthly', 'annually', 'onetime') to display when the paywall loads.                                 |
-| `getButtonText`  | `(plan: Plan) => string`               | (generated) | A function to customize the text of the call-to-action button for each plan.                                             |
+You can override these in the `apiConfig`:
 
-**`customStyles` for `PDPaywall`**:
-
-- `container`: Styles for the main paywall div.
-- `loadingMessage`: Styles for the "Loading plans..." text.
-- `errorMessage`: Styles for error messages.
-- `planContainer`: Styles passed down to the `PDPlan` component's container. This can also include sub-styles for `planItem` to target `PDPlanItem` elements (see example in SDK code).
-
-### 5.2. `PDPlan`
-
-Renders a list of `PDPlanItem` components. It can be used directly if you manage `PaywallData` manually.
-
-| Prop                        | Type                     | Required/Default | Description                                                                                             |
-| :-------------------------- | :----------------------- | :--------------- | :------------------------------------------------------------------------------------------------------ |
-| `data`                      | `PaywallData`            | Yes              | The full paywall data object containing plans and pricing options.                                      |
-| `activePeriod`              | `Period`                 | Yes              | The currently active period to display prices for (e.g., 'monthly', 'annually').                        |
-| `customStyles`              | `object`                 | `{}`             | Custom CSS styles for the plan list container and individual plan item wrappers.                        |
-| `onPlanClick`               | `(plan: Plan) => void`   | Yes              | Callback function when a plan item is clicked.                                                          |
-| `descriptionTooltipEnabled` | `boolean`                | `false`          | If `true`, enables tooltips for feature descriptions (requires tooltip implementation for full effect). |
-| `getButtonText`             | `(plan: Plan) => string` | (generated)      | Function to determine the button text for each plan.                                                    |
-
-**`customStyles` for `PDPlan`**:
-
-- `container`: Styles for the main div wrapping all plan items.
-- `planItemContainer`: Styles passed down to each `PDPlanItem` component as its `customStyles` prop.
-
-### 5.3. `PDPlanItem`
-
-Displays a single pricing plan card with its title, description, price, features, and a button.
-
-| Prop                        | Type                   | Required/Default | Description                                                                                                    |
-| :-------------------------- | :--------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------- |
-| `plan`                      | `Plan`                 | Yes              | The plan object containing all its details.                                                                    |
-| `period`                    | `Period`               | Yes              | The period to display (e.g., "/month", "/year").                                                               |
-| `currencyCode`              | `CurrencyCode`         | Yes              | The currency code (e.g., "USD").                                                                               |
-| `currencySymbol`            | `CurrencySymbol`       | Yes              | The currency symbol (e.g., "$").                                                                               |
-| `countryCode`               | `CountryCode`          | Yes              | The country code (e.g., "US").                                                                                 |
-| `usdConversionRate`         | `number`               | No               | USD conversion rate, if applicable.                                                                            |
-| `localization`              | `boolean`              | Yes              | Whether localization is active.                                                                                |
-| `showCurrencySymbol`        | `boolean`              | Yes              | Whether to display the currency symbol.                                                                        |
-| `showCurrencyCode`          | `boolean`              | Yes              | Whether to display the currency code.                                                                          |
-| `showDecimal`               | `boolean`              | Yes              | Whether to display the decimal part of the price.                                                              |
-| `thousandsSeparator`        | `string`               | Yes              | Character for thousands separation (e.g., ",").                                                                |
-| `decimalSeparator`          | `string`               | Yes              | Character for decimal separation (e.g., ".").                                                                  |
-| `decimalPlaces`             | `number`               | Yes              | Number of decimal places to show.                                                                              |
-| `buttonText`                | `string`               | Yes              | Text for the call-to-action button.                                                                            |
-| `descriptionTooltipEnabled` | `boolean`              | `false`          | Enables feature description tooltips (visual part may need further implementation).                            |
-| `customStyles`              | `object`               | `{}`             | Custom CSS styles for various parts of the plan item (container, title, price, description, features, button). |
-| `onPdPlanItemClick`         | `(plan: Plan) => void` | Yes              | Callback when the plan item's button is clicked.                                                               |
-
-**`customStyles` for `PDPlanItem`**:
-
-- `container`: Styles for the plan item's main div.
-- `title`: Styles for the plan title.
-- `priceSection`: Styles for the section containing the price.
-- `description`: Styles for the plan description.
-- `featuresListContainer`: Styles for the `<ul>` wrapping features.
-- `button`: Styles for the call-to-action button.
-- `highlightedContainer`: Additional styles applied if `plan.shouldHighlight` is true.
-
-### 5.4. `PDPrice`
-
-A component to render a formatted price, composed of smaller sub-components. It's used internally by `PDPlanItem` but can be used standalone.
-
-| Prop                 | Type             | Required | Description                                                                                 |
-| :------------------- | :--------------- | :------- | :------------------------------------------------------------------------------------------ |
-| `price`              | `number`         | Yes      | The numeric price value.                                                                    |
-| `currencyCode`       | `CurrencyCode`   | Yes      | e.g., "USD"                                                                                 |
-| `currencySymbol`     | `CurrencySymbol` | Yes      | e.g., "$"                                                                                   |
-| `showDecimal`        | `boolean`        | Yes      | Show decimal part?                                                                          |
-| `showCurrencySymbol` | `boolean`        | Yes      | Show currency symbol?                                                                       |
-| `showCurrencyCode`   | `boolean`        | Yes      | Show currency code?                                                                         |
-| `thousandsSeparator` | `string`         | Yes      | e.g., ","                                                                                   |
-| `decimalSeparator`   | `string`         | Yes      | e.g., "."                                                                                   |
-| `decimalPlaces`      | `number`         | Yes      | Number of digits after the decimal point.                                                   |
-| `customStyles`       | `object`         | No       | Styles for `container`, `symbol`, `code`, `integerPart`, `decimalPart`, `decimalSeparator`. |
-
-### 5.5. `PDFeaturesList`
-
-Renders a list of features for a plan. Used internally by `PDPlanItem`.
-
-| Prop                        | Type            | Required/Default | Description                                                              |
-| :-------------------------- | :-------------- | :--------------- | :----------------------------------------------------------------------- |
-| `featuresList`              | `PlanFeature[]` | Yes              | An array of feature objects.                                             |
-| `descriptionTooltipEnabled` | `boolean`       | `false`          | If `true`, shows feature descriptions (basic inline display by default). |
-| `customStyles`              | `object`        | `{}`             | Styles for `container`, `listItem`, `featureName`, `featureDescription`. |
-
----
-
-## 6\. Customization
-
-### 6.1. Styling
-
-All major components (`PDPaywall`, `PDPlan`, `PDPlanItem`, `PDPrice`, `PDFeaturesList`) accept a `customStyles` prop. This prop is an object where keys correspond to different parts of the component, and values are React `CSSProperties` objects.
-
-Example: Styling a `PDPlanItem`
-
-```jsx
-<PDPlanItem
-  // ... other props
-  customStyles={{
-    container: { backgroundColor: "#f0f0f0", borderRadius: "10px" },
-    title: { color: "navy", fontSize: "24px" },
-    button: { backgroundColor: "green", color: "white" },
-    highlightedContainer: { borderColor: "orange", borderWidth: "3px" },
-  }}
-/>
-```
-
-Additionally, components have predefined CSS class names (e.g., `pd-plan-item`, `pd-price-currency-symbol`) that you can target with external CSS stylesheets for global styling.
-
-### 6.2. Custom Data Fetcher
-
-If the default `Workspace` implementation is not suitable (e.g., you need custom headers, error handling, or use a library like Axios), you can provide your own `Workspaceer` function to the `ParityDealsProviderConfig`.
-
-```jsx
-const myCustomFetcher = async (apiUrl, offeringId) => {
-  const response = await fetch(`${apiUrl}/${offeringId}`, {
-    headers: { "X-Custom-Header": "MyValue" },
-  });
-  if (!response.ok) throw new Error("Custom fetch failed");
-  return response.json();
-};
-
+```tsx
 <ParityDealsProvider
-  config={{ offeringId: "...", apiUrl: "...", fetcher: myCustomFetcher }}
+  apiConfig={{
+    offeringApiUrl: 'https://your-api.com/offerings',
+    checkoutApiUrl: 'https://your-api.com/checkout',
+    subscriptionApiUrl: 'https://your-api.com/subscriptions'
+  }}
 >
-  {/* ... */}
-</ParityDealsProvider>;
-```
-
-### 6.3. Custom Button Text
-
-The `PDPaywall`, `PDPlan`, and `PDPlanItem` components accept a `getButtonText` prop. This function receives the `plan` object and should return the desired string for the button.
-
-```jsx
-<PDPaywall
-  // ... other props
-  getButtonText={(plan) =>
-    plan.shouldHighlight ? `Get ${plan.displayName} Now!` : `Choose Plan`
-  }
-/>
 ```
 
 ---
 
-## 7\. Core Data Types (TypeScript)
+## 10. Troubleshooting
 
-Understanding these types is crucial when working with the SDK, especially when providing data directly or handling callbacks.
+### Common Issues
 
-- `CurrencyCode`: `string` (e.g., "USD")
-- `CurrencySymbol`: `string` (e.g., "$")
-- `CountryCode`: `string` (e.g., "US")
-- `Period`: `'monthly' | 'annually' | 'onetime'`
-- `PlanFeature`: `{ id: string; name: string; description?: string; ... }`
-- `Plan`: `{ identifier: string; displayName: string; price: number; features: PlanFeature[]; ... }`
-- `PaywallPricingOptions`: Contains settings for localization and price formatting.
-- `PaywallData`: The main data object containing `plans`, `pricingOptions`, and localization details.
-- `ParityDealsContextValue`: The shape of the object returned by `useParityDeals()`.
+1. **Loading State**: Ensure your `accessToken` and `offeringId` are correct
+2. **Styling Issues**: Check CSS variable overrides and custom styles
+3. **API Errors**: Verify API endpoints and network connectivity
+4. **TypeScript Errors**: Ensure all required props are provided
 
-Refer to the SDK source code for the complete definitions of these interfaces.
+### Debug Mode
 
+Enable console logging for debugging:
+
+```tsx
+<ParityDealsProvider
+  apiConfig={{
+    onError: (error) => {
+      console.log('ParityDeals Debug:', {
+        error: error.message,
+        offeringId: 'your-offering-id',
+        timestamp: new Date().toISOString()
+      });
+    }
+  }}
+>
+```
 ---
 
-## 8\. Example: Full PDPaywall Integration
+## 12. Support
 
-```jsx
-import React, { useState } from "react";
-import {
-  ParityDealsProvider,
-  PDPaywall,
-  Plan,
-  Period,
-} from "./path/to/paritydeals-react-ui-sdk";
+For technical support and questions:
 
-// Mock fetcher for demonstration
-const mockPaywallData = {
-  /* ... your PaywallData structure here ... */
-};
-const mockFetcher = async (url, id) => {
-  console.log(`Mock fetcher called for URL: ${url}, Offering ID: ${id}`);
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  return mockPaywallData;
-};
+- **Documentation**: [docs.paritydeals.com](https://docs.paritydeals.com)
+- **GitHub Issues**: [github.com/paritydeals/react-ui](https://github.com/paritydeals/react-ui)
+- **Email**: support@paritydeals.com
 
-function MyAwesomeApp() {
-  const config = {
-    offeringId: "premium_offering_v2",
-    apiUrl:
-      "[https://api.example.com/get-offerings](https://api.example.com/get-offerings)", // This won't be hit due to mockFetcher
-    fetcher: mockFetcher, // Using the mock fetcher for this example
-  };
-
-  const handlePlanSelection = (plan: Plan, period: Period) => {
-    alert(
-      `You selected ${plan.displayName} for the ${period} period! Price: ${plan.price}`
-    );
-    // Integrate with your subscription/checkout logic here
-  };
-
-  const customPaywallStyles = {
-    container: {
-      fontFamily: "Arial, sans-serif",
-      padding: "20px",
-      backgroundColor: "#f4f6f8",
-    },
-    errorMessage: { color: "darkred", fontWeight: "bold" },
-    planContainer: {
-      // Styles for PDPlan's container
-      // @ts-ignore (example of targeting sub-component styles)
-      planItem: {
-        // This targets PDPlanItem components
-        container: { boxShadow: "0 4px 12px rgba(0,0,0,0.1)" },
-        highlightedContainer: { borderColor: "#007bff", borderWidth: "2px" },
-        button: {
-          backgroundColor: "#28a745",
-          "&:hover": { backgroundColor: "#218838" },
-        }, // Pseudo-classes won't work directly with inline styles
-      },
-    },
-  };
-
-  return (
-    <ParityDealsProvider config={config}>
-      <h1>Our Pricing Plans</h1>
-      <PDPaywall
-        onPlanSelected={handlePlanSelection}
-        initialPeriod="monthly"
-        customStyles={customPaywallStyles}
-        getButtonText={(plan) =>
-          plan.shouldHighlight
-            ? `🚀 Get Started with ${plan.displayName}`
-            : `Select ${plan.displayName}`
-        }
-      />
-      {/* You can add a period switcher UI here that updates PDPaywall or its internal state */}
-    </ParityDealsProvider>
-  );
-}
-
-export default MyAwesomeApp;
-```
+---
