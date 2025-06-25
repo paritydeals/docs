@@ -15,381 +15,400 @@ The `@paritydeals/js-sdk` is a lightweight, plain TypeScript library designed fo
 
 <Note>If you are using React, you can use the <a href="/frontend-integration/react-sdk">React SDK</a> instead.</Note>
 
-## 2. Installation
+### Installation
 
-#### Install the SDK using npm or yarn:
+Install the SDK using your preferred package manager or include it directly via CDN.
 
 ```bash
 npm install @paritydeals/js-sdk
 # or
 yarn add @paritydeals/js-sdk
+# or
+pnpm add @paritydeals/js-sdk
+```
+
+**CDN Installation:**
+```html
+<script src="https://unpkg.com/@paritydeals/js-sdk/dist/paritydeals-sdk.umd.js"></script>
+```
+
+### Basic Usage
+
+Get started with the SDK in just a few lines of code.
+
+```typescript
+import parityDealsSDK from '@paritydeals/js-sdk';
+
+// Initialize the SDK
+const pd = parityDealsSDK({
+  customerId: "your-customer-id",
+  accessToken: "your-access-token",
+});
+
+// Check if user has access to a feature
+if (pd.hasAccess('premium-features')) {
+  console.log("User has access to premium features!");
+}
+
+// Get specific entitlement details
+const emailLimit = pd.getEntitlement('email-sends', 'metered');
+if (emailLimit && emailLimit.hasAccess) {
+  console.log(`Emails remaining: ${emailLimit.remaining}`);
+}
 ```
 
 
-#### Initialize the SDK:
+## API Reference
+
+Complete documentation of all SDK methods and configuration options.
+
+### Initialization
+
+Create and configure your SDK instance with the required parameters.
 
 ```typescript
-import paritydealsSdk from '@paritydeals/js-sdk';
-
-const pdSdk = paritydealsSdk({
-  orgId: "YOUR_ORGANIZATION_ID",
-  customerId: "CUSTOMER_IDENTIFIER",
-  accessToekn: "CLIENT_API_KEY",
+// Initialize the SDK
+const pd = parityDealsSDK({
+  customerId: "your-customer-id",
+  accessToken: "your-access-token",
 });
-
-// Now you can use the pdSdk instance
-async function checkMyFeature() {
-  // If initializeAndFetch was false, or to ensure data is fresh before first use:
-  if (!pdSdk.getAllEntitlements() && !pdSdk.isLoading()) {
-    try {
-      console.log("Fetching entitlements for the first time...");
-      await pdSdk.fetchAllEntitlements();
-    } catch (e) {
-      console.error("Failed to fetch initial entitlements:", (e as Error).message);
-      return;
-    }
-  } else if (pdSdk.isLoading()) {
-    console.log("SDK is already fetching initial entitlements...");
-    // You might want to await or have a mechanism to know when it's done
-    // For simplicity, this example proceeds, but in a real app, you'd handle this state.
-  }
-
-
-  if (pdSdk.hasAccess('my-feature')) {
-    console.log("Access to my-feature granted!");
-  } else {
-    console.log("Access to my-feature denied or entitlements not yet loaded.");
-  }
-}
-
-checkMyFeature();
 ```
 
 #### Options
-The `paritydealsSdk` function accepts an `options` object with the following properties:
 
-##### Required
-
-| Option                 | Type                        | Default| Description                                                                                                                                                              |
-| :--------------------- | :-------------------------- | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `orgId`                | `string`                    | N/A                    | The organization ID, sent as `org_id` query parameter.                                                                                                                    |
-| `customerId`           | `string`                    | N/A                    | The customer ID, sent as `customer_id` query parameter.                                                                                                                   |
-| `accessToekn`          | `string`                    | N/A                    | Your static API token. If provided, it's included in the `Authorization: Bearer <accessToekn>` header by the `apiRequestService`.                                        |
+| Option | Type | Description |
+|--------|------|-------------|
+| `customerId` | `string` | Unique identifier for the customer |
+| `accessToken` | `string` | - | Authentication token for API requests |
+| `initializeAndFetch` | `boolean` | `true` | Automatically fetch entitlements on initialization |
+| `onError` | `(error: Error) => void` | - | Error callback function |
 
 
-##### Optional
+### Core Methods
 
-| Option                 | Type                        | Default| Description                                                                                                                                                              |
-| :--------------------- | :-------------------------- | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `initializeAndFetch`   | `boolean`                   | `true`                 | If `true`, `WorkspaceAllEntitlements()` is called immediately after the client is created. The SDK initialization will still be synchronous, but the fetch will be asynchronous. |
-| `onError`              | `(error: Error) => void`    | `undefined`            | A callback function invoked if an error occurs during API requests made by the SDK.                                                                                      |
-| `maxRetries`           | `number`                    | `3`                    | Maximum number of retries for API requests (passed to `apiRequestService`).                                                                                              |
-| `timeout`              | `number`                    | `5000` (ms)            | Timeout for API requests in milliseconds (passed to `apiRequestService`).                                                                                                 |
-| `backoffBaseDelay`     | `number`                    | `1000` (ms)            | Base delay (in milliseconds) for the exponential backoff strategy in retries (passed to `apiRequestService`).                                                                |
-| `apiUrl`               | `string`                    | N/A                    | Base URL for the ParityDeals API (e.g., `https://edge.stagingapi.paritydeals.com/api/v1`).                                                                                   |
-| `entitlementsPath`     | `string`                    | N/A                    | Path for fetching all entitlements, appended to `apiUrl` (e.g., `/entitlement-check`).                                                                                    |
+#### `hasAccess(featureId: string): boolean`
 
-## 4\. Core Concepts
+Check if the user has access to a specific feature.
 
-### Fetching Entitlements
+```typescript
+if (pd.hasAccess('premium-features')) {
+  // Show premium features
+  showPremiumUI();
+}
+```
 
-Entitlements are fetched from your backend API endpoint specified by `apiUrl` and `entitlementsPath`. The `orgId` and `customerId` are sent as query parameters to identify the specific set of entitlements to retrieve.
+#### `getEntitlement<T>(featureId: string, type: T['type']): T | null`
 
-  * **Initial Fetch:** If `initializeAndFetch: true` is set in `Options`, the `WorkspaceAllEntitlements()` method is called automatically when the client is created via `initializeParityClient`.
-  * **Manual Fetch/Refresh:** You can call `await parityClient.fetchAllEntitlements()` at any time to fetch or re-fetch entitlements. Pass `true` as an argument (`WorkspaceAllEntitlements(true)`) to force a refresh, bypassing any cached data.
+Get detailed entitlement information for a specific feature.
 
-### Caching
+```typescript
+// Boolean entitlement
+const canUseAnalytics = pd.getEntitlement('analytics', 'boolean');
+if (canUseAnalytics?.hasAccess) {
+  enableAnalytics();
+}
 
-The SDK maintains an in-memory cache of the fetched and processed entitlements.
+// Configurable entitlement
+const storageLimit = pd.getEntitlement('storage-limit', 'customizable');
+if (storageLimit?.hasAccess && storageLimit.configuration) {
+  setStorageLimit(storageLimit.configuration);
+}
 
-  * Once `WorkspaceAllEntitlements()` successfully completes, the data is transformed and stored in an `EntitlementMap`.
-  * Subsequent calls to `getEntitlement()`, `hasAccess()`, and `getAllEntitlements()` read from this cache for efficiency.
-  * `WorkspaceAllEntitlements(true)` will always fetch fresh data from the API and update the cache.
-  * `clearCache()` will empty the internal cache.
+// Metered entitlement
+const emailQuota = pd.getEntitlement('email-sends', 'metered');
+if (emailQuota?.hasAccess && emailQuota.remaining !== null && emailQuota.remaining > 0) {
+  console.log(`Emails remaining: ${emailQuota.remaining}`);
+}
+```
+
+#### `getAllEntitlements(): EntitlementMap | null`
+
+Get all cached entitlements.
+
+```typescript
+const allEntitlements = pd.getAllEntitlements();
+if (allEntitlements) {
+  Object.entries(allEntitlements).forEach(([featureId, entitlement]) => {
+    console.log(`${featureId}: ${entitlement.hasAccess ? 'Access granted' : 'Access denied'}`);
+  });
+}
+```
+
+#### `fetchAllEntitlements(forceRefresh?: boolean): Promise<EntitlementMap>`
+
+Manually fetch or refresh entitlements from the server.
+
+```typescript
+// Fetch fresh data
+try {
+  const entitlements = await pd.fetchAllEntitlements(true);
+  console.log('Entitlements refreshed:', entitlements);
+} catch (error) {
+  console.error('Failed to refresh entitlements:', error);
+}
+```
+
+#### `isLoading(): boolean`
+
+Check if entitlements are currently being fetched.
+
+```typescript
+if (pd.isLoading()) {
+  showLoadingSpinner();
+} else {
+  hideLoadingSpinner();
+}
+```
+
+#### `getLastError(): Error | null`
+
+Get the last error that occurred during entitlement fetching.
+
+```typescript
+const lastError = pd.getLastError();
+if (lastError) {
+  console.error('Last SDK error:', lastError.message);
+}
+```
+
+#### `clearCache(): void`
+
+Clear the cached entitlements.
+
+```typescript
+pd.clearCache();
+// Next call to hasAccess or getEntitlement will trigger a new fetch
+```
+
+## Entitlement Types
+
+Different types of entitlements supported by the SDK.
+
+```typescript
+interface MeteredEntitlement {
+  featureId: string;
+  featureType: "METER" | "BOOLEAN" | "CUSTOMIZABLE";
+  hardLimit: boolean;
+  hasAccess: boolean;
+  currentUsage: number;
+  usageLimit: number | null;
+  remaining: number | null;
+  resetAt?: string | null;
+}
+```
+
+## Examples
+
+Real-world usage patterns and common implementation scenarios.
+
+### Feature Gating
+
+Control access to features based on user entitlements.
+
+```typescript
+// Simple feature gate
+if (pd.hasAccess('beta-features')) {
+  showBetaFeatures();
+}
+
+// Conditional rendering
+const canUseAdvancedSearch = pd.hasAccess('advanced-search');
+return (
+  <div>
+    <BasicSearch />
+    {canUseAdvancedSearch && <AdvancedSearch />}
+  </div>
+);
+```
+
+### Usage-Based Features
+
+Implement usage limits and quota management.
+
+```typescript
+const apiCalls = pd.getEntitlement('api-calls', 'metered');
+if (apiCalls?.hasAccess) {
+  if (apiCalls.remaining === null || apiCalls.remaining > 0) {
+    // Allow API call
+    makeApiCall();
+  } else {
+    // Show upgrade message
+    showUpgradeMessage();
+  }
+}
+```
+
+### Configuration-Based Features
+
+Apply dynamic configuration based on user entitlements.
+
+```typescript
+const teamSizeEntitlement = pd.getEntitlement('max-team-size', 'customizable');
+
+if (teamSizeEntitlement?.hasAccess && teamSizeEntitlement.configuration) {
+  const maxTeamSize = teamSizeEntitlement.configuration;
+
+  if (currentTeam.length >= maxTeamSize) {
+    showUpgradePrompt(); // or disable the "Add Member" button
+  } else {
+    enableTeamInvite();
+  }
+}
+
+```
 
 ### Error Handling
 
-  * The `WorkspaceAllEntitlements()` method returns a Promise that rejects if the API request fails after all configured retries. Use `try...catch` to handle these errors.
-  * The `onError` callback in `Options` provides a global way to be notified of errors during SDK-initiated API calls.
-  * The `getLastError()` method on the client instance returns the last error object encountered during a fetch operation.
-
-## 5\. API Reference: `ParityDealsClient` Methods
-
-An instance of `ParityDealsClient` (obtained via `initializeParityClient`) provides the following public methods:
-
-### `WorkspaceAllEntitlements(forceRefresh?: boolean): Promise<EntitlementMap>`
-
-Asynchronously fetches all entitlements from the API for the configured `orgId` and `customerId`, processes them, and updates the internal cache.
-
-  * **Parameters:**
-      * `forceRefresh` (optional, `boolean`, default: `false`): If `true`, the cache is bypassed, and data is fetched directly from the API.
-  * **Returns**: `Promise<EntitlementMap>` - A promise that resolves with an `EntitlementMap` (a `Record<string, AnyEntitlement>`) upon successful fetch.
-  * **Throws**: An `Error` if the API request fails after retries or if the SDK is already in the process of fetching.
-
-### `getEntitlement<T extends AnyEntitlement>(featureKey: string, type: T['type']): T | null`
-
-Retrieves a specific processed entitlement from the cache by its `featureKey` and expected `type`. `WorkspaceAllEntitlements()` should have been called successfully prior to this.
-
-  * **Parameters:**
-      * `featureKey: string`: The unique key of the feature.
-      * `type: 'boolean' | 'config' | 'metered'`: The expected type of the entitlement.
-  * **Returns**: The processed `Entitlement` object (e.g., `BooleanEntitlement`, `ConfigEntitlement`, `MeteredEntitlement`) if found in the cache and the type matches. Returns `null` if not found, if types don't match, or if the cache is empty. Logs a warning if entitlements haven't been fetched or if there's a type mismatch.
-
-### `hasAccess(featureKey: string): boolean`
-
-Checks if the user has access to a specific feature based on cached entitlements. `WorkspaceAllEntitlements()` should have been called successfully prior to this.
-
-  * **Parameters:**
-      * `featureKey: string`: The key of the feature.
-  * **Returns**: `true` if the `hasAccess` property of the cached entitlement is true. Returns `false` if the entitlement is not found in the cache, `hasAccess` is false, or if the cache is empty (with a warning).
-
-### `getAllEntitlements(): EntitlementMap | null`
-
-Returns the entire map of currently cached processed entitlements. `WorkspaceAllEntitlements()` should have been called successfully prior to this.
-
-  * **Returns**: An `EntitlementMap` or `null` if the cache is empty or entitlements haven't been fetched.
-
-### `isLoading(): boolean`
-
-Indicates if an entitlement fetch operation (`WorkspaceAllEntitlements`) is currently in progress.
-
-  * **Returns**: `true` if a fetch is in progress, `false` otherwise.
-
-### `getLastError(): Error | null`
-
-Returns the last error object encountered during an entitlement fetch operation.
-
-  * **Returns**: An `Error` object if the last fetch operation failed, otherwise `null`.
-
-### `clearCache(): void`
-
-Clears the internal entitlement cache and resets `isLoading` (to `false`) and `lastFetchError` (to `null`) states. After calling this, `WorkspaceAllEntitlements()` will need to be called again to populate the cache.
-
-## 6\. Key Types
-
-The SDK uses and exports several TypeScript types for clarity and type safety.
-
-### Entitlement Types
-
-These represent the processed entitlement data available through the SDK methods:
-
-  * **`Entitlement`**: Base interface:
-      * `featureKey: string`
-      * `hasAccess: boolean`
-      * `type: 'boolean' | 'config' | 'metered'`
-  * **`BooleanEntitlement extends Entitlement`**: `type: 'boolean'`.
-  * **`ConfigEntitlement extends Entitlement`**:
-      * `type: 'config'`
-      * `configuration: number | null`
-  * **`MeteredEntitlement extends Entitlement`**:
-      * `type: 'metered'`
-      * `limit: number | null` (total allowance)
-      * `used: number` (current consumption)
-      * `remaining: number | null` (calculated: `limit - used`)
-      * `resetAt?: string | null` (ISO date string)
-      * `hardLimit?: boolean`
-  * **`AnyEntitlement`**: Union of `BooleanEntitlement | ConfigEntitlement | MeteredEntitlement`.
-  * **`EntitlementMap`**: `Record<string, AnyEntitlement>`.
-
-### Configuration Types
-
-  * **`Options`**: Interface for the options object passed to `initializeParityClient`. (See [Client Options](https://www.google.com/search?q=%23client-options-Options) for details).
-  * **`ApiRequestConfig` & `ApiResponse`**: Interfaces defining the contract for the `apiRequestService`. These are relevant if you provide a custom API request function.
-
-*(For detailed raw API response types like `RawEntitlementsApiResponse`, refer to the SDK's type definition files.)*
-
-## 7\. Example Usage
-
-### Basic Setup
+Robust error handling for production applications.
 
 ```typescript
-import { initializeParityClient, Options } from '@paritydeals/js-sdk';
-// Assuming your actual apiRequest function is available
-// import { apiRequest } from './your-http-service';
-
-async function main() {
-  const clientOptions: Options = {
-    apiUrl: "[https://api.example.com/parity](https://api.example.com/parity)",
-    entitlementsPath: "user-entitlements", // Path that, when combined with apiUrl, orgId, customerId, returns all entitlements
-    orgId: "myOrg123",
-    customerId: "user789",
-    accessToekn: "secret-token-for-myOrg123",
-    initializeAndFetch: true, // Fetch entitlements when client is created
-    onError: (error) => {
-      console.error("ParityDeals SDK Error:", error.message);
-      // Send to error tracking service
-    }
-  };
-
-  const parityClient = initializeParityClient(clientOptions /*, optionalCustomApiRequest */);
-
-  // Give a moment for initializeAndFetch to potentially complete if it's running
-  if (parityClient.isLoading()) {
-    console.log("Waiting for initial entitlements to load...");
-    try {
-      // This will resolve when the initial fetch (if any) is done, or fetch if not already started.
-      // If initializeAndFetch was true and successful, this might return from cache.
-      await parityClient.fetchAllEntitlements();
-    } catch (e) {
-        console.error("Could not ensure entitlements are loaded:", (e as Error).message);
-        return;
-    }
+const pd = parityDealsSDK({
+  customerId: "user123",
+  accessToken: "token456",
+  onError: (error) => {
+    // Log to monitoring service
+    logError('ParityDeals SDK Error', error);
+    
+    // Show user-friendly message
+    showNotification('Unable to load feature settings', 'error');
   }
-  console.log("SDK Ready. Last error (if any):", parityClient.getLastError()?.message);
+});
 
-
-  const allMyEntitlements = parityClient.getAllEntitlements();
-  if (allMyEntitlements) {
-    console.log("All available entitlements:", JSON.stringify(allMyEntitlements, null, 2));
-  } else {
-    console.log("No entitlements data available yet or fetch failed.");
-  }
-}
-
-main();
-```
-
-### Checking Entitlements
-
-```typescript
-// Assuming 'parityClient' is an initialized ParityDealsClient instance
-// and entitlements have been fetched.
-
-// Check boolean feature
-if (parityClient.hasAccess('enable-beta-feature')) {
-  // Show beta feature
-  console.log("Beta feature is enabled!");
-}
-
-// Get config value
-const editorSettings = parityClient.getEntitlement('editor-font-size', 'config');
-if (editorSettings && editorSettings.hasAccess && editorSettings.configuration !== null) {
-  console.log(`Editor font size should be: ${editorSettings.configuration}px`);
-  // Apply theme based on editorSettings.configuration
-}
-
-// Check metered feature
-const reportLimit = parityClient.getEntitlement('monthly-reports', 'metered');
-if (reportLimit && reportLimit.hasAccess) {
-  if (reportLimit.remaining === null || reportLimit.remaining > 0) {
-    console.log(`Can generate report. Remaining: ${reportLimit.remaining === null ? 'Unlimited' : reportLimit.remaining}`);
-    // Allow generating a report
-  } else {
-    console.warn("Monthly report limit reached!");
-    // Show "limit reached" message
-  }
+// Handle fetch errors
+try {
+  await pd.fetchAllEntitlements();
+} catch (error) {
+  console.error('Failed to load entitlements:', error);
+  // Fallback to default behavior
+  showDefaultFeatures();
 }
 ```
 
-## 8\. Using with a Custom API Request Service
+### Custom API Request Service
 
-The SDK is designed to work with an `apiRequest` function that you provide or that is bundled with it. This function is responsible for making the actual HTTP calls. If you need to use your application's existing HTTP client (like `axios`, `Workspace` with custom interceptors, etc.), you can pass your own implementation to `initializeParityClient` as the second argument.
-
-Your custom `apiRequest` function must conform to the following interface:
+Integrate with your existing HTTP client or add custom logic.
 
 ```typescript
-import { ApiRequestConfig, ApiResponse } from '@paritydeals/js-sdk'; // Or from your types file
-
-async function myCustomApiRequest<ResData>(
-  config: ApiRequestConfig
-): Promise<ApiResponse<ResData>> {
-  // ------ YOUR CUSTOM IMPLEMENTATION ------
-  // Example using fetch (without retries/timeout for brevity, your actual implementation should handle these)
-  let fullUrl = config.url;
-  if (config.queryParams) {
-    const params = new URLSearchParams();
-    for (const key in config.queryParams) {
-      if (config.queryParams[key] !== undefined) {
-        params.append(key, String(config.queryParams[key]));
-      }
-    }
-    if (params.toString()) {
-      fullUrl += (fullUrl.includes('?') ? '&' : '?') + params.toString();
-    }
-  }
-
-  const headers: Record<string, string> = { ...config.headers };
-  if (config.accessToekn) {
-    headers['Authorization'] = `Bearer ${config.accessToekn}`;
-  }
-  if (config.method !== 'GET' && config.body && typeof config.body === 'object' && !(config.body instanceof FormData)) {
-    if (!headers['Content-Type']) {
-        headers['Content-Type'] = 'application/json';
-    }
-  }
-
-  const fetchOptions: RequestInit = {
+// Custom API request function
+async function customApiRequest<T>(config: ApiRequestConfig): Promise<ApiResponse<T>> {
+  const response = await fetch(config.url, {
     method: config.method || 'GET',
-    headers: headers,
-  };
-
-  if (config.method !== 'GET' && config.body) {
-    fetchOptions.body = headers['Content-Type'] === 'application/json' ? JSON.stringify(config.body) : config.body;
-  }
-
-  // Note: fetch doesn't have built-in timeout like XHR. You'd need AbortController for timeouts.
-  // Retries and backoff would also need to be implemented manually around fetch.
-  // The XHR-based apiRequest provided earlier handles these.
-
-  const response = await fetch(fullUrl, fetchOptions);
-  const responseData = await response.json(); // Assumes JSON response
-
+    headers: {
+      'Authorization': `Bearer ${config.accessToken}`,
+      'Content-Type': 'application/json',
+      ...config.headers
+    },
+    body: config.body ? JSON.stringify(config.body) : undefined
+  });
+  
   if (!response.ok) {
-    const errorData = responseData as any; // Attempt to get error details from body
-    throw new Error(errorData.message || response.statusText || `HTTP error! status: ${response.status}`);
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }
-
+  
   return {
     status: response.status,
     statusText: response.statusText,
-    data: responseData as ResData,
+    data: await response.json()
   };
-  // ------ END OF YOUR CUSTOM IMPLEMENTATION ------
 }
 
-// Then initialize the client:
-// const client = initializeParityClient(clientOptions, myCustomApiRequest);
+// Use custom API request
+const pd = parityDealsSDK({
+  customerId: "user123",
+  accessToken: "token456"
+}, customApiRequest);
 ```
 
-This allows you to use your existing HTTP client or add specific interceptors, logging, or error handling tailored to your application's needs. The `ApiRequestConfig` and `ApiResponse` types define the expected interface for this function.
 
-## 9\. Browser Usage (via Script Tag)
+## TypeScript Support
 
-If you build the SDK as a UMD or IIFE bundle (e.g., `paritydeals-js-sdk.umd.js`), you can include it directly in an HTML page:
+Full TypeScript support with comprehensive type definitions.
 
-```html
-<script src="path/to/your/dist/paritydeals-js-sdk.umd.js"></script>
-<script>
-  // The SDK will be available on a global variable,
-  // typically defined by the 'name' in your Vite library build config (e.g., 'ParityDealsCoreSDK').
-  if (window.ParityDealsCoreSDK) {
-    const { initializeParityClient } = window.ParityDealsCoreSDK;
+The SDK is written in TypeScript and provides full type safety:
 
-    const clientOptions = {
-      apiUrl: "[https://api.example.com/parity](https://api.example.com/parity)",
-      entitlementsPath: "user-entitlements",
-      orgId: "myOrg123",
-      customerId: "user789",
-      accessToekn: "YOUR_TOKEN_HERE",
-      initializeAndFetch: true,
-      onError: (err) => console.error("SDK Error in browser:", err)
-    };
-    const parityClient = initializeParityClient(clientOptions);
+```typescript
+import parityDealsSDK, { 
+  ParityDealsClientOptions, 
+  EntitlementMap, 
+  MeteredEntitlement 
+} from '@paritydeals/js-sdk';
 
-    // Use parityClient as shown in the "Example Usage" section
-    // Note: top-level await is not available in older script tags, so use .then/.catch or async IIFE
+const options: ParityDealsClientOptions = {
+  customerId: "user123",
+  accessToken: "token456"
+};
 
-    (async () => {
-        if (parityClient.isLoading()) {
-            await parityClient.fetchAllEntitlements().catch(console.error);
-        }
-        if (parityClient.hasAccess('some-feature')) {
-            console.log('Access to some-feature granted (browser)');
-        }
-    })();
+const pd = parityDealsSDK(options);
 
-  } else {
-      console.error("ParityDealsCoreSDK not found on window object!");
+// Type-safe entitlement access
+const emailQuota: MeteredEntitlement | null = pd.getEntitlement('emails', 'metered');
+```
+
+
+## Advanced Configuration
+
+Advanced options for customizing SDK behavior and API integration.
+
+### API Configuration
+
+Configure API request behavior and retry logic.
+
+```typescript
+const pd = parityDealsSDK({
+  customerId: "user123",
+  accessToken: "token456",
+  apiConfig: {
+    maxRetries: 5,
+    timeout: 10000,
+    backoffBaseDelay: 2000
   }
-</script>
+});
 ```
+
+### Custom Error Handling
+
+Implement sophisticated error handling and recovery strategies.
+
+```typescript
+const pd = parityDealsSDK({
+  customerId: "user123",
+  accessToken: "token456",
+  onError: (error) => {
+    // Send to error tracking service
+    Sentry.captureException(error);
+    
+    // Retry logic
+    if (error.message.includes('network')) {
+      setTimeout(() => pd.fetchAllEntitlements(), 5000);
+    }
+  }
+});
+```
+
+### Advanced Options
+
+Additional configuration options for specialized use cases.
+
+Default values are:
+```typescript
+const pd = parityDealsSDK({
+  customerId: "",
+  accessToken: "",
+  apiUrl: "https://edge.api.paritydeals.com/api/v1",
+  entitlementsPath: "entitlements/",
+  apiConfig: {
+    maxRetries: 3,
+    timeout: 5000,
+    backoffBaseDelay: 1000
+  }
+});
+```
+
+| Option | Type  | Description |
+|--------|------|---------|
+| `apiUrl` | `string` |  Base URL for the API |
+| `entitlementsPath` | `string` | Path for fetching entitlements |
+| `apiConfig.maxRetries` | `number` | Maximum number of retries for API requests |
+| `apiConfig.timeout` | `number` | Timeout for API requests in milliseconds |
+| `apiConfig.backoffBaseDelay` | `number` | Base delay for exponential backoff strategy |
+
