@@ -58,7 +58,7 @@ const ACCESS_TOKEN: string = "YOUR_SECRET_ACCESS_TOKEN";
 
 
 ```typescript
-import { ParityDeals } from 'paritydeals-sdk';
+import { ParityDeals } from '@paritydeals/node-sdk';
 
 const client = new ParityDeals({ accessToken: ACCESS_TOKEN });
 
@@ -217,7 +217,7 @@ This operation creates a new checkout session for a customer, allowing them to p
 
 
 ```typescript
-import { ParityDeals, CHARGE_PERIOD_CHOICES, FeatureListItem } from 'paritydeals-sdk';
+import { ParityDeals, CHARGE_PERIOD_CHOICES } from '@paritydeals/node-sdk';
 
 const response = await client.checkout.createSession({
   planIdentifier: "plan-pro-monthly",
@@ -460,7 +460,7 @@ This endpoint is used for reporting the pre-aggregated feature usage from your a
 
 
 ```typescript
-import { BEHAVIOUR_CHOICES } from 'paritydeals-sdk';
+import { BEHAVIOUR_CHOICES } from '@paritydeals/node-sdk';
 
 const response = await client.reporting.reportUsage({
     value: 150,
@@ -607,7 +607,7 @@ The subscriptions module allows you to manage customer subscriptions, including 
 
 
 ```typescript
-import { CHARGE_PERIOD_CHOICES } from 'paritydeals-sdk';
+import { CHARGE_PERIOD_CHOICES } from '@paritydeals/node-sdk';
 
 try:
     const response = await client.subscription.update({
@@ -664,7 +664,7 @@ An instance of `UpdateSubscriptionResponse`, which includes:
 
 
 ```typescript
-import { CANCELLATION_TYPES } from 'paritydeals-sdk';
+import { CANCELLATION_TYPES } from '@paritydeals/node-sdk';
 
 const response = await client.subscription.cancel({
     subscriptionId: "sub_node_78058918",
