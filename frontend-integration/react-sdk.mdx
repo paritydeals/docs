@@ -37,7 +37,7 @@ The core of the SDK is the `ParityDealsProvider`. You need to wrap your applicat
 ``` tsx
 // In your App.tsx or main application entry point
 import React from 'react';
-import { ParityDealsProvider, PDPricingTable } from '@paritydeals/react-sdk';
+import { ParityDealsProvider } from '@paritydeals/react-sdk';
 
 const App = () => {
   return (
@@ -53,9 +53,9 @@ const App = () => {
 const MyAppContent = () => {
 
   return (
-    <PDPricingTable offeringId="your-offering-id">
-      <div>My Application</div>
-    </PDPricingTable>
+    <div>
+      <h1>My Application</h1>
+    </div>
   );
 
 };
