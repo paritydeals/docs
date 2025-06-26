@@ -26,8 +26,11 @@ yarn add @paritydeals/react-ui
 
 ### Basic Setup
 
+Note: You must import the CSS file for the components to be styled correctly.
+
 ```tsx
 import { ParityDealsProvider, PDPricingTable } from '@paritydeals/react-ui';
+import '@paritydeals/react-ui/dist/pd-react-ui.css';
 
 function App() {
   return (
@@ -46,6 +49,7 @@ function App() {
 
 ```tsx
 import { ParityDealsProvider, PDPricingTable } from '@paritydeals/react-ui';
+import '@paritydeals/react-ui/dist/pd-react-ui.css';
 
 function App() {
   const handleCustomPriceClick = (details) => {
