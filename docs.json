@@ -50,6 +50,10 @@
           {
             "group": "Usecases",
             "pages": ["usecases/hybridpricing", "usecases/usage-based" , "usecases/credit-based", "usecases/freemium-plan", "usecases/ai-task-agents", "usecases/monetization-usage-based"]
+          },
+          {
+            "group": "Comparisons",
+            "pages": ["guides/stripe-vs-paritydeals-entitlements", "guides/stripe-adaptive-pricing-vs-parityDeals-localization"]
           }
         ]
       },
