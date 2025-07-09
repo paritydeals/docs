@@ -20,6 +20,21 @@
       }
     },
     "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "A status description for the error.",
+            "example": "Bad request"
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable message providing details about the error.",
+            "example": "Offering does not exists"
+          }
+        }
+      },
       "CustomerResponse": {
         "type": "object",
         "properties": {
@@ -593,6 +608,125 @@
             "example": "Subscription cancellation processed successfully."
           }
         }
+      },
+      "PublicOfferingResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "pricingTable": { "$ref": "#/components/schemas/PricingTable" },
+          "plans": { "type": "array", "items": { "$ref": "#/components/schemas/Plan" } },
+          "countryCode": { "type": "string" },
+          "pricingLocale": { "type": "string" },
+          "currencyCode": { "type": "string" },
+          "currencySymbol": { "type": "string" },
+          "baseCurrencyCode": { "type": "string" },
+          "baseCurrencySymbol": { "type": "string" },
+          "subscription": { "$ref": "#/components/schemas/SubscriptionInfo", "nullable": true },
+          "isCustomerExists": { "type": "boolean" },
+          "billingPeriods": { "type": "array", "items": { "$ref": "#/components/schemas/BillingPeriod" } }
+        }
+      },
+      "PricingTable": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "identifier": { "type": "string" },
+          "style": { "type": "object" },
+          "typography": { "type": "object" },
+          "layout": { "type": "object" },
+          "template": { "nullable": true },
+          "descriptionTooltipEnabled": { "type": "boolean" },
+          "pricingOptions": { "type": "object" }
+        }
+      },
+      "Plan": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "identifier": { "type": "string" },
+          "details": { "type": "object" },
+          "isVisible": { "type": "boolean" },
+          "metadata": { "type": "object" },
+          "price": { "$ref": "#/components/schemas/FeaturePrice" },
+          "addons": { "type": "array", "items": {} },
+          "originalPrice": { "type": "object" },
+          "enabled": { "type": "boolean" },
+          "features": { "type": "array", "items": { "$ref": "#/components/schemas/Feature" } },
+          "displayName": { "type": "string" },
+          "shouldHighlight": { "type": "boolean" },
+          "displayDescription": { "type": "string" }
+        }
+      },
+      "FeaturePrice": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "priceType": { "type": "string" },
+          "freeTrial": { "type": "boolean" },
+          "trialPeriod": { "type": "integer" },
+          "currency": { "type": "string" },
+          "charges": { "type": "array", "items": { "$ref": "#/components/schemas/Charge" } }
+        }
+      },
+      "Charge": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "chargePeriod": { "type": "string" },
+          "tiers": { "type": "array", "items": {} },
+          "priceData": { "type": "object" },
+          "details": { "type": "object" },
+          "advanced": { "type": "object" },
+          "featureQuantityPrice": { "type": "number" }
+        }
+      },
+      "Feature": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean" },
+          "identifier": { "type": "string" },
+          "displayName": { "type": "string" },
+          "displayDescription": { "type": "string" },
+          "displayTooltipDescription": { "type": "boolean" },
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "featureType": { "type": "string" },
+          "details": { "type": "object" },
+          "isArchived": { "type": "boolean" },
+          "metadata": { "type": "object" },
+          "modifiedOn": { "type": "string", "format": "date-time" },
+          "meter": { "type": "object" },
+          "featureDetails": { "type": "object" },
+          "value": { "nullable": true },
+          "hardLimit": { "type": "boolean", "nullable": true },
+          "reset": { "type": "string", "nullable": true },
+          "resetTime": { "type": "string", "nullable": true },
+          "charges": { "type": "array", "items": { "$ref": "#/components/schemas/Charge" }, "nullable": true }
+        }
+      },
+      "SubscriptionInfo": {
+        "type": "object",
+        "properties": {
+          "planIdentifier": { "type": "string" },
+          "features": { "type": "array", "items": {} },
+          "subscriptionId": { "type": "string", "format": "uuid" },
+          "chargePeriod": { "type": "string" },
+          "hasPreviousSubscription": { "type": "boolean" }
+        }
+      },
+      "BillingPeriod": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean" },
+          "displayName": { "type": "string" },
+          "chargePeriod": { "type": "string" },
+          "promoCaption": { "type": "string" }
+        }
       }
     }
   },
@@ -966,6 +1100,120 @@
                 },
                 "example": {
                   "message": "Subscription cancellation processed successfully."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monetization/public-offering/{offering_id}/": {
+      "get": {
+        "tags": [
+          "Monetization"
+        ],
+        "summary": "Get Public Offering Details",
+        "description": "Retrieves the public details of a specific offering, which can be used to render a pricing page or paywall.",
+        "operationId": "getPublicOffering",
+        "parameters": [
+          {
+            "name": "offering_id",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier (UUID) for the offering.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "customer_id",
+            "in": "query",
+            "required": false,
+            "description": "Optional. The identifier for an existing customer to tailor the offering view (e.g., showing their current plan).",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with public offering details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicOfferingResponse"
+                },
+                "example": {
+                  "id": "7b793738-9f99-43e0-a8af-7b72fc8f8886",
+                  "name": "Aphelo v1",
+                  "description": "",
+                  "pricingTable": {
+                    "name": "Aphelo Paywall",
+                    "description": "",
+                    "identifier": "aphelo-paywall",
+                    "style": { "priceColor": "#171923", "titleColor": "#171923", "buttonColor": "#F7FAFC", "dividerColor": "#E2E8F0", "featureColor": "#2D3748", "priceUnitColor": "#171923", "descriptionColor": "#718096", "pricePeriodColor": "#718096", "cardBackgroundColor": "#fff", "buttonBackgroundColor": "#1A202C", "buttonHoverBackgroundColor": "#1A202C" },
+                    "typography": { "priceFontSize": 32, "titleFontSize": 24, "featureFontSize": 16, "priceFontWeight": "bold", "titleFontWeight": "bold", "featureFontWeight": "normal", "priceUnitFontSize": 32, "descriptionFontSize": 16, "pricePeriodFontSize": 16, "priceUnitFontWeight": "bold", "descriptionFontWeight": "normal", "pricePeriodFontWeight": "normal" },
+                    "layout": { "gap": 24, "align": "center", "maxWidth": 400, "minWidth": 360 },
+                    "template": null,
+                    "descriptionTooltipEnabled": true,
+                    "pricingOptions": { "localization": true, "showDecimal": true, "showCurrencyCode": false, "showCurrencySymbol": true, "maximumDecimalDigits": 2, "minimumDecimalDigits": 2 }
+                  },
+                  "plans": [
+                    {
+                      "name": "Free",
+                      "identifier": "free",
+                      "details": { "stripeProductId": "prod_SUs8ZwzyrjlSAZ" },
+                      "isVisible": true,
+                      "features": [
+                        { "identifier": "apicalls", "displayName": "apicalls", "featureType": "METER", "value": 5000 },
+                        { "identifier": "products", "displayName": "Products", "featureType": "CUSTOMIZABLE", "value": 1 },
+                        { "identifier": "branding", "displayName": "branding", "featureType": "BOOLEAN", "value": false },
+                        { "identifier": "email-settings", "displayName": "Email settings", "featureType": "BOOLEAN", "value": true }
+                      ],
+                      "price": { "priceType": "FREE", "charges": [{ "chargePeriod": "YEARLY", "priceData": { "amount": 0.0 } }] }
+                    },
+                    {
+                      "name": "Basic",
+                      "identifier": "basic",
+                      "details": { "stripeProductId": "prod_SUsCWTpt2AkvJD" },
+                      "isVisible": true,
+                      "features": [
+                        { "identifier": "apicalls", "displayName": "apicalls", "featureType": "METER", "value": 50000 },
+                        { "identifier": "products", "displayName": "Products", "featureType": "CUSTOMIZABLE", "value": 5 },
+                        { "identifier": "branding", "displayName": "branding", "featureType": "BOOLEAN", "value": false },
+                        { "identifier": "email-settings", "displayName": "Email settings", "featureType": "BOOLEAN", "value": true }
+                      ],
+                      "price": { "priceType": "PAID", "charges": [{ "chargePeriod": "MONTHLY", "priceData": { "amount": 59.0 } }, { "chargePeriod": "YEARLY", "priceData": { "amount": 491.0 } }] }
+                    }
+                  ],
+                  "countryCode": "IN",
+                  "pricingLocale": "en-US",
+                  "currencyCode": "USD",
+                  "currencySymbol": "$",
+                  "baseCurrencyCode": "USD",
+                  "baseCurrencySymbol": "$",
+                  "subscription": { "planIdentifier": "basic", "features": [], "subscriptionId": "7e468572-cc01-424f-ba88-69917164538b", "chargePeriod": "MONTHLY", "hasPreviousSubscription": true },
+                  "isCustomerExists": true,
+                  "billingPeriods": [
+                    { "displayName": "Monthly", "chargePeriod": "MONTHLY" },
+                    { "displayName": "Yearly", "chargePeriod": "YEARLY" },
+                    { "displayName": "One Time", "chargePeriod": "ONE_TIME" }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request, for example, if the offering does not exist or the request is malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "Bad request",
+                  "message": "Offering does not exists"
                 }
               }
             }
