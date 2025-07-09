@@ -17,12 +17,19 @@ npm install @paritydeals/react-promotions-ui
 
 To start using the SDK, wrap your app with the `ParityDealsProvider` at the root level. This sets up the necessary context.
 
+You can copy your product ID from the listing or promotion details page:
+<Frame>
+  <img height="200" src="/images/copy-product-id.png" />
+</Frame> 
+
+
 ```tsx
 import { ParityDealsProvider } from '@paritydeals/react-promotions-ui';
 
 function App() {
   return (
-    <ParityDealsProvider productId="YOUR_PRODUCT_ID">
+    // Replace with your product ID of the promotion
+    <ParityDealsProvider productId="promo_7e2de26fb47644e58e867a20i898j748">
       {/* Your app components */}
     </ParityDealsProvider>
   );
