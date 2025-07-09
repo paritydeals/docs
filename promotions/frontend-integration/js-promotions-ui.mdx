@@ -91,12 +91,12 @@ If you want to style different parts of the price (like the currency symbol or d
 | `currencyDisplay`    | `symbol\|code\|name`  | symbol     | The currency display format. This only works on the `data-pd-price-formatted` element.            |
 | `showDecimal`        | boolean | false   | Whether to show decimals                 |
 | `minimumDecimalDigits` | number | 0        | The minimum number of decimal digits     |
-| `maximumDecimalDigits` | number | 2        | The maximum number of decimal digits     |
-| `isOriginalDisplay`    | boolean | false    | Used to show the original price when there’s a discount, typically for comparison (e.g., strikethrough price). This price is not modified by discounts but may still be affected by currency conversions.|
+| `maximumDecimalDigits` | number | 2        | The maximum number of decimal digits. Maximum is 2.    |
+{/* | `isOriginalDisplay`    | boolean | false    | Used to show the original price when there’s a discount, typically for comparison (e.g., strikethrough price). This price is not modified by discounts but may still be affected by currency conversions.| */}
 | `banner.*`              | object  | —        | Customization for the discount banner    |
 | `banner.noStyles`       | boolean | false    | if true, no styling will be applied to the banner    |
 | `banner.showCloseButton`| boolean | true     | Control close button visibility. This setting will work only if close button is enabled from the ParityDeals banner settings   |
-| `banner.placement`      | string  | 'top'    | The placement of the discount banner    |
+| `banner.placement`      | `top\|bottom`  | 'top'    | The placement of the discount banner    |
 | `banner.container`      | string  | null     | The container for the discount banner    |
 | `banner.backgroundColor`| string  | '#f0f0f0'    | The background color of the discount banner    |
 | `banner.fontColor`      | string  | '#333333'    | The font color of the discount banner    |
