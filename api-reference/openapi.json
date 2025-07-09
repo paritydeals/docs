@@ -1112,7 +1112,7 @@
         "tags": [
           "Monetization"
         ],
-        "summary": "Get Public Offering Details",
+        "summary": "Get Public Offering",
         "description": "Retrieves the public details of a specific offering, which can be used to render a pricing page or paywall.",
         "operationId": "getPublicOffering",
         "parameters": [
