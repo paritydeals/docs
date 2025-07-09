@@ -5,7 +5,7 @@ description: "The ParityDeals buy now button enhances Stripe's system by creatin
 
 
 ### Overview
-To integrate ParityDeals with LemonSqueezy, replace your existing LemonSqueezy checkout link with the corresponding ParityDeals buy now button on your website. For security reasons, this link functions only when accessed directly from the specified website.
+To integrate ParityDeals with Stripe, replace your existing Stripe checkout link with the corresponding ParityDeals buy now button on your website. For security reasons, this link functions only when accessed directly from the specified website.
 
 
 ### Parameters
@@ -14,7 +14,7 @@ To integrate ParityDeals with LemonSqueezy, replace your existing LemonSqueezy c
 - **`success_url`** (required): The URL to which a user will be redirected after a successful purchase.
 
 ### Behavior
-- **Geographic Pricing**: When a user accesses the checkout page via the generated buy-now link, the API automatically fetches and applies pricing based on the user's location, holidays and other criteria set in ParityDeals. For example, if the product is priced at $100 in the US and $50 in India, a user from India will see the price as $50 at checkout.
+- **Geographic Pricing**: When a user accesses the checkout page via the generated buy-now link, the API automatically fetches and applies pricing based on the user's location, holidays and other criteria set in ParityDeals. For example, if the product is priced at `$100` in the US and `$50` in India, a user from India will see the price as `$50` at checkout.
 
 ### Example Usage
 Here is how you can construct a URL for integrating the API with a buy-now button on a website:
