@@ -129,6 +129,20 @@ The main pricing table component that displays all plans and handles user intera
 | `customUnCheckIcon` | `React.ReactNode` | `undefined` | Custom uncheck icon |
 | `customTooltipIcon` | `React.ReactNode` | `undefined` | Custom tooltip icon |
 | `onCustomPriceClick` | `(details: PlanClickDetails) => void` | `undefined` | Callback for custom price plans |
+| `renderActionButtonAfter` | `features \| price` | `price` | Render the action button after the features or the price |
+| `insertElements.*` | `InsertElements` | `{}` | Insert custom elements anywhere in the pricing table |
+| `insertElements.beforePlanName` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements before the plan name |
+| `insertElements.afterPlanName` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements after the plan name |
+| `insertElements.beforePlanDescription` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements before the plan description |
+| `insertElements.afterPlanDescription` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements after the plan description |
+| `insertElements.beforePrice` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements before the price |
+| `insertElements.afterPrice` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements after the price |
+| `insertElements.beforeFeatures` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements before the features |
+| `insertElements.afterFeatures` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements after the features |
+| `insertElements.beforeActionButton` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements before the action button |
+| `insertElements.afterActionButton` | `(plan: OfferingPlan, activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements after the action button |
+| `insertElements.beforeSwitch` | `(activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements before the switch |
+| `insertElements.afterSwitch` | `(activePeriod: ChargePeriodEnum) => JSX.Element` | `undefined` | Insert custom elements after the switch |
 
 #### Example Usage
 
@@ -153,6 +167,14 @@ The main pricing table component that displays all plans and handles user intera
       gap: 20,
       minWidth: 280,
       maxWidth: 400
+    }
+  }}
+  insertElements={{
+    afterPrice: (plan) => {
+        if(plan.shouldHighlight) {
+            return <div>Most popular plan</div>;
+        }
+        return null;
     }
   }}
 />
@@ -370,19 +392,61 @@ The SDK uses CSS variables for styling. You can override these in your CSS:
 
 ```css
 :root {
+  /* Card & Background */
   --pd-card-bg: #ffffff;
-  --pd-title-color: #333333;
-  --pd-description-color: #666666;
-  --pd-price-color: #000000;
-  --pd-button-bg: #007bff;
-  --pd-button-color: #ffffff;
-  --pd-button-hover-bg: #0056b3;
-  --pd-billing-switch-bg: #f8f9fa;
-  --pd-billing-switch-color: #6c757d;
-  --pd-billing-switch-selected-color: #007bff;
-  --pd-gap: 20px;
-  --pd-min-width: 280px;
+  --pd-card-border-width: 1px solid;
+  --pd-card-border-color: 1px solid;
+
+  /* Text Colors */
+  --pd-title-color: #171923;
+  --pd-description-color: #718096;
+  --pd-feature-color: #171923;
+
+  /* Price Colors */
+  --pd-price-color: #171923;
+  --pd-price-unit-color: #171923;
+  --pd-price-period-color: #718096;
+
+  /* Button Colors */
+  --pd-button-bg: #1A202C;
+  --pd-button-hover-bg: #1A202C;
+  --pd-button-color: #F7FAFC;
+
+  /* Billing Switch Colors */
+  --pd-billing-switch-bg: #1A202C;
+  --pd-billing-switch-color: #F7FAFC;
+  --pd-billing-switch-selected-color: #F7FAFC;
+
+  /* UI Elements */
+  --pd-divider-color: #E2E8F0;
+  --pd-tooltip-bg: #2D3748;
+  --pd-tooltip-color: #ffffff;
+
+  /* Typography - Title */
+  --pd-title-size: 24px;
+  --pd-title-weight: 600;
+
+  /* Typography - Description */
+  --pd-description-size: 16px;
+  --pd-description-weight: 400;
+
+  /* Typography - Price */
+  --pd-price-size: 28px;
+  --pd-price-weight: 700;
+  --pd-price-unit-size: 32px;
+  --pd-price-unit-weight: 700;
+  --pd-price-period-size: 16px;
+  --pd-price-period-weight: 400;
+
+  /* Typography - Feature */
+  --pd-feature-size: 14px;
+  --pd-feature-weight: 400;
+
+  /* Layout */
+  --pd-min-width: 360px;
   --pd-max-width: 400px;
+  --pd-gap: 24px;
+  --pd-align: center;
 }
 ```
 
