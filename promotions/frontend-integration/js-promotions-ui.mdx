@@ -81,6 +81,8 @@ If you want to style different parts of the price (like the currency symbol or d
 
 # SDK Configuration Options
 
+{/* | `isOriginalDisplay`    | boolean | false    | Used to show the original price when there’s a discount, typically for comparison (e.g., strikethrough price). This price is not modified by discounts but may still be affected by currency conversions.| */}
+
 | Option               | Type    | Default  | Description                              |
 | -------------------- | ------- | -------- | ---------------------------------------- |
 | `productId`          | string  | ''     | The product ID to display               |
@@ -92,7 +94,6 @@ If you want to style different parts of the price (like the currency symbol or d
 | `showDecimal`        | boolean | false   | Whether to show decimals                 |
 | `minimumDecimalDigits` | number | 0        | The minimum number of decimal digits     |
 | `maximumDecimalDigits` | number | 2        | The maximum number of decimal digits. Maximum is 2.    |
-{/* | `isOriginalDisplay`    | boolean | false    | Used to show the original price when there’s a discount, typically for comparison (e.g., strikethrough price). This price is not modified by discounts but may still be affected by currency conversions.| */}
 | `banner.*`              | object  | —        | Customization for the discount banner    |
 | `banner.noStyles`       | boolean | false    | if true, no styling will be applied to the banner    |
 | `banner.showCloseButton`| boolean | true     | Control close button visibility. This setting will work only if close button is enabled from the ParityDeals banner settings   |
