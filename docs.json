@@ -55,6 +55,12 @@
         "tab": "APIs & SDKs",
         "groups": [
           {
+            "group": "Get Started",
+            "pages": [
+              "api-reference/authentication"
+            ]
+          },
+          {
             "group": "API Documentation",
             "openapi": "api-reference/openapi.json"
           },
