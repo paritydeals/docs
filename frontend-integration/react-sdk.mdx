@@ -76,6 +76,8 @@ export default App;
   
 - `apiUrl: string`
   - The base URL for your ParityDeals API. For example, `https://edge.api.paritydeals.com/api/v1`.
+- `environment: 'sandbox' | 'production'`
+  - The environment to use. If you want to use the sandbox, you must provide this.
 - `entitlementsPath: string`
   - The specific path for the endpoint that returns all entitlements for a customer. This path will be appended to `apiUrl`. For example, `entitlement-check` or `user-entitlements`.
 - `config?: ParityDealsApiBehaviorOptions`
@@ -380,4 +382,15 @@ The SDK source code (`src/`) is organized as follows:
   - `index.ts` (Exports utilities)
 - `index.ts`: The main entry point of the SDK, re-exporting all public APIs (provider, hooks, components, types).
 
-This documentation should provide a good starting point for developers using your `@paritydeals/react-sdk`. Remember to replace placeholder URLs and token examples with relevant information for your users.
+## Using the Sandbox
+
+If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `ParityDealsProvider`.
+
+```tsx
+<ParityDealsProvider 
+  customerId="YOUR_CUSTOMER_ID"
+  accessToken="YOUR_ACCESS_TOKEN"
+  environment="sandbox">
+      {/* Your app components */}
+</ParityDealsProvider>
+```

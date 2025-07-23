@@ -80,6 +80,7 @@ const pd = parityDealsSDK({
 |--------|------|-------------|
 | `customerId` | `string` | Unique identifier for the customer |
 | `accessToken` | `string` | - | Authentication token for API requests |
+| `environment` | `sandbox\|production` | 'production' | The environment to use. If you want to use the sandbox, you must provide this. |
 | `initializeAndFetch` | `boolean` | `true` | Automatically fetch entitlements on initialization |
 | `onError` | `(error: Error) => void` | - | Error callback function |
 
@@ -412,3 +413,14 @@ const pd = parityDealsSDK({
 | `apiConfig.timeout` | `number` | Timeout for API requests in milliseconds |
 | `apiConfig.backoffBaseDelay` | `number` | Base delay for exponential backoff strategy |
 
+
+## Using the Sandbox
+
+If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `init` function.
+
+```typescript
+const pd = parityDealsSDK({
+  customerId: "your-customer-id",
+  accessToken: "your-access-token",
+  environment: "sandbox"
+});

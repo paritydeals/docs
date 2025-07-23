@@ -43,6 +43,7 @@ You can use the following attributes to customize the behavior of the components
 | Attribute | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
 | `productId` | string | '' | The product ID to display |
+| `environment` | `sandbox\|production` | 'production' | The environment to use. If you want to use the sandbox, you must provide this. |
 | `baseCurrencyCode` | string | USD | If you use any base currency other than USD, you must provide this. Currency conversion will be done using this code. |
 | `baseCurrencySymbol` | string  | $     | If you use any base currency other than USD, you must provide this. Only for the displaying purpose, but still important.              
 
@@ -231,6 +232,17 @@ Example using all components to create a custom layout:
 ```
 
 ---
+
+## Using the Sandbox
+
+If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `ParityDealsProvider`.
+
+```tsx
+<ParityDealsProvider productId="promo_7e2de26fb47644e58e867a20i898j748" environment="sandbox">
+      {/* Your app components */}
+</ParityDealsProvider>
+```
+
 
 ## Support
 

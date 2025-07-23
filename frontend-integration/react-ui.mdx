@@ -98,6 +98,7 @@ The top-level provider component that initializes the SDK and manages the global
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `customerId` | `string` | `undefined` | Customer identifier for personalized pricing |
+| `environment` | `sandbox\|production` | 'production' | The environment to use. If you want to use the sandbox, you must provide this. |
 | `checkoutSuccessUrl` | `string` | `window.location.href` | URL to redirect after successful checkout |
 | `apiConfig` | `ParityDealsAPIConfig` | `{}` | Advanced API configuration options |
 
@@ -720,6 +721,20 @@ Enable console logging for debugging:
 >
 ```
 ---
+
+## Using the Sandbox
+
+If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `ParityDealsProvider`.
+
+```tsx
+<ParityDealsProvider 
+  accessToken="YOUR_ACCESS_TOKEN"
+  offeringId="YOUR_OFFERING_ID" 
+  environment="sandbox">
+    {/* Your app components */}
+</ParityDealsProvider>
+```
+
 
 ## 12. Support
 
