@@ -86,6 +86,7 @@ If you want to style different parts of the price (like the currency symbol or d
 | Option               | Type    | Default  | Description                              |
 | -------------------- | ------- | -------- | ---------------------------------------- |
 | `productId`          | string  | ''     | The product ID to display               |
+| `environment`        | `sandbox\|production`  | 'production'    | The environment to use. If you want to use the sandbox, you must provide this.               |
 | `showBanner`         | boolean | true    | Whether to show the discount banner      |
 | `localizePricing`    | boolean | true    | Convert to local currency               |
 | `baseCurrencyCode`   | string  | USD     | If you use any base currency other than USD, you must provide this. Currency conversion will be done using this code.               |
@@ -223,6 +224,17 @@ PDPromotionUI.updatePrice(priceUpdates)
 ```
 
 ---
+
+# Using the Sandbox
+
+If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `init` function.
+
+```js
+PDPromotionUI.init({
+  productId: 'promo_7e2de26fb47644e58e867a20i898j748',
+  environment: 'sandbox',
+});
+```
 
 # Support
 
