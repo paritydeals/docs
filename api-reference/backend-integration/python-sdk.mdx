@@ -830,3 +830,26 @@ An instance of `CancelSubscriptionResponse`, which includes:
 
 * `message` (str): A confirmation message indicating the result of the cancellation request.
 
+
+
+---
+## Using the Sandbox Environment
+
+The SDK can connect to the ParityDeals sandbox environment, which is perfect for **testing and development**. All operations performed in the sandbox are isolated and will not affect your live production data.
+
+To use the sandbox, simply pass the argument `environment="sandbox"` when creating the client.
+
+### How to Create a Synchronous Client (Sandbox)
+
+```python
+from paritydeals_sdk import ParityDeals
+
+# Note the 'environment' parameter
+client = ParityDeals.create_sync_client(
+    access_token=ACCESS_TOKEN,
+    environment="sandbox"
+)
+```
+<Info>
+The sandbox environment is completely separate from production. You will need to use a different set of API keys, and any data created (customers, subscriptions, etc.) will only exist in the sandbox.
+</Info>

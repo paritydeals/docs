@@ -700,3 +700,24 @@ const response = await client.subscription.cancel({
 An instance of `CancelSubscriptionResponse`, which includes:
 
 * `message` : A confirmation message indicating the result of the cancellation request.
+
+
+---
+## Using the Sandbox Environment
+
+For testing and development, you can configure the client to use the sandbox environment. This ensures that no production data is affected. To do this, set the environment option to 'sandbox' during client initialization.
+
+
+```typescript
+import { ParityDeals } from '@paritydeals/node-sdk';
+
+const client = new ParityDeals({
+  accessToken: 'YOUR_SANDBOX_ACCESS_TOKEN',
+  environment: 'sandbox'
+});
+
+```
+
+<Info>
+The sandbox environment is completely separate from production. You will need to use a different set of API keys, and any data created (customers, subscriptions, etc.) will only exist in the sandbox.
+</Info>
