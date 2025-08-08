@@ -513,6 +513,180 @@ For complete styling control, use the `noStyles` prop:
 <PDPricingTable noStyles={true} />
 ```
 
+## 6.5. CSS Class Reference
+
+The ParityDeals React UI components use consistent CSS class names that you can target for custom styling. All classes are prefixed with `pd-` to avoid naming conflicts.
+
+### CSS Class Hierarchy
+
+```css
+.pd-plan                          /* Root container */
+├── .pd-plan-switch              /* Billing period switcher */
+│   └── .pd-switch               /* Switch wrapper */
+│       └── .pd-switch-button    /* Individual switch buttons */
+│           └── .pd-promo-caption /* Discount badges (20%, etc.) */
+├── .pd-plan-items              /* Plans container */
+    └── .pd-plan-item           /* Individual plan card */
+        ├── .pd-plan-item-header /* Plan title section */
+        │   ├── .pd-plan-item-heading    /* Plan name */
+        │   └── .pd-plan-item-subheading /* Plan description */
+        ├── .pd-plan-item-price /* Price section */
+        │   ├── .pd-price-container      /* Price wrapper */
+        │   │   ├── .pd-price-currency   /* Currency container */
+        │   │   │   ├── .pd-price-currency-symbol /* $ symbol */
+        │   │   │   └── .pd-price-currency-code   /* USD text */
+        │   │   ├── .pd-price-integer    /* Main price number */
+        │   │   ├── .pd-price-decimal-separator /* Decimal point */
+        │   │   └── .pd-price-decimal    /* Decimal digits */
+        │   └── .pd-plan-item-price-period /* /month text */
+        ├── .pd-separator           /* Divider line */
+        ├── .pd-plan-item-features  /* Features section */
+        │   └── .pd-features-list   /* Features list */
+        │       └── .pd-features-list-item /* Individual features */
+        │           ├── .pd-tooltip-wrapper /* Feature tooltips */
+        │           │   └── .pd-tooltip      /* Tooltip content */
+        │           ├── .pd-feature-quantity-input /* Quantity number input */
+        │           ├── .pd-feature-quantity-input-unit /* Input unit label */
+        │           └── .pd-feature-quantity-select-container /* Quantity dropdown */
+        │               ├── .pd-feature-quantity-select /* Select element */
+        │               └── .pd-feature-quantity-select-arrow /* Dropdown arrow */
+        └── .pd-plan-item-button    /* CTA button */
+```
+
+### Complete CSS Class Reference
+
+#### Container Classes
+
+```css
+.pd-plan                 /* Main pricing table container */
+.pd-plan-items           /* Container for all plan cards */
+.pd-plan-item            /* Individual plan card */
+.pd-plan-item-header     /* Plan title and description area */
+```
+
+#### Text Content Classes
+
+```css
+.pd-plan-item-heading      /* Plan name/title */
+.pd-plan-item-subheading   /* Plan description */
+.pd-plan-item-price        /* Price section container */
+.pd-plan-item-price-period /* Billing period text (/month, /year) */
+```
+
+#### Price Component Classes
+
+```css
+.pd-price-container        /* Wrapper for price elements */
+.pd-price-currency        /* Currency symbol and code container */
+.pd-price-currency-symbol /* Currency symbol ($, €, £) */
+.pd-price-currency-code   /* Currency code (USD, EUR, GBP) */
+.pd-price-integer         /* Main price number */
+.pd-price-decimal-separator /* Decimal point (.) */
+.pd-price-decimal         /* Decimal part of price */
+```
+
+#### Feature Classes
+
+```css
+.pd-plan-item-features    /* Features section container */
+.pd-features-list         /* Features list wrapper */
+.pd-features-list-item    /* Individual feature item */
+.pd-feature-boolean       /* Boolean features (included/not included) */
+.pd-feature-meter         /* Metered features (with usage limits) */
+.pd-tooltip-wrapper       /* Feature tooltip container */
+.pd-tooltip               /* Tooltip content */
+
+/* Feature quantity controls */
+.pd-feature-quantity-input           /* Number input for metered features */
+.pd-feature-quantity-input-unit      /* Unit text next to quantity input */
+.pd-feature-quantity-select-container /* Container for quantity dropdown */
+.pd-feature-quantity-select         /* Dropdown select for quantity tiers */
+.pd-feature-quantity-select-arrow   /* Custom arrow for dropdown */
+```
+
+#### Interactive Elements
+
+```css
+.pd-plan-item-button      /* Main CTA button */
+.pd-separator             /* Horizontal divider line */
+```
+
+#### Billing Switch Classes
+
+```css
+.pd-plan-switch           /* Billing period switcher container */
+.pd-switch                /* Switch wrapper */
+.pd-switch-button         /* Individual switch button */
+._pdSwitchButtonActive_1vg8g_26 /* Active switch button state */
+.pd-promo-caption         /* Discount badges (20% off, etc.) */
+```
+
+### CSS Customization
+
+
+To override styles, create a separate CSS file and import it after the component’s default styles
+
+```jsx
+import '@paritydeals/react-ui/dist/pd-react-ui.css';
+import './custom-pricing.css'; // Your overrides
+```
+
+### Common Customization Examples
+
+```css
+/* Custom plan card styling */
+.pd-plan-item {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Custom button styling */
+.pd-plan-item-button {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Hide separators */
+.pd-separator {
+  display: none !important;
+}
+
+/* Custom price styling */
+.pd-price-integer {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #1a202c !important;
+}
+
+/* Custom feature list styling */
+.pd-features-list-item {
+  padding: 8px 0 !important;
+  border-bottom: 1px solid #f7fafc !important;
+}
+```
+
+### Feature-Specific Classes
+
+Based on your feature configuration, the component also generates dynamic classes for individual features:
+
+```css
+/* Dynamic feature classes (based on feature identifier) */
+.pd-feature-api-hits           /* Feature with identifier "api-hits" */
+.pd-feature-seats              /* Feature with identifier "seats" */
+```
+
+These classes follow the pattern `.pd-feature-{feature-identifier}` where `{feature-identifier}` is the unique identifier for each feature in your pricing configuration.
+
+### Important Note
+
+1. **Use `!important`**: Component styles are often inline, requiring `!important` to override
+
 ---
 
 ## 7. Advanced Features
