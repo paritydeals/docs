@@ -39,7 +39,7 @@
           },
           {
             "group": "Dynamic Pricing",
-            "pages": ["dynamic pricing/tailor-pricing" , "dynamic pricing/purchaisng-parity-power-pricing" , "dynamic pricing/country-based", "dynamic pricing/browser"]
+            "pages": ["dynamic-pricing/tailor-pricing" , "dynamic-pricing/purchaisng-parity-power-pricing" , "dynamic-pricing/country-based", "dynamic-pricing/browser"]
           }
         ]
       },
