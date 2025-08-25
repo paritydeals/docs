@@ -25,7 +25,11 @@
           },
           {
             "group": "Quickstart",
-            "pages": ["quickstart/start", "quickstart/products" , "quickstart/plans" , "quickstart/features"]
+            "pages": ["quickstart/core-concepts", "quickstart/dashboard-setup", "quickstart/integrate-with-your-app"]
+          },
+          {
+            "group": "Product Catalog",
+            "pages": ["product-catalog/products", "product-catalog/plans" , "product-catalog/features"]
           },
           {
             "group": "Monetization",
