@@ -1182,7 +1182,7 @@
         "operationId": "listSubscriptions",
         "parameters": [
           {
-            "name": "customerId",
+            "name": "customer_id",
             "in": "query",
             "required": false,
             "description": "The client-defined unique identifier for the customer to filter subscriptions.",
