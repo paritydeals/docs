@@ -727,6 +727,164 @@
           "chargePeriod": { "type": "string" },
           "promoCaption": { "type": "string" }
         }
+      },
+      "SubscriptionListResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "next": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "previous": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subscription"
+            }
+          }
+        }
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "externalSubscriptionId": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "billingPeriodStartTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "billingPeriodEndTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "recurrence": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/SubscriptionPlan"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionFeatureDetail"
+            }
+          },
+          "trialDaysRemaining": {
+            "type": "integer"
+          }
+        }
+      },
+      "SubscriptionPlan": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      },
+      "SubscriptionFeatureDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "featureType": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "meter": {
+            "type": "object"
+          },
+          "featureDetails": {
+            "type": "object",
+            "properties": {
+              "units": {
+                "type": "object",
+                "properties": {
+                  "plural": {
+                    "type": "string"
+                  },
+                  "singular": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "reset": {
+            "type": "string",
+            "nullable": true
+          },
+          "resetTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer"
+          },
+          "hardLimit": {
+            "type": "boolean"
+          }
+        }
       }
     }
   },
@@ -1004,6 +1162,106 @@
                   "eventName": "aggregated.usage",
                   "idempotencyKey": "597ee95063c744ed9bcc9b1cf5676a8a",
                   "timestamp": "2025-05-22 08:27:45.430732"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "List Subscriptions",
+        "description": "Retrieves a paginated list of subscriptions. You can filter the results by customer.",
+        "operationId": "listSubscriptions",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": false,
+            "description": "The client-defined unique identifier for the customer to filter subscriptions.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of subscriptions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionListResponse"
+                },
+                "example": {
+                  "count": 1,
+                  "next": null,
+                  "previous": null,
+                  "results": [
+                    {
+                      "id": "09d706ca-58f3-4fb2-818f-5b8623d67e6e",
+                      "externalSubscriptionId": "sub_1RpoZoSBstCzyocS7iPmith3",
+                      "startDate": "2025-07-28",
+                      "endDate": null,
+                      "billingPeriodStartTime": "2025-07-28T10:46:34Z",
+                      "billingPeriodEndTime": "2025-08-28T10:46:34Z",
+                      "amount": "261.00",
+                      "recurrence": "month",
+                      "currency": "usd",
+                      "status": "active",
+                      "product": "Aphelo",
+                      "plan": {
+                        "name": "Premium",
+                        "identifier": "premium1"
+                      },
+                      "features": [
+                        {
+                          "id": "b417ae2f-35e2-48f2-a5c4-fdaa99b2b96a",
+                          "identifier": "products",
+                          "name": "Products",
+                          "description": "",
+                          "featureType": "CUSTOMIZABLE",
+                          "details": {},
+                          "isArchived": false,
+                          "metadata": {},
+                          "modifiedOn": "2025-06-14T11:36:26.062491Z",
+                          "meter": {},
+                          "featureDetails": {
+                            "units": {
+                              "plural": "counts",
+                              "singular": "count"
+                            }
+                          },
+                          "reset": null,
+                          "resetTime": null,
+                          "value": 100,
+                          "hardLimit": false
+                        }
+                      ],
+                      "trialDaysRemaining": 0
+                    }
+                  ]
                 }
               }
             }
