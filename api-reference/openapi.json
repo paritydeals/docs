@@ -805,6 +805,9 @@
           },
           "trialDaysRemaining": {
             "type": "integer"
+          },
+          "customerId": {
+            "type": "string"
           }
         }
       },
@@ -1259,7 +1262,8 @@
                           "hardLimit": false
                         }
                       ],
-                      "trialDaysRemaining": 0
+                      "trialDaysRemaining": 0,
+                      "customerId": "testuser"
                     }
                   ]
                 }
@@ -1481,3 +1485,4 @@
     }
   }
 }
+
