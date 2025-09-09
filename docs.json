@@ -52,7 +52,7 @@
         "groups": [
           {
             "group": "Usecases",
-            "pages": ["usecases/hybridpricing", "usecases/usage-based" , "usecases/credit-based", "usecases/freemium-plan", "usecases/ai-task-agents", "usecases/monetization-usage-based"]
+            "pages": ["guides/usecases/hybridpricing", "guides/usecases/usage-based" , "guides/usecases/credit-based", "guides/usecases/freemium-plan", "guides/usecases/ai-task-agents", "guides/usecases/monetization-usage-based"]
           },
           {
             "group": "Comparisons",
