@@ -17,34 +17,33 @@
           "Promotions"
         ],
         "summary": "Promotion Details",
-        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements.",
+        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements. **Warning:** This API is accessible only to users on a paid plan.",
         "parameters": [
           {
-            "name": "url",
+            "name": "product_id",
             "in": "query",
-            "description": "Required for client-side API calls. The browser's current URL (e.g., window.location.href). The API call will only return a response if made from a website configured in the deal for security.",
+            "description": "Required for client-side API calls. The unique identifier for the product for which to retrieve a discount.",
             "required": false,
             "schema": {
-              "type": "string",
-              "format": "uri"
+              "type": "string"
             },
             "examples": {
-              "clientSide": {
-                "value": "https://your-website.com/page"
+              "productIdExample": {
+                "value": "promo_4cc5ee64b0ae4fb694221"
               }
             }
           },
           {
             "name": "pd_identifier",
             "in": "query",
-            "description": "Required for server-side API calls. A unique identifier associated with a particular banner deal.",
+            "description": "Required for server-side API calls. A unique identifier associated with a particular deal.",
             "required": false,
             "schema": {
               "type": "string"
             },
             "examples": {
               "serverSide": {
-                "value": "BANNER_IDENTIFIER"
+                "value": "DEAL_IDENTIFIER"
               }
             }
           },
@@ -80,145 +79,182 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful retrieval of discount information. The response will either contain the discount details or a message indicating that no discounts are available.",
+            "description": "Successful retrieval of discount information. The response structure varies depending on whether a discount is available and if the user is accessing via a VPN.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "bar": {
+                  "oneOf": [
+                    {
+                      "title": "Discount Response",
                       "type": "object",
                       "properties": {
-                        "backgroundColor": {
+                        "bar": {
+                          "type": "object",
+                          "properties": {
+                            "backgroundColor": {
+                              "type": "string"
+                            },
+                            "backgroundTransparency": {
+                              "type": "string"
+                            },
+                            "fontColor": {
+                              "type": "string"
+                            },
+                            "highlightFontColor": {
+                              "type": "string"
+                            },
+                            "placement": {
+                              "type": "string"
+                            },
+                            "borderRadius": {
+                              "type": "string"
+                            },
+                            "addCloseIcon": {
+                              "type": "boolean"
+                            },
+                            "noStyle": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "couponCode": {
                           "type": "string",
-                          "example": "#04888e"
+                          "nullable": true
                         },
-                        "backgroundTransparency": {
+                        "discountPercentage": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "stripePromoCodeId": {
+                              "type": "string"
+                            },
+                            "polarDiscountId": {
+                              "type": "string"
+                            },
+                            "dodoDiscountId": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "countryFlag": {
+                          "type": "string"
+                        },
+                        "countryFlagSvg": {
+                          "type": "string"
+                        },
+                        "holiday": {
                           "type": "string",
-                          "example": "0"
+                          "nullable": true
                         },
-                        "fontColor": {
+                        "time": {
                           "type": "string",
-                          "example": "#59ebf1"
+                          "nullable": true
                         },
-                        "highlightFontColor": {
-                          "type": "string",
-                          "example": "#DD5C64"
+                        "message": {
+                          "type": "string"
                         },
-                        "placement": {
-                          "type": "string",
-                          "example": "top"
+                        "messageText": {
+                          "type": "string"
                         },
-                        "borderRadius": {
-                          "type": "string",
-                          "example": "0"
+                        "countryCode": {
+                          "type": "string"
                         },
-                        "addCloseIcon": {
-                          "type": "boolean",
-                          "example": false
+                        "currencyCode": {
+                          "type": "string"
                         },
-                        "noStyle": {
-                          "type": "boolean",
-                          "example": false
+                        "currencySymbol": {
+                          "type": "string"
+                        },
+                        "pricingLocale": {
+                          "type": "string"
+                        },
+                        "usdConversionRate": {
+                          "type": "string"
+                        },
+                        "baseCurrencyConversionRate": {
+                          "type": "string"
+                        },
+                        "isVpn": {
+                          "type": "boolean"
+                        },
+                        "isProxy": {
+                          "type": "boolean"
+                        },
+                        "isTor": {
+                          "type": "boolean"
                         }
                       }
                     },
-                    "couponCode": {
-                      "type": "string",
-                      "nullable": true,
-                      "example": "PD8CEXAAJL"
-                    },
-                    "discountPercentage": {
-                      "type": "string",
-                      "example": "50.00"
-                    },
-                    "countryCode": {
-                      "type": "string",
-                      "example": "IN"
-                    },
-                    "currencyCode": {
-                      "type": "string",
-                      "example": "INR"
-                    },
-                    "currencySymbol": {
-                      "type": "string",
-                      "example": "₹"
-                    },
-                    "country": {
-                      "type": "string",
-                      "example": "India"
-                    },
-                    "countryFlag": {
-                      "type": "string",
-                      "example": "🇮🇳"
-                    },
-                    "holiday": {
-                      "type": "string",
-                      "nullable": true,
-                      "example": null
-                    },
-                    "time": {
-                      "type": "string",
-                      "nullable": true,
-                      "example": null
-                    },
-                    "isProxy": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "isTor": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "isVpn": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "usdConversionRate": {
-                      "type": "string",
-                      "example": "82.2"
-                    },
-                    "baseCurrencyConversionRate": {
-                      "type": "string",
-                      "example": "82.2"
-                    },
-                    "pricingLocale": {
-                      "type": "string",
-                      "example": "en-IN"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "Message with HTML tags.",
-                      "example": "Message with HTML tags"
-                    },
-                    "messageText": {
-                      "type": "string",
-                      "description": "Plain text message.",
-                      "example": "Message string"
-                    },
-                    "data": {
+                    {
+                      "title": "Discount (Anonymous Network)",
                       "type": "object",
-                      "description": "Additional data related to the discount.",
                       "properties": {
-                        "stripePromoCodeId": {
-                          "type": "string",
-                          "example": "promo_1RaFH8EEwDDegOMGqiAG"
+                        "isVpn": {
+                          "type": "boolean"
                         },
-                        "polarDiscountId": {
-                          "type": "string",
-                          "example": "DISC123"
+                        "isProxy": {
+                          "type": "boolean"
                         },
-                        "dodoDiscountId": {
-                          "type": "string",
-                          "example": "DODO123"
+                        "isTor": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    {
+                      "title": "No Discount Response",
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "currencyCode": {
+                          "type": "string"
+                        },
+                        "currencySymbol": {
+                          "type": "string"
+                        },
+                        "pricingLocale": {
+                          "type": "string"
+                        },
+                        "usdConversionRate": {
+                          "type": "string"
+                        },
+                        "baseCurrencyConversionRate": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "countryFlag": {
+                          "type": "string"
+                        },
+                        "countryFlagSvg": {
+                          "type": "string"
+                        },
+                        "isVpn": {
+                          "type": "boolean"
+                        },
+                        "isProxy": {
+                          "type": "boolean"
+                        },
+                        "isTor": {
+                          "type": "boolean"
                         }
                       }
                     }
-                  }
+                  ]
                 },
                 "examples": {
                   "discountFound": {
-                    "summary": "A discount was found for the user.",
+                    "summary": "Has discounts and not accessing from VPN",
                     "value": {
                       "bar": {
                         "backgroundColor": "#04888e",
@@ -232,32 +268,51 @@
                       },
                       "couponCode": "PD8CEXAAJL",
                       "discountPercentage": "50.00",
+                      "data": {
+                        "stripePromoCodeId": "promo_1RaFH8EEwDDegOMGqiAG"
+                      },
+                      "country": "India",
+                      "countryFlag": "🇮🇳",
+                      "countryFlagSvg": "<svg  viewBox=\"0 0 132 99\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g filter=\"url(#filter0_dd_1104_22880)\"><g clip-path=\"url(#clip0_1104_22880)\"><rect x=\"7.5\" y=\"3\" width=\"117.6\" height=\"84\" rx=\"9.14286\" fill=\"white\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.5 59H125.1V87H7.5V59Z\" fill=\"#249F58\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M66.2997 59C74.0277 59 80.2997 52.728 80.2997 45C80.2997 37.272 74.0277 31 66.2997 31C58.5717 31 52.2997 37.272 52.2997 45C52.2997 52.728 58.5717 59 66.2997 59ZM66.2997 53.4C70.9365 53.4 74.6997 49.6368 74.6997 45C74.6997 40.3632 70.9365 36.6 66.2997 36.6C61.6629 36.6 57.8997 40.3632 57.8997 45C57.8997 49.6368 61.6629 53.4 66.2997 53.4Z\" fill=\"#1A47B8\"/><path d=\"M66.2994 47.8001C67.8458 47.8001 69.0994 46.5465 69.0994 45.0001C69.0994 43.4537 67.8458 42.2001 66.2994 42.2001C64.753 42.2001 63.4994 43.4537 63.4994 45.0001C63.4994 46.5465 64.753 47.8001 66.2994 47.8001Z\" fill=\"#1A47B8\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.5 3H125.1V31H7.5V3Z\" fill=\"#FF6C2D\"/></g></g><defs><filter id=\"filter0_dd_1104_22880\" x=\"0.642857\" y=\"0.714285\" width=\"131.316\" height=\"97.7143\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\"><feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/><feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/><feOffset dy=\"4.57143\"/><feGaussianBlur stdDeviation=\"3.42857\"/><feComposite in2=\"hardAlpha\" operator=\"out\"/><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.258824 0 0 0 0 0.278431 0 0 0 0 0.298039 0 0 0 0.08 0\"/><feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_1104_22880\"/><feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/><feOffset/><feGaussianBlur stdDeviation=\"0.285714\"/><feComposite in2=\"hardAlpha\" operator=\"out\"/><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.258824 0 0 0 0 0.278431 0 0 0 0 0.298039 0 0 0 0.32 0\"/><feBlend mode=\"normal\" in2=\"effect1_dropShadow_1104_22880\" result=\"effect2_dropShadow_1104_22880\"/><feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect2_dropShadow_1104_22880\" result=\"shape\"/></filter><clipPath id=\"clip0_1104_22880\"><rect x=\"7.5\" y=\"3\" width=\"117.6\" height=\"84\" rx=\"9.14286\" fill=\"white\"/></clipPath></defs></svg>",
+                      "holiday": null,
+                      "time": null,
+                      "message": "<b>50% OFF</b> for India!",
+                      "messageText": "50% OFF for India!",
                       "countryCode": "IN",
                       "currencyCode": "INR",
                       "currencySymbol": "₹",
-                      "country": "India",
-                      "countryFlag": "🇮🇳",
-                      "holiday": null,
-                      "time": null,
-                      "isProxy": false,
-                      "isTor": false,
-                      "isVpn": false,
+                      "pricingLocale": "en-IN",
                       "usdConversionRate": "82.2",
                       "baseCurrencyConversionRate": "82.2",
-                      "pricingLocale": "en-IN",
-                      "message": "Message with HTML tags",
-                      "messageText": "Message string",
-                      "data": {
-                        "stripePromoCodeId": "promo_1RaFH8EEwDDegOMGqiAG",
-                        "polarDiscountId": "DISC123",
-                        "dodoDiscountId": "DODO123"
-                      }
+                      "isVpn": false,
+                      "isProxy": false,
+                      "isTor": false
                     }
                   },
-                  "noDiscountFound": {
-                    "summary": "No discounts were available for the user.",
+                  "discountWithAnonymousNetwork": {
+                    "summary": "Has discounts and accessing from VPN, Proxy or Tor",
                     "value": {
-                      "message": "No discounts available"
+                      "isVpn": true,
+                      "isProxy": false,
+                      "isTor": false
+                    }
+                  },
+                  "noDiscount": {
+                    "summary": "Without discounts and accessing from VPN",
+                    "value": {
+                      "message": "No discounts available",
+                      "countryCode": "DE",
+                      "currencyCode": "EUR",
+                      "currencySymbol": "€",
+                      "pricingLocale": "de-DE",
+                      "usdConversionRate": "0.92",
+                      "baseCurrencyConversionRate": "1.0",
+                      "country": "Germany",
+                      "countryFlag": "🇩🇪",
+                      "countryFlagSvg": "<svg  viewBox=\"0 0 132 99\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g filter=\"url(#filter0_dd_1104_22880)\"><g clip-path=\"url(#clip0_1104_22880)\"><rect x=\"7.5\" y=\"3\" width=\"117.6\" height=\"84\" rx=\"9.14286\" fill=\"white\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.5 59H125.1V87H7.5V59Z\" fill=\"#249F58\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M66.2997 59C74.0277 59 80.2997 52.728 80.2997 45C80.2997 37.272 74.0277 31 66.2997 31C58.5717 31 52.2997 37.272 52.2997 45C52.2997 52.728 58.5717 59 66.2997 59ZM66.2997 53.4C70.9365 53.4 74.6997 49.6368 74.6997 45C74.6997 40.3632 70.9365 36.6 66.2997 36.6C61.6629 36.6 57.8997 40.3632 57.8997 45C57.8997 49.6368 61.6629 53.4 66.2997 53.4Z\" fill=\"#1A47B8\"/><path d=\"M66.2994 47.8001C67.8458 47.8001 69.0994 46.5465 69.0994 45.0001C69.0994 43.4537 67.8458 42.2001 66.2994 42.2001C64.753 42.2001 63.4994 43.4537 63.4994 45.0001C63.4994 46.5465 64.753 47.8001 66.2994 47.8001Z\" fill=\"#1A47B8\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.5 3H125.1V31H7.5V3Z\" fill=\"#FF6C2D\"/></g></g><defs><filter id=\"filter0_dd_1104_22880\" x=\"0.642857\" y=\"0.714285\" width=\"131.316\" height=\"97.7143\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\"><feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/><feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/><feOffset dy=\"4.57143\"/><feGaussianBlur stdDeviation=\"3.42857\"/><feComposite in2=\"hardAlpha\" operator=\"out\"/><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.258824 0 0 0 0 0.278431 0 0 0 0 0.298039 0 0 0 0.08 0\"/><feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_1104_22880\"/><feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/><feOffset/><feGaussianBlur stdDeviation=\"0.285714\"/><feComposite in2=\"hardAlpha\" operator=\"out\"/><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.258824 0 0 0 0 0.278431 0 0 0 0 0.298039 0 0 0 0.32 0\"/><feBlend mode=\"normal\" in2=\"effect1_dropShadow_1104_22880\" result=\"effect2_dropShadow_1104_22880\"/><feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect2_dropShadow_1104_22880\" result=\"shape\"/></filter><clipPath id=\"clip0_1104_22880\"><rect x=\"7.5\" y=\"3\" width=\"117.6\" height=\"84\" rx=\"9.14286\" fill=\"white\"/></clipPath></defs></svg>",
+                      "isVpn": true,
+                      "isProxy": true,
+                      "isTor": false
                     }
                   }
                 }
