@@ -17,7 +17,12 @@
           "Promotions"
         ],
         "summary": "Promotion Details",
-        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements. \n\n **Warning:** This API is accessible only to users on a paid plan. \n\n **Note:** To get an exact response based on your location, please use a `curl` command. By default, requests from API explorers may originate from a server's IP, not your own.",
+        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements. \n\n **Warning:** A paid plan is required to access the promotion API.",
+        "x-mint": {
+          "metadata": {
+            "playground": "none"
+          }
+        },
         "parameters": [
           {
             "name": "product_id",
