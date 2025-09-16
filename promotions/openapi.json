@@ -17,7 +17,7 @@
           "Promotions"
         ],
         "summary": "Promotion Details",
-        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements. **Warning:** This API is accessible only to users on a paid plan.",
+        "description": "This endpoint provides dynamic discount information based on various criteria like user location, holidays, etc. It supports both client-side and server-side API calls with different parameter requirements. \n\n **Warning:** This API is accessible only to users on a paid plan. \n\n **Note:** To get an exact response based on your location, please use a `curl` command. By default, requests from API explorers may originate from a server's IP, not your own.",
         "parameters": [
           {
             "name": "product_id",
@@ -191,21 +191,6 @@
                       }
                     },
                     {
-                      "title": "Discount (Anonymous Network)",
-                      "type": "object",
-                      "properties": {
-                        "isVpn": {
-                          "type": "boolean"
-                        },
-                        "isProxy": {
-                          "type": "boolean"
-                        },
-                        "isTor": {
-                          "type": "boolean"
-                        }
-                      }
-                    },
-                    {
                       "title": "No Discount Response",
                       "type": "object",
                       "properties": {
@@ -254,7 +239,7 @@
                 },
                 "examples": {
                   "discountFound": {
-                    "summary": "Has discounts and not accessing from VPN",
+                    "summary": "Has discounts",
                     "value": {
                       "bar": {
                         "backgroundColor": "#04888e",
@@ -289,16 +274,8 @@
                       "isTor": false
                     }
                   },
-                  "discountWithAnonymousNetwork": {
-                    "summary": "Has discounts and accessing from VPN, Proxy or Tor",
-                    "value": {
-                      "isVpn": true,
-                      "isProxy": false,
-                      "isTor": false
-                    }
-                  },
                   "noDiscount": {
-                    "summary": "Without discounts and accessing from VPN",
+                    "summary": "Without discounts",
                     "value": {
                       "message": "No discounts available",
                       "countryCode": "DE",
