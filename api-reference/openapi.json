@@ -792,7 +792,7 @@
             "type": "string"
           },
           "product": {
-            "type": "string"
+            "$ref": "#/components/schemas/SubscriptionProduct"
           },
           "plan": {
             "$ref": "#/components/schemas/SubscriptionPlan"
@@ -818,6 +818,20 @@
             "type": "string"
           },
           "identifier": {
+            "type": "string"
+          }
+        }
+      },
+      "SubscriptionProduct": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "id": {
             "type": "string"
           }
         }
@@ -1233,7 +1247,11 @@
                       "recurrence": "month",
                       "currency": "usd",
                       "status": "active",
-                      "product": "Aphelo",
+                      "product": {
+                        "name": "Aphelo",
+                        "identifier": "aphelo",
+                        "id": "19d706ca-58f3-4fb2-818f-5b8623d67e6f"
+                      },
                       "plan": {
                         "name": "Premium",
                         "identifier": "premium1"
