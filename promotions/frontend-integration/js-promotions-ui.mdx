@@ -34,6 +34,18 @@ PDPromotionUI.init({
 ```
 This will automatically display a discount banner if the user is eligible for a discount.
 
+## Using the Sandbox
+
+If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `init` function.
+
+```js
+PDPromotionUI.init({
+  productId: 'promo_7e2de26fb47644e58e867a20i898j748', // Replace with your product ID of the promotion
+  showBanner: true,
+  environment: 'sandbox',
+});
+```
+
 ---
 
 <Warning>A paid plan is required to use the SDK features below, except the banner.</Warning>
@@ -226,17 +238,6 @@ PDPromotionUI.updatePrice(priceUpdates)
 ```
 
 ---
-
-# Using the Sandbox
-
-If you want to use the sandbox, you need to set the `environment` option to `sandbox` in the `init` function.
-
-```js
-PDPromotionUI.init({
-  productId: 'promo_7e2de26fb47644e58e867a20i898j748',
-  environment: 'sandbox',
-});
-```
 
 # Support
 
