@@ -25,97 +25,24 @@
           },
           {
             "group": "Quickstart",
-            "pages": ["quickstart/core-concepts", "quickstart/dashboard-setup", "quickstart/integrate-with-your-app"]
-          },
-          {
-            "group": "Product Catalog",
-            "pages": ["product-catalog/products", "product-catalog/plans" , "product-catalog/features"]
-          },
-          {
-            "group": "Monetization",
-            "pages": ["monetization/pricing-tables", "monetization/targeting-rules" , "monetization/offerings"]
-          },
-          {
-            "group": "Customers",
-            "pages": [
-              "customers/customers"
-            ]
-          },
-          {
-            "group": "Dynamic Pricing",
-            "pages": ["dynamic-pricing/tailor-pricing" , "dynamic-pricing/purchaisng-parity-power-pricing" , "dynamic-pricing/country-based", "dynamic-pricing/browser"]
-          }
-        ]
-      },
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Usecases",
-            "pages": ["guides/usecases/hybridpricing", "guides/usecases/usage-based" , "guides/usecases/credit-based", "guides/usecases/freemium-plan", "guides/usecases/ai-task-agents", "guides/usecases/monetization-usage-based"]
-          },
-          {
-            "group": "Comparisons",
-            "pages": ["guides/stripe-vs-paritydeals-entitlements", "guides/stripe-adaptive-pricing-vs-parityDeals-localization"]
-          }
-        ]
-      },
-      
-      {
-        "tab": "APIs & SDKs",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "api-reference/authentication"
-            ]
+            "pages": [ "quickstart/dashboard-setup", "quickstart/configuration", "quickstart/integrate-with-your-app"]
           },
           {
             "group": "API Documentation",
-            "openapi": "api-reference/openapi.json"
-          },
-          {
-            "group": "Backend Integration",
-            "pages": [
-              "api-reference/backend-integration/python-sdk",
-              "api-reference/backend-integration/node-sdk"
-            ]
+            "openapi": "frontend-integration/openapi.json"
           },
           {
             "group": "Frontend Integration",
             "pages": [
-              "frontend-integration/react-sdk",
-              "frontend-integration/react-ui",
-              "frontend-integration/js-sdk"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Promotions",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "promotions/overview"
-            ]
-          },
-          {
-            "group": "API Documentation",
-            "openapi": "promotions/openapi.json"
-          },
-          {
-            "group": "Frontend Integration",
-            "pages": [
-              "promotions/frontend-integration/js-promotions-ui",
-              "promotions/frontend-integration/react-promotions-ui"
+              "frontend-integration/js-promotions-ui",
+              "frontend-integration/react-promotions-ui"
             ]
           },
           {
             "group": "Buy Now Button",
             "pages": [
-              "promotions/frontend-integration/stripe-buy-now-button",
-              "promotions/frontend-integration/lemonsqueezy-buy-now-button"
+              "buy-now-button/stripe-buy-now-button",
+              "buy-now-button/lemonsqueezy-buy-now-button"
             ]
           }
         ]

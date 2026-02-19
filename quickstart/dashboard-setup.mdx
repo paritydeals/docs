@@ -1,112 +1,119 @@
 ---
-title: 'Dashboard setup'
+title: 'Dashboard Setup'
+description: 'Step-by-step guide to creating your first promotion.'
 ---
 
-Before you can integrate ParityDeals into your app, you need to configure your **products, plans, and features** in the dashboard.  
-This setup defines how your pricing and entitlements will work.
+## Getting Started: Two Paths for Promotion Setup
 
----
+There are two primary workflows for setting up location-based discounts:
 
-## Create a product
-
-1. In the sidebar, go to **Products → Create product**  
-2. Enter a product name (e.g., “Pro SaaS App”)  
-3. Click **Save** — you’ll be redirected to the product page  
-
----
-
-## Create a plan
-
-From the product page:  
-
-1. Click **Create plan**  
-2. Enter a plan name (e.g., “Basic Plan”)  
-3. Click **Save** — you’ll be redirected to the plan details page  
+<CardGroup cols={2}>
+  <Card title="Via Integrated Platforms (Recommended)" href="#setting-up-promotions-via-integrated-platforms">
+    Connect to your existing payment platform (e.g., Stripe, Paddle). ParityDeals fetches your products and automatically creates the necessary discount coupons for you. This is the fastest and most streamlined method.
+  </Card>
+  <Card title="Custom Promotions Setup (Manual)" href="#setting-up-custom-promotions-manual">
+    Use this method if you do not use one of our integrated platforms or if you need to manage coupon codes manually. You will define the discounts in ParityDeals, then create corresponding coupons in your payment provider and paste the codes back into ParityDeals.
+  </Card>
+</CardGroup>
 
 ---
 
-## Add pricing to the plan
+## Setting Up Promotions via Integrated Platforms
 
-You can add fixed pricing or usage-based pricing (for metered features).  
-For now, let’s set up fixed pricing:
+This is the recommended workflow if you sell your product via a supported payment platform.
 
-1. In the plan page, click **Set price**  
-2. Select **Paid**  
-3. Choose a billing cycle (e.g., Monthly)  
-4. Select the **Fixed charges** pricing type  
-5. Enter a price (e.g., $10)  
-6. (Optional) Enable free trial  
-7. Click **Save** — you’ll be redirected back to the plan details page  
+### Step 1: Connect to Your Payment Platform
 
----
+1.  From the main sidebar, navigate to **Promotions**.
+2.  Click the **"+ Create promotion"** button.
+3.  In the "Choose your platform" modal, select the platform you use.
 
-## Add features to the plan
+    Supported integrations include:
+    * **Stripe**
+    * **Lemon Squeezy**
+    * **Paddle**
+    * **Chargebee**
+    * **Dodo Payments**
+    * **Polar**
+    * **Gumroad**
+    * **Whop**
 
-Scroll down to the **Entitlements** section.  
+    <Frame>
+    <img height="200" src="/images/promo-hub-choose-platform-modal.png" alt="Choose your platform modal with payment logos" />
+    </Frame>
 
-1. Click **Add feature**  
-2. A modal will open where you can create features  
-3. Create your features (see below), then click **Add feature**  
+4.  If connecting for the first time, an authentication modal will appear. Enter the required credentials (e.g., Vendor ID, Auth code/API key) to connect your account.
 
-### Features overview
+    <Frame>
+    <img height="200" src="/images/promo-hub-authenticate-with-paddle-modal.png" alt="Authenticate with Paddle modal" />
+    </Frame>
 
-Features are created independently and can be attached to multiple plans with different values.  
-There are three types:
+### Step 2: Select Your Product
 
-- **Switch (Boolean)** — on or off.  
-  Examples: custom branding, priority support, analytics access  
+After authenticating, the two-step promotion creation flow begins.
 
-- **Customizable** — a fixed numeric limit, no usage reporting.  
-  Examples: data retention days (7, 30, 365), max upload size (10 MB, 100 MB, 1 GB)  
+1.  **Select Product:** A list of products fetched from your connected platform account (e.g., Stripe) is displayed.
+2.  Choose the product for which you want to set up discounts and click **"Continue"**.
+    <Frame>
+    <img height="200" src="/images/promo-hub-create-promo-step-1-select-product.png" alt="Select product screen" />
+    </Frame>
 
-- **Metered** — tracked consumption, usage events sent to ParityDeals, resets each billing cycle.  
-  Examples: API calls per month, AI tokens processed, data transferred, emails sent  
+### Step 3: Set Discounts
 
-👉 For now, add one Boolean feature and one Metered feature. We’ll show you how to check access and track usage with the SDK later.  
+You will now see the "Set up discounts" screen, which displays countries grouped by their purchasing power parity factor.
 
-4. Once created, you’ll see features listed on the left side of the screen  
-5. Click the **+ (plus)** icon to attach a feature to the plan  
-6. Enter a value for the feature and click **Add**  
-7. The feature will now appear on the right side of the screen under the plan  
-8. Close the dialog — you’ll return to the plan details page  
+1.  **Review Discounts:** Review the predefined discount percentages for each PPP group and update them as needed. If you do not want to offer a deal for a specific group, leave the discount box empty.
+    <Info>ParityDeals will automatically create the necessary discount coupons on your integrated platform based on the percentage values you set here.</Info>
+    
+2.  **(Optional) Override Group Discounts:** To set a different discount for a specific country that overrides its group's default discount, click the **"+ Create country-specific discount"** button.
+    * In the modal that appears, select a country from the dropdown, enter the `Override discount %`, and optionally a specific `Coupon code` if you want to use a pre-existing one.
+    * Click **"+ Add more"** to specify overrides for multiple countries.
+    * Click **"Create"** to save your overrides.
+    <Frame>
+    <img height="200" src="/images/promo-hub-create-country-specific-discount-overrides.png" alt="Country-specific discount overrides modal" />
+    </Frame>
 
----
+### Step 4: Create the Promotion
 
-## Publish the plan
-
-The last step is to publish your plan to Stripe.  
-
-1. Click **Publish**  
-2. If your Stripe account is not connected, you’ll be asked to connect  
-3. Click **Connect**, sign in to Stripe, and authorize the connection  
-4. Back in ParityDeals, click **Publish** again — the plan is now live and customers can subscribe to it. 
-
----
-
-## Quick demo video
-A quick video demo showing the dashboard setup process.
-<Frame>
-  <video
-    controls
-    className="w-full aspect-video rounded-xl"
-    src="https://cdn.kelviq.com/paritydeals/quickstart-dashboard.mp4"
-  >
-</video>
-</Frame>  
-
-## Next steps
-
-Your plan is now set up and synced with Stripe.  
-Next, you can integrate ParityDeals into your app:
-
-- Embed a pricing page with the **Pricing Table widget**  
-- Create a customer in ParityDeals when a user signs up in your app  
-- Use the ParityDeals **SDK** to check feature access and track usage  
+1.  Once you are satisfied with your discount settings, click the **"Create promo"** button at the bottom-right of the page.
+  
 
 ---
-## Need help?
 
-Have questions, need help with implementation, or want a walkthrough?  
-Email us at **hi@paritydeals.com** or [book a demo](https://tidycal.com/neravath/15-minute-meeting).
+## Setting Up Custom Promotions (Manual)
+
+Use this method if you do not use one of our integrated platforms or prefer to manage coupon codes manually.
+
+### Step 1: Initiate Custom Setup
+
+1.  Navigate to **Promotions** from the sidebar and click **"+ Create promotion"**.
+2.  Select **"Custom setup"** from the platform choice modal.
+    <Frame>
+    <img height="200" src="/images/promo-hub-choose-platform-custom-setup.png" alt="Choose platform custom setup modal" />
+    </Frame>
+
+### Step 2: Define Product and Set Discounts
+
+This action takes you to the "Create Promotion" page.
+
+1.  **Product Setup:** In the "Product setup" section, enter your **Product name** manually.
+    <Frame>
+    <img height="200" src="/images/promo-hub-custom-promotions-product-name.png" alt="Product name input field" />
+    </Frame>
+2.  **Set Up Coupons:** This section displays countries grouped by purchasing power parity.
+    * **Review Discounts:** Review the predefined discount percentages for each group and update them as needed.
+    * **Enter Coupon Codes:** You must first manually create the corresponding discount coupons in your payment provider's platform. Then, paste each coupon code into the respective **"Coupon code"** field in ParityDeals.
+    
+3.  **(Optional) Override Group Discounts:**
+    * Click the **"+ Create country-specific discount"** button.
+    * In the modal, select a country, set the `Override discount %`, and paste the specific `Coupon code` you created for it.
+    * Click **"+ Add more"** for additional country-specific overrides.
+    * Click **"Create"** to save your overrides.
+  
+
+### Step 3: Create the Promotion
+
+1.  Once all discounts and coupon codes are set, click the **"Create promo"** button at the bottom-right corner.
+   
 
 ---
