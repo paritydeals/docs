@@ -1,68 +1,52 @@
 ---
-title: 'Introduction to ParityDeals'
+title: "Introduction to ParityDeals"
+description: "Learn how to implement purchasing power parity (PPP) pricing and location-based discounts."
 ---
 
-##### ParityDeals is the revenue OS built directly on Stripe so you can launch, localize, and optimize any pricing model without touching code.
+## Introduction to ParityDeals
 
----
+**ParityDeals** helps you implement purchasing power parity (PPP) pricing so you can offer fair, localized prices to customers worldwide.
 
-## Why ParityDeals
+Instead of charging the same price globally, ParityDeals automatically adjusts pricing based on a visitor’s local economic conditions. This makes your SaaS products, online courses, newsletters, and digital goods more accessible in emerging markets — helping you increase conversions, grow revenue, and expand into new regions without manually managing regional pricing.
 
-Stripe handles payments. ParityDeals is the monetization layer — pricing localization, usage metering, feature access, and no-code paywalls — all while keeping Stripe as the source of truth
+By detecting a visitor’s location in real time, ParityDeals applies optimized, location-based discounts that reflect local purchasing power — building trust, reducing piracy, and improving global sales performance.
 
-With ParityDeals you can:
-
-- **Easily set up Stripe and billing**  
-  Get started in minutes. You don’t have to handle dozens of webhooks, build a database layer to mirror Stripe customers, track subscription states, or hardcode feature access in your code.
-
-- **Run any pricing model**  
-  Flat fee, usage, seats, tiers, volume, credits, pay-as-you-go, overage charges, or hybrids. Configure them in minutes.
-
-- **Meter usage in real time**  
- Count every API hit, data storage unit, or AI tokens in real time. Set soft or hard caps, pick reset cycles, send alerts, and handle overages with one call.
-
-- **Control feature access**  
-  Define features per plan. Turn them on or off and check access in your app with one SDK call.
-
-- **Localized pricing by country**  
-  Offer country-specific prices in 135+ currencies with VPN, proxy, and fraud protection built in. You can also set up promotions for specific countries.
-
-- **Ship pricing changes without touching code**  
-  A/B test plans, roll out changes, or update pricing in real time without redeploys.
-
-- **Manage the full customer lifecycle**  
-  Handle upgrades, downgrades, migrations, overrides, and grandfathering without writing custom scripts.
+<Frame>
+  <img
+    height="200"
+    src="/images/promo-hub-empty-state-globe.png"
+    alt="Promotions empty state with globe illustration"
+  />
+</Frame>
 
 ---
 
+## How Promotions Work in ParityDeals
 
-## Who ParityDeals is for
+Setting up a promotion is designed to be simple and automated:
 
-- **Developers** — integrate billing without spending weeks on webhooks, custom usage code, and hardcoded feature flags  
+### 1. Platform Integration
 
-- **Product managers** — take ownership of pricing and plans. Run experiments, roll out promotions, and update entitlements directly from the dashboard without waiting for engineering  
+Connect your existing payment provider directly inside the Promotions Hub. ParityDeals supports native integrations with Stripe, Lemon Squeezy, Paddle, Chargebee, Dodo Payments, and more.
 
-- **Founders** — launch global pricing and usage-based models from day one. Configure billing once and manage everything from the dashboard without code changes  
+### 2. Automated Coupon Management
 
+After selecting the products you want to discount, ParityDeals automatically generates and manages localized coupons directly in your payment provider’s backend — no manual setup required.
 
----
+### 3. Dynamic Banner Display
 
-## Just need PPP pricing?
+Add a lightweight one-line script to your site (or specific routes like `/pricing`). ParityDeals dynamically renders a top or bottom banner tailored to eligible visitors based on their location.
 
-You don’t have to use the full billing system.  
-If you only want Purchasing Power Parity (PPP) pricing, you can set it up in ParityDeals as a [promotion](/promotions/overview) in minutes.
+### 4. Built-In Fraud Protection
 
-- Works with **any payment processor** — Stripe, Gumroad, LemonSqueezy, Dodo Payments, Polar, and more  
-- Set up in **under 2 minutes**  
-- Apply **country-specific discounts** automatically  
-- Works with platforms like **Kajabi, Podia, Teachable, Beehive, Substack**, and others  
+ParityDeals includes built-in safeguards such as:
 
----
+- Auto-refreshing coupons  
+- VPN, proxy, and Tor detection/blocking  
+- Location eligibility validation  
 
-
-## Need help?
-
-Have questions, need help with implementation, or want a walkthrough?  
-Email us at **hi@paritydeals.com** or [book a demo](https://tidycal.com/neravath/15-minute-meeting).
+This ensures discounts are applied only to genuinely eligible customers.
 
 ---
+
+With ParityDeals, you can launch global PPP pricing in minutes — without building complex geo-pricing infrastructure from scratch.
