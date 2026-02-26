@@ -15,36 +15,31 @@
     }
   },
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": ["getstarted/introduction-to-paritydeals"]
-          },
-          {
-            "group": "Quickstart",
-            "pages": [ "quickstart/dashboard-setup", "quickstart/configuration", "quickstart/integrate-with-your-app"]
-          },
-          {
-            "group": "API Documentation",
-            "openapi": "frontend-integration/openapi.json"
-          },
-          {
-            "group": "Frontend Integration",
-            "pages": [
-              "frontend-integration/js-promotions-ui",
-              "frontend-integration/react-promotions-ui"
-            ]
-          },
-          {
-            "group": "Buy Now Button",
-            "pages": [
-              "buy-now-button/stripe-buy-now-button",
-              "buy-now-button/lemonsqueezy-buy-now-button"
-            ]
-          }
+        "group": "Get Started",
+        "pages": ["getstarted/introduction-to-paritydeals"]
+      },
+      {
+        "group": "Quickstart",
+        "pages": [ "quickstart/dashboard-setup", "quickstart/configuration", "quickstart/integrate-with-your-app"]
+      },
+      {
+        "group": "API Documentation",
+        "openapi": "frontend-integration/openapi.json"
+      },
+      {
+        "group": "Frontend Integration",
+        "pages": [
+          "frontend-integration/js-promotions-ui",
+          "frontend-integration/react-promotions-ui"
+        ]
+      },
+      {
+        "group": "Buy Now Button",
+        "pages": [
+          "buy-now-button/stripe-buy-now-button",
+          "buy-now-button/lemonsqueezy-buy-now-button"
         ]
       }
     ]
